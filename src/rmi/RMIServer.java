@@ -17,10 +17,10 @@ public class RMIServer {
                 Registry registry = LocateRegistry.createRegistry(Integer.parseInt(args[0]));
 
                 DatabaseHandler databaseHandler = new DatabaseHandler(
-                        "jdbc:mysql://127.0.0.1:3306",
+                        "jdbc:mysql://192.168.1.90:3306",
                         "BD",
-                        "root",
-                        "rafael");
+                        "username",
+                        "password");
 
                 if (databaseHandler.register()) {
                     if (databaseHandler.connect()) {

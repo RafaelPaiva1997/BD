@@ -156,6 +156,20 @@ public class Pessoa extends Model implements Serializable {
 
     }
 
+    public boolean isAluno(){
+        return false;
+    }
+
+
+    public boolean isDocente(){
+        return false;
+    }
+
+
+    public boolean isFuncionario() {
+        return false;
+    }
+
     @Override
     public String sqlInsert() {
         return sqlInsert("nome," +

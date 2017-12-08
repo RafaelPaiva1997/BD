@@ -18,6 +18,8 @@ public class AdminConsole {
     public static String r2;
     public static models.organizacoes.Faculdade faculdade;
     public static models.organizacoes.Departamento departamento;
+    public static models.pessoas.Pessoa pessoa;
+    public static models.pessoas.Aluno aluno;
 
     public static void getProperty(String s1, BooleanSupplier call) {
         while (call.getAsBoolean())
