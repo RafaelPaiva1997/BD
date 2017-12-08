@@ -71,6 +71,8 @@ public class Faculdade {
     public static void insert() throws RemoteException {
         faculdade = new models.organizacoes.Faculdade();
 
+        sc.nextLine();
+
         getProperty("Insira o Nome: ",
                 "Por favor insira um nome só com letras!",
                 () -> !faculdade.setNome(sc.nextLine()));
