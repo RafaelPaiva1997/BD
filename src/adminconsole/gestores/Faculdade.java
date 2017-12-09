@@ -81,7 +81,7 @@ public class Faculdade {
     }
 
     public static void update() throws RemoteException {
-        if (rmi.query("Faculdades", "(ID)", "").equals("Faculdades: \n")) {
+        if (rmi.query("Faculdades", "(ID)", "").equals("empty")) {
             System.out.print("Não existem faculdades, por favor insira uma!");
             return;
         }

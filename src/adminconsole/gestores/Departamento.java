@@ -95,7 +95,7 @@ public class Departamento {
     }
 
     public static void update() throws RemoteException {
-        if (rmi.query("Departamentos", "(ID)", "").equals("Departamentos: \n")) {
+        if (rmi.query("Departamentos", "(ID)", "").equals("empty")) {
             System.out.print("Não existem departamentos, por favor insira um!");
             return;
         }
