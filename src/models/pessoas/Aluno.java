@@ -1,8 +1,10 @@
 package models.pessoas;
 
 import models.Model;
+import rmi.RMIServer;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -84,6 +86,11 @@ public class Aluno extends Model implements Serializable {
 
     @Override
     public String sqlInsert() {
-        return pessoa.sqlInsert() + ";" + sqlInsert("pessoa_id, numero_aluno, curso",pessoa.getId() + "," + numero_aluno + ",'" + curso + "'");
+        try {
+            RMIServer.rmi.insert(pessoa);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return sqlInsert("pessoa_id, numero_aluno, curso",pessoa.getId() + "," + numero_aluno + ",'" + curso + "'");
     }
 }

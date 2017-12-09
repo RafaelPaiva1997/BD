@@ -10,6 +10,7 @@ import java.sql.*;
 public class RMIServer {
 
     private static Connection connection;
+    public static RMI rmi;
 
     public static void main(String[] args) {
         if (args.length == 1 || args.length == 2) {
@@ -25,7 +26,7 @@ public class RMIServer {
                 if (databaseHandler.register()) {
                     if (databaseHandler.connect()) {
                         if (args.length == 2 && args[1].equals("-r")) databaseHandler.reset();
-                        RMI rmi = new RMI(databaseHandler);
+                        rmi = new RMI(databaseHandler);
                         if (rmi.put(registry))
                             System.out.println("RMI está disponível!");
                     }

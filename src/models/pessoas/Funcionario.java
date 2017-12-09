@@ -1,8 +1,10 @@
 package models.pessoas;
 
 import models.Model;
+import rmi.RMIServer;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 /**
@@ -62,7 +64,12 @@ public class Funcionario extends Model implements Serializable {
 
     @Override
     public String sqlInsert() {
-        return pessoa.sqlInsert() + ";" + sqlInsert("pessoa_id, funcao",pessoa.getId() + "," + funcao + "'");
+        try {
+            RMIServer.rmi.insert(pessoa);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return sqlInsert("pessoa_id, funcao",pessoa.getId() + "," + funcao + "'");
     }
 
 }
