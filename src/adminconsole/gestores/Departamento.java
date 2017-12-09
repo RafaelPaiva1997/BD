@@ -70,6 +70,7 @@ public class Departamento {
     }
 
     public static void insert() throws RemoteException {
+
         getProperty(rmi.query("Faculdades","*", "") + "Insira o ID da faculdade à qual pretende adicionar um departamento: ",
                 "Por favor insira um ID válido!\n",
                 () -> {
@@ -94,6 +95,11 @@ public class Departamento {
     }
 
     public static void update() throws RemoteException {
+        if (rmi.query("Departamentos", "(ID)", "").equals("Departamentos: \n")) {
+            System.out.print("Não existem departamentos, por favor insira um!");
+            return;
+        }
+
         getProperty(rmi.query("Departamentos", "*", "") + "Insira o ID do departamento a remover: ",
                 "Por favor insira um ID válido!\n",
                 () -> {

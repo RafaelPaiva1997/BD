@@ -92,7 +92,6 @@ public class Pessoa {
     }
 
     public static void insert() throws RemoteException {
-        String s;
 
         getProperty(rmi.query("Departamentos", "*", " ") + "Insira o ID da faculdade à qual pretende adicionar uma pessoa: ",
                 "Por favor insira um ID válido!\n",
@@ -180,7 +179,7 @@ public class Pessoa {
         } else if (r1 == 2) {
             pessoa.setTipo("docente");
             rmi.insert(pessoa);
-            docente = new Docente(pessoa);
+            docente = new Docente(rmi.get("Pessoas", "nome = '" + pessoa.getNome() + "'").getId());
 
             getProperty("Insira o Cargo: ",
                     "Por favora insira o cargo usando apenas letras.\n",
@@ -190,7 +189,7 @@ public class Pessoa {
         } else {
             pessoa.setTipo("funcionario");
             rmi.insert(pessoa);
-            funcionario = new Funcionario(pessoa);
+            funcionario = new Funcionario(rmi.get("Pessoas", "nome = '" + pessoa.getNome() + "'").getId());
 
             getProperty("Insira a Função: ",
                     "Por favora insira a função usando apenas letras.\n",
@@ -201,6 +200,11 @@ public class Pessoa {
     }
 
     public static void update() throws RemoteException {
+        if (rmi.query("Pessoas", "(ID)", "").equals("Pessoas: \n")) {
+            System.out.print("Não existem pessoas, por favor insira uma!");
+            return;
+        }
+
         getProperty(rmi.query("Pessoas","*", "") + "Insira o ID da pessoa a editar: ",
                 "Por favor insira um ID válido!",
                 () -> {
