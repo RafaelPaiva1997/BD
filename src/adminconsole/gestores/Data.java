@@ -1,13 +1,10 @@
 package adminconsole.gestores;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import static adminconsole.AdminConsole.*;
 
 public class Data {
 
-    public static void editData(String s1, models.Data data) {
+    public static models.Data editData(String s1, models.Data data) {
         try {
             r1 = 0;
             do {
@@ -22,9 +19,10 @@ public class Data {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return data;
     }
 
-    public static void editHora(String s1, models.Data data) {
+    public static models.Data editHora(String s1, models.Data data) {
         try {
             r1 = 0;
             do {
@@ -39,10 +37,12 @@ public class Data {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return data;
     }
 
-    public static void edit(String s1, models.Data data) {
+    public static models.Data edit(String s1, models.Data data) {
         editData(s1, data);
         editHora(s1, data);
+        return data;
     }
 }

@@ -74,15 +74,15 @@ public class Faculdade {
         sc.nextLine();
 
         getProperty("Insira o Nome: ",
-                "Por favor insira um nome só com letras!",
+                "Por favor insira um nome só com letras!\n",
                 () -> !faculdade.setNome(sc.nextLine()));
 
         rmi.insert(faculdade);
     }
 
     public static void update() throws RemoteException {
-        getProperty(rmi.query("Faculdades","*", "") + "Insira o ID da faculdade a editar: ",
-                "Por favor insira um ID válido!",
+        getProperty(rmi.query("Faculdades", "*", "") + "Insira o ID da faculdade a editar: ",
+                "Por favor insira um ID válido!\n",
                 () -> {
                     try {
                         return (faculdade = (models.organizacoes.Faculdade) rmi.get("Faculdades", "ID = " + sc.nextInt())) == null;
@@ -94,15 +94,25 @@ public class Faculdade {
 
         sc.nextLine();
 
-        getProperty("Por favor insira um nome só com letras!",
-                () -> !faculdade.update("nome", editProperty("Nome", faculdade.getNome())));
+        getProperty("Escolha a propriedade a editar:\n" +
+                        "Nome\n",
+                "Por favor insira um número correspondente a uma das propriedades disponíveis.\n",
+                () -> !contains(new String[]{"nome"}, (r2 = sc.nextLine())));
+
+
+        switch (r2.toLowerCase()) {
+            case "nome":
+                getProperty("Por favor insira um nome só com letras!\n",
+                        () -> !faculdade.update("nome", editProperty("Nome", faculdade.getNome())));
+                break;
+        }
 
         rmi.update(faculdade);
     }
 
     public static void delete() throws RemoteException {
         getProperty(rmi.query("Faculdades", "*", "") + "Insira o ID da faculdade a remover: ",
-                "Por favor insira um ID válido!",
+                "Por favor insira um ID válido!\n",
                 () -> {
                     try {
                         return (faculdade = (models.organizacoes.Faculdade) rmi.get("Faculdades", "ID = " + sc.nextInt())) == null;
@@ -111,8 +121,6 @@ public class Faculdade {
                         return true;
                     }
                 });
-
-        sc.nextLine();
 
         rmi.delete(faculdade);
     }

@@ -153,21 +153,14 @@ public class Pessoa extends Model implements Serializable {
         else
             flag = false;
         return flag;
-
     }
 
-    public boolean isAluno(){
-        return false;
+    public void setValidade_cc(Date validade_cc) {
+        this.validade_cc = validade_cc;
     }
 
-
-    public boolean isDocente(){
-        return false;
-    }
-
-
-    public boolean isFuncionario() {
-        return false;
+    public void setData_nascimento(Date data_nascimento) {
+        this.data_nascimento = data_nascimento;
     }
 
     @Override

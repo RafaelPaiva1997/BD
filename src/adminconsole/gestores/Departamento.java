@@ -71,7 +71,7 @@ public class Departamento {
 
     public static void insert() throws RemoteException {
         getProperty(rmi.query("Faculdades","*", "") + "Insira o ID da faculdade à qual pretende adicionar um departamento: ",
-                "Por favor insira um ID válido!",
+                "Por favor insira um ID válido!\n",
                 () -> {
                     try {
                         return (faculdade = (Faculdade) rmi.get("Faculdades", "ID = " + sc.nextInt())) == null;
@@ -87,17 +87,15 @@ public class Departamento {
         departamento.setFaculdade_id(faculdade.getId());
 
         getProperty("Insira o Nome: ",
-                "Por favor insira um nome só com letras!",
+                "Por favor insira um nome só com letras!\n",
                 () -> !departamento.setNome(sc.nextLine()));
 
         rmi.insert(departamento);
-
-        departamento = (models.organizacoes.Departamento) rmi.get("Departamentos", "nome = '" + departamento.getNome() + "'");
     }
 
     public static void update() throws RemoteException {
         getProperty(rmi.query("Departamentos", "*", "") + "Insira o ID do departamento a remover: ",
-                "Por favor insira um ID válido!",
+                "Por favor insira um ID válido!\n",
                 () -> {
                     try {
                         return (departamento = (models.organizacoes.Departamento) rmi.get("Departamentos", "ID = " + sc.nextInt())) == null;
@@ -107,7 +105,9 @@ public class Departamento {
                     }
                 });
 
-        getProperty("Por favor insira um nome só com letras!",
+        sc.nextLine();
+
+        getProperty("Por favor insira um nome só com letras!\n",
                 () -> !departamento.update("nome", editProperty("Nome", departamento.getNome())));
 
         rmi.update(departamento);
@@ -115,7 +115,7 @@ public class Departamento {
 
     public static void delete() throws RemoteException {
         getProperty(rmi.query("Departamentos", "*", "") + "Insira o ID do departamento a remover: ",
-                "Por favor insira um ID válido!",
+                "Por favor insira um ID válido!\n",
                 () -> {
                     try {
                         return (departamento = (models.organizacoes.Departamento) rmi.get("Departamentos", "ID = " + sc.nextInt())) == null;

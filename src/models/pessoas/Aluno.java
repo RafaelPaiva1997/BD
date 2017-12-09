@@ -3,7 +3,6 @@ package models.pessoas;
 import models.Model;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -18,6 +17,11 @@ public class Aluno extends Model implements Serializable {
         pessoa = new Pessoa();
     }
 
+    public Aluno(Pessoa pessoa) {
+        super();
+        this.pessoa = pessoa;
+    }
+
     public Aluno(Pessoa pessoa, ResultSet resultSet) {
         super(resultSet);
         try {
@@ -28,11 +32,6 @@ public class Aluno extends Model implements Serializable {
             e.printStackTrace();
         }
     }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
 
     public boolean setNumeroAluno(String numeroAluno)  {
         boolean flag = true;
@@ -53,11 +52,6 @@ public class Aluno extends Model implements Serializable {
         else
             flag = false;
         return flag;
-    }
-
-
-    public boolean isAluno(){
-        return true;
     }
 
     @Override

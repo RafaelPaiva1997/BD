@@ -10,13 +10,20 @@ import java.sql.SQLException;
  * Created by Johny on 08/12/2017.
  */
 public class Docente extends Model implements Serializable {
-    private String cargo;
+
     private Pessoa pessoa;
+    private String cargo;
 
     public Docente() {
         super();
         pessoa = new Pessoa();
     }
+
+    public Docente(Pessoa pessoa) {
+        super();
+        this.pessoa = pessoa;
+    }
+
     public Docente(Pessoa pessoa, ResultSet resultSet) {
         super(resultSet);
         try {
@@ -27,8 +34,14 @@ public class Docente extends Model implements Serializable {
         }
     }
 
-    public boolean isDocente(){
-        return true;
+    public boolean setCargo(String cargo) {
+        boolean flag = true;
+        if (lenghtMaior(cargo, 0) &&
+                isAlpha(cargo))
+            this.cargo = cargo;
+        else
+            flag = false;
+        return flag;
     }
 
     @Override

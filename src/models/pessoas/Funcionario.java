@@ -9,12 +9,18 @@ import java.sql.SQLException;
  * Created by Johny on 08/12/2017.
  */
 public class Funcionario extends Model implements Serializable {
+
     private Pessoa pessoa;
     private String funcao;
 
     public Funcionario() {
         super();
         pessoa = new Pessoa();
+    }
+
+    public Funcionario(Pessoa pessoa) {
+        super();
+        this.pessoa = pessoa;
     }
 
     public Funcionario(Pessoa pessoa, ResultSet resultSet) {
@@ -27,16 +33,14 @@ public class Funcionario extends Model implements Serializable {
         }
     }
 
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
-    }
-
-    public boolean isFuncionario() {
-        return true;
+    public boolean setFuncao(String funcao) {
+        boolean flag = true;
+        if (lenghtMaior(funcao, 0) &&
+                isAlpha(funcao))
+            this.funcao = funcao;
+        else
+            flag = false;
+        return flag;
     }
 
     @Override
