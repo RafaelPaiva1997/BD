@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class Pessoa extends Model implements Serializable {
 
+    protected String tipo;
     protected String nome;
     protected String username;
     protected String password;
@@ -30,6 +31,7 @@ public class Pessoa extends Model implements Serializable {
     public Pessoa(ResultSet resultSet) {
         super(resultSet);
         try {
+            tipo = resultSet.getString("tipo");
             nome = resultSet.getString("nome");
             username = resultSet.getString("username");
             password = resultSet.getString("password");
@@ -46,7 +48,15 @@ public class Pessoa extends Model implements Serializable {
             e.printStackTrace();
         }
     }
-    
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public boolean setNome(String nome) {
         boolean flag = true;
         if (lenghtMaior(nome, 0) &&
@@ -165,19 +175,21 @@ public class Pessoa extends Model implements Serializable {
 
     @Override
     public String sqlInsert() {
-        return sqlInsert("nome," +
-                "username," +
-                "password," +
-                "departamento_id," +
-                "telemovel," +
-                "morada," +
-                "codigo_postal," +
-                "localidade," +
-                "numero_cc" +
-                "validade_cc" +
-                "genero" +
-                "data_nascimento",
-                "'" + nome + "'," +
+        return sqlInsert("tipo," +
+                        "nome," +
+                        "username," +
+                        "password," +
+                        "departamento_id," +
+                        "telemovel," +
+                        "morada," +
+                        "codigo_postal," +
+                        "localidade," +
+                        "numero_cc" +
+                        "validade_cc" +
+                        "genero" +
+                        "data_nascimento",
+                        "'" + tipo + "'," +
+                        "'" + nome + "'," +
                         "'" + username + "'," +
                         "'" + password + "'," +
                         departamento_id + "," +

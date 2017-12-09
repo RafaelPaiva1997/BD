@@ -33,6 +33,10 @@ public class Aluno extends Model implements Serializable {
         }
     }
 
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
     public boolean setNumeroAluno(String numeroAluno)  {
         boolean flag = true;
         if (lenghtIgual(numeroAluno, 10) &&
