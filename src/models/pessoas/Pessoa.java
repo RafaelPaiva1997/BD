@@ -242,26 +242,21 @@ public class Pessoa extends Model implements Serializable {
             case "morada":
                 flag =  setMorada(updateNew);
                 break;
-            case "codigo postal":
+            case "codigo_postal":
                 flag = setCodigo_postal(updateNew);
                 break;
             case "localidade":
                 flag =  setLocalidade(updateNew);
                 break;
-            case "número c.c.":
-            case "numero c.c.":
-            case "número cc":
-            case "numero cc":
+            case "numero_cc":
                 flag = setNumero_cc(updateNew);
                 break;
-            case "validade c.c.":
-            case "validade cc":
+            case "validade_cc":
                break;
-            case "género":
             case "genero":
                 flag = setGenero(updateNew);
                 break;
-            case "data nascimento":
+            case "data_nascimento":
                 break;
 
         }

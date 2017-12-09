@@ -26,6 +26,10 @@ public class Data implements Serializable {
         segundo = -1;
     }
 
+    public Data(Date data) {
+        
+    }
+
     public int getAno() {
         return ano;
     }
