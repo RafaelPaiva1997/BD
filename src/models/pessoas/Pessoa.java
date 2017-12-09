@@ -262,6 +262,7 @@ public class Pessoa extends Model implements Serializable {
             case "género":
             case "genero":
                 flag = setGenero(updateNew);
+                break;
             case "data nascimento":
                 break;
 
