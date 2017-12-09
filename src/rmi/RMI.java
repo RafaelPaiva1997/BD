@@ -83,7 +83,7 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
         try {
             ResultSet resultSet = databaseHandler.executeQuery("SELECT " + query + " FROM " + table + " " + query2);
 
-            if (query.equals("(ID")) {
+            if (query.equals("(ID)")) {
                 if (!resultSet.next())
                     return "empty";
                 else
