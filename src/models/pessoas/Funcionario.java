@@ -23,6 +23,10 @@ public class Funcionario extends Model implements Serializable {
         this.pessoa = pessoa;
     }
 
+    public String getFuncao() {
+        return funcao;
+    }
+
     public Funcionario(Pessoa pessoa, ResultSet resultSet) {
         super(resultSet);
         try {
@@ -40,6 +44,19 @@ public class Funcionario extends Model implements Serializable {
             this.funcao = funcao;
         else
             flag = false;
+        return flag;
+    }
+
+
+    public boolean update(String updateType, String updateNew) {
+        boolean flag = false;
+        this.updateType = updateType;
+        this.updateNew = updateNew;
+        switch (updateType) {
+            case "funcao":
+                flag = setFuncao(updateNew);
+                break;
+        }
         return flag;
     }
 

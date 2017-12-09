@@ -49,6 +49,54 @@ public class Pessoa extends Model implements Serializable {
         }
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getDepartamento_id() {
+        return departamento_id;
+    }
+
+    public long getTelemovel() {
+        return telemovel;
+    }
+
+    public String getMorada() {
+        return morada;
+    }
+
+    public String getCodigo_postal() {
+        return codigo_postal;
+    }
+
+    public String getLocalidade() {
+        return localidade;
+    }
+
+    public long getNumero_cc() {
+        return numero_cc;
+    }
+
+    public Date getValidade_cc() {
+        return validade_cc;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public Date getData_nascimento() {
+        return data_nascimento;
+    }
+
     public String getTipo() {
         return tipo;
     }
@@ -172,6 +220,55 @@ public class Pessoa extends Model implements Serializable {
     public void setData_nascimento(Date data_nascimento) {
         this.data_nascimento = data_nascimento;
     }
+
+    public boolean update(String updateType, String updateNew) {
+        boolean flag = false;
+        this.updateType = updateType;
+        this.updateNew = updateNew;
+        switch (updateType) {
+            case "nome":
+                flag =  setNome(updateNew);
+                break;
+            case "username":
+                flag = setUsername(updateNew);
+                break;
+            case "password":
+                flag =  setPassword(updateNew);
+                break;
+            case "nº telemóvel":
+            case "nº telemovel":
+            case "no telemóvel":
+            case "no telemovel":
+                flag = setTelemovel(updateNew);
+                break;
+            case "morada":
+                flag =  setMorada(updateNew);
+                break;
+            case "codigo postal":
+                flag = setCodigo_postal(updateNew);
+                break;
+            case "localidade":
+                flag =  setLocalidade(updateNew);
+                break;
+            case "número c.c.":
+            case "numero c.c.":
+            case "número cc":
+            case "numero cc":
+                flag = setNumero_cc(updateNew);
+                break;
+            case "validade c.c.":
+            case "validade cc":
+               break;
+            case "género":
+            case "genero":
+                flag = setGenero(updateNew);
+            case "data nascimento":
+                break;
+
+        }
+        return flag;
+    }
+
 
     @Override
     public String sqlInsert() {

@@ -33,6 +33,14 @@ public class Aluno extends Model implements Serializable {
         }
     }
 
+    public long getNumero_aluno() {
+        return numero_aluno;
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
@@ -55,6 +63,22 @@ public class Aluno extends Model implements Serializable {
             this.curso = curso ;
         else
             flag = false;
+        return flag;
+    }
+
+    public boolean update(String updateType, String updateNew) {
+        boolean flag = false;
+        this.updateType = updateType;
+        this.updateNew = updateNew;
+        switch (updateType) {
+            case "curso":
+                flag = setCurso(updateNew);
+                break;
+            case "nº aluno":
+            case "no aluno":
+                flag = setNumeroAluno(updateNew);
+                break;
+        }
         return flag;
     }
 

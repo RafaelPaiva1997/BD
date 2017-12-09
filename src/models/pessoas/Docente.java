@@ -34,6 +34,11 @@ public class Docente extends Model implements Serializable {
         }
     }
 
+
+    public String getCargo() {
+        return cargo;
+    }
+
     public boolean setCargo(String cargo) {
         boolean flag = true;
         if (lenghtMaior(cargo, 0) &&
@@ -43,6 +48,18 @@ public class Docente extends Model implements Serializable {
             flag = false;
         return flag;
     }
+
+    public boolean update(String updateType, String updateNew) {
+        boolean flag = false;
+        this.updateType = updateType;
+        this.updateNew = updateNew;
+        switch (updateType) {
+            case "curso":
+                flag = setCargo(updateNew);
+        }
+        return flag;
+    }
+
 
     @Override
     public String sqlInsert() {
