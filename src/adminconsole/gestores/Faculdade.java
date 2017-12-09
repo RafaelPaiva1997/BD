@@ -81,6 +81,11 @@ public class Faculdade {
     }
 
     public static void update() throws RemoteException {
+        if (rmi.query("Faculdades", "(ID)", "").equals("Faculdades: \n")) {
+            System.out.print("Não existem faculdades, por favor insira uma!");
+            return;
+        }
+
         getProperty(rmi.query("Faculdades", "*", "") + "Insira o ID da faculdade a editar: ",
                 "Por favor insira um ID válido!\n",
                 () -> {
