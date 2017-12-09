@@ -27,7 +27,14 @@ public class Data implements Serializable {
     }
 
     public Data(Date data) {
-
+        Calendar c = Calendar.getInstance();
+        c.setTime(data);
+        ano = c.get(Calendar.YEAR);
+        mes = c.get(Calendar.MONTH);
+        dia = c.get(Calendar.DAY_OF_MONTH);
+        hora = c.get(Calendar.HOUR);
+        minuto = c.get(Calendar.MINUTE);
+        segundo = c.get(Calendar.SECOND);
     }
 
     public int getAno() {

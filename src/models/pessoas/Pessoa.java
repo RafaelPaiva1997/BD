@@ -236,7 +236,7 @@ public class Pessoa extends Model implements Serializable {
             case "password":
                 flag =  setPassword(updateNew);
                 break;
-            case "numero_telemovel":
+            case "telemovel":
                 flag = setTelemovel(updateNew);
                 break;
             case "morada":

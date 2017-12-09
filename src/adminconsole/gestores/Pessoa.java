@@ -200,7 +200,7 @@ public class Pessoa {
     }
 
     public static void update() throws RemoteException {
-        if (rmi.query("Pessoas", "(ID)", "").equals("Pessoas: \n")) {
+        if (rmi.query("Pessoas", "(ID)", "").equals("empty")) {
             System.out.print("Não existem pessoas, por favor insira uma!");
             return;
         }
@@ -294,10 +294,12 @@ public class Pessoa {
             case "username":
                 getProperty("Por favor insira um username com entre 8 a 20 caracteres que não esteja em uso.\n",
                         () -> !pessoa.update("username", editProperty("Username", pessoa.getUsername())));
+                rmi.update(pessoa);
                 break;
             case "password":
                 getProperty("Por favor insira uma password entre 8 a 20 caracteres.\n",
                         () -> !pessoa.update("password", editProperty("Password", pessoa.getPassword())));
+                rmi.update(pessoa);
                 break;
             case "nº telemóvel":
             case "nº telemovel":
@@ -305,19 +307,23 @@ public class Pessoa {
             case "no telemovel":
                 getProperty("Por favor insira um telemóvel com apenas 9 dígitos.\n",
                         () -> !pessoa.update("telemovel", editProperty("Nr telemovel", String.valueOf(pessoa.getTelemovel()))));
+                rmi.update(pessoa);
                 break;
 
             case "morada":
                 getProperty("Por favor insira pelo menos 1 carater na morada.\n",
                         () -> !pessoa.update("morada", editProperty("Morada", pessoa.getMorada())));
+                rmi.update(pessoa);
                 break;
             case "codigo postal":
                 getProperty("Por favor insira um código postal neste formato '0000-000.\n",
                         () -> !pessoa.update("codigo_postal", editProperty("Codigo Postal", pessoa.getCodigo_postal())));
+                rmi.update(pessoa);
                 break;
             case "localidade":
                 getProperty("Por favor insira um telemóvel com pelo menos 1 carater.\n",
                         () -> !pessoa.update("localidade", editProperty("Localidade", pessoa.getLocalidade())));
+                rmi.update(pessoa);
                 break;
 
             case "número c.c.":
@@ -326,11 +332,12 @@ public class Pessoa {
             case "numero cc":
                 getProperty("Por favor insira um número de cartão de cidadão com apenas 8 digítos.\n",
                         () -> !pessoa.update("numero_cc", editProperty("Numero CC", String.valueOf(pessoa.getNumero_cc()))));
+                rmi.update(pessoa);
                 break;
 
             case "validade c.c.":
             case "validade cc":
-
+                System.out.println("Validade CC Antiga: " );
                 break;
 
             case "género":
