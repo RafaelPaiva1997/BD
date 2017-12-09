@@ -5,6 +5,7 @@ import models.pessoas.Docente;
 import models.pessoas.Funcionario;
 
 import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
 import java.util.function.BooleanSupplier;
 
 import static adminconsole.AdminConsole.*;
@@ -93,7 +94,7 @@ public class Pessoa {
 
     public static void insert() throws RemoteException {
 
-        getProperty(rmi.query("Departamentos", "*", " ") + "Insira o ID da faculdade à qual pretende adicionar uma pessoa: ",
+        getProperty(rmi.query("Departamentos", "*", " ") + "Insira o ID do departamento ao qual pretende adicionar uma pessoa: ",
                 "Por favor insira um ID válido!\n",
                 () -> {
                     try {
@@ -284,6 +285,9 @@ public class Pessoa {
             return;
         }
 
+        SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat f1 = new SimpleDateFormat("dd-MM-yyyy");
+
         switch (r2.toLowerCase()) {
             case "nome":
                 getProperty("Por favor insira um nome só com letras!\n",
@@ -337,22 +341,25 @@ public class Pessoa {
 
             case "validade c.c.":
             case "validade cc":
-                System.out.println("Validade CC Antiga: " );
+                System.out.println("Validade CC Antiga: " + f.format(pessoa.getData_nascimento()));
+                pessoa.setValidade_cc(Data.editData("a validade do CC", new models.Data(pessoa.getValidade_cc())).export());
+                pessoa.update("validade_cc", "'" + f1.format(pessoa.getValidade_cc()) + "'");
+                rmi.update(pessoa);
                 break;
 
             case "género":
             case "genero":
-                try {
-                    escolheGenero();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
                 escolheGenero();
+                rmi.update(pessoa);
                 break;
 
             case "data nascimento":
-
+                System.out.println("Data Nascimento Antiga: " + f.format(pessoa.getData_nascimento()));
+                pessoa.setData_nascimento(Data.editData("a data de nascimento", new models.Data(pessoa.getData_nascimento())).export());
+                pessoa.update("data_nascimento", "'" + f1.format(pessoa.getData_nascimento()) + "'");
+                rmi.update(pessoa);
                 break;
+
             case "nº aluno":
             case "no aluno":
                 aluno = (Aluno) rmi.get("Alunos", "WHERE pessoa_id = " + pessoa.getId());
@@ -360,37 +367,29 @@ public class Pessoa {
                         () -> !aluno.update("numero_aluno", editProperty("Nº Aluno", String.valueOf(aluno.getNumero_aluno()))));
                 rmi.update(aluno);
                 break;
+
             case "curso":
                 aluno = (Aluno) rmi.get("Alunos", "WHERE pessoa_id = " + pessoa.getId());
                 getProperty("Por favor insira um curso com pelo menos 1 caractér.\n",
                         () -> aluno.update("curso",editProperty("Curso", aluno.getCurso())));
+                rmi.update(aluno);
 
             case "cargo":
                 docente = (Docente) rmi.get("Docentes", "WHERE pessoa_id = " + pessoa.getId());
                 getProperty("Por favor insira um cargo com pelo menos 1 caractér.\n",
                         () ->docente.update("cargo",editProperty("Cargo", docente.getCargo())));
-
+                rmi.update(docente);
                 break;
+
             case "função":
             case "funçao":
             case "funcão":
             case "funcao":
-                docente = (Docente) rmi.get("Docentes", "WHERE pessoa_id = " + pessoa.getId());
+                funcionario = (Funcionario) rmi.get("Docentes", "WHERE pessoa_id = " + pessoa.getId());
                 getProperty("Por favor insira um cargo com pelo menos 1 caractér.\n",
                         () -> funcionario.update("Funcionarios", editProperty("Funcao", funcionario.getFuncao())));
+                rmi.update(funcionario);
                 break;
-            case "mesa de voto":
-
-                break;
-
-            case "listas":
-
-                break;
-
-            case "voto":
-
-                break;
-
         }
 
         rmi.update(pessoa);
@@ -399,7 +398,12 @@ public class Pessoa {
 
 
     public static void delete() throws RemoteException {
-        getProperty(rmi.query("Pessoas", "*", "") + "Insira o ID do departamento a remover: ",
+        if (rmi.query("Pessoas", "(ID)", "").equals("empty")) {
+            System.out.print("Não existem pessoas, por favor insira uma!");
+            return;
+        }
+
+        getProperty(rmi.query("Pessoas", "*", "") + "Insira o ID da pessoa a remover: ",
                 "Por favor insira um ID válido!",
                 () -> {
                     try {
@@ -410,6 +414,7 @@ public class Pessoa {
                     }
                 });
 
+        rmi.delete(rmi.get(pessoa.getTipo() + "s", "pessoa_id = " + pessoa.getId()));
         rmi.delete(pessoa);
     }
 }
