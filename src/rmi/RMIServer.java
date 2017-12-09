@@ -9,7 +9,6 @@ import java.sql.*;
 
 public class RMIServer {
 
-    private static Connection connection;
     public static RMI rmi;
 
     public static void main(String[] args) {

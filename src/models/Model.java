@@ -3,6 +3,7 @@ package models;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,6 +75,7 @@ public abstract class Model implements Serializable {
     }
 
     public String dateToSqlDate(Date date) {
-        return "TO_DATE(" + date.getDay() + "/" + date.getMonth() + "/" + date.getYear() + ",DD/MM/YYYY)";
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        return "'" + f.format(date) + "'";
     }
 }

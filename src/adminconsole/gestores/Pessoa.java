@@ -1,11 +1,9 @@
 package adminconsole.gestores;
 
-import models.Model;
 import models.pessoas.Aluno;
 import models.pessoas.Docente;
 import models.pessoas.Funcionario;
 
-import javax.print.Doc;
 import java.rmi.RemoteException;
 import java.util.function.BooleanSupplier;
 
@@ -111,6 +109,8 @@ public class Pessoa {
 
         pessoa = new models.pessoas.Pessoa();
 
+        pessoa.setDepartamento_id(departamento.getId());
+
         getProperty("Insira o Nome: ",
                 "Por favor insira um nome só com letras!\n",
                 () -> !pessoa.setNome(sc.nextLine()));
@@ -126,27 +126,27 @@ public class Pessoa {
 
         getProperty("Insira o número de telemóvel: ",
                 "Por favor insira um telemóvel com apenas 9 dígitos.\n",
-                () -> pessoa.setTelemovel(sc.nextLine()));
+                () -> !pessoa.setTelemovel(sc.nextLine()));
 
 
         getProperty("Insira uma Morada: ",
                 "Por favor insira pelo menos 1 carater na morada.\n",
-                () -> pessoa.setMorada(sc.nextLine()));
+                () -> !pessoa.setMorada(sc.nextLine()));
 
 
         getProperty("Insira o Código Postal: ",
                 "Por favor insira um código postal neste formato '0000-000.\n",
-                () -> pessoa.setCodigo_postal(sc.nextLine()));
+                () -> !pessoa.setCodigo_postal(sc.nextLine()));
 
 
         getProperty("Insira Localidade: ",
                 "Por favor insira um telemóvel com pelo menos 1 carater.\n",
-                () -> pessoa.setLocalidade(sc.nextLine()));
+                () -> !pessoa.setLocalidade(sc.nextLine()));
 
 
         getProperty("Insira o número do Cartão de Cidadão: ",
                 "Por favor insira um número de cartão de cidadão com apenas 8 digítos.\n",
-                () -> pessoa.setNumero_cc(sc.nextLine()));
+                () -> !pessoa.setNumero_cc(sc.nextLine()));
 
         pessoa.setValidade_cc(Data.editData("a validade do CC", new models.Data()).export());
         pessoa.setData_nascimento(Data.editData("a data de nascimento", new models.Data()).export());
@@ -164,31 +164,37 @@ public class Pessoa {
         sc.nextLine();
 
         if (r1 == 1) {
-            aluno = new Aluno(pessoa);
+            pessoa.setTipo("aluno");
+            rmi.insert(pessoa);
+            aluno = new Aluno(rmi.get("Pessoas", "nome = '" + pessoa.getNome() + "'").getId());
 
             getProperty("Insira o Número de Aluno: ",
                     "Por favor insira um número de aluno com apenas 10 digitos.\n",
-                    () -> aluno.setNumeroAluno(sc.nextLine()));
+                    () -> !aluno.setNumeroAluno(sc.nextLine()));
 
             getProperty("Insira o Curso: ",
                     "Por favora insira o nome do curso usando apenas letras.\n",
-                    () -> aluno.setCurso(sc.nextLine()));
+                    () -> !aluno.setCurso(sc.nextLine()));
 
             rmi.insert(aluno);
         } else if (r1 == 2) {
+            pessoa.setTipo("docente");
+            rmi.insert(pessoa);
             docente = new Docente(pessoa);
 
             getProperty("Insira o Cargo: ",
                     "Por favora insira o cargo usando apenas letras.\n",
-                    () -> docente.setCargo(sc.nextLine()));
+                    () -> !docente.setCargo(sc.nextLine()));
 
             rmi.insert(docente);
         } else {
+            pessoa.setTipo("funcionario");
+            rmi.insert(pessoa);
             funcionario = new Funcionario(pessoa);
 
             getProperty("Insira a Função: ",
                     "Por favora insira a função usando apenas letras.\n",
-                    () -> funcionario.setFuncao(sc.nextLine()));
+                    () -> !funcionario.setFuncao(sc.nextLine()));
 
             rmi.insert(funcionario);
         }

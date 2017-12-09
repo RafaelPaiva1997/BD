@@ -120,12 +120,12 @@ public class DatabaseHandler {
 
             statement.execute("CREATE TABLE Eleicoes (" +
                     "ID int NOT NULL AUTO_INCREMENT," +
-                    "tipo varchar(17) NOT NULL" +
+                    "tipo varchar(17) NOT NULL," +
                     "titulo varchar(255) NOT NULL," +
                     "descricao text NOT NULL," +
                     "data_inicio datetime NOT NULL," +
                     "data_fim datetime NOT NULL," +
-                    "departamemto_id int," +
+                    "departamento_id int," +
                     "PRIMARY KEY(ID)," +
                     "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
                     ")");

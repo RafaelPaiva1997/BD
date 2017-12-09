@@ -10,24 +10,26 @@ import java.sql.SQLException;
 
 public class Aluno extends Model implements Serializable {
 
-    private Pessoa pessoa;
+    private int pessoa_id;
     private long numero_aluno;
     private String curso;
 
     public Aluno() {
         super();
-        pessoa = new Pessoa();
+        table = "Alunos";
     }
 
-    public Aluno(Pessoa pessoa) {
+    public Aluno(int pessoa_id)  {
         super();
-        this.pessoa = pessoa;
+        table = "Alunos";
+        this.pessoa_id = pessoa_id;
     }
 
-    public Aluno(Pessoa pessoa, ResultSet resultSet) {
+    public Aluno(ResultSet resultSet) {
         super(resultSet);
         try {
-            this.pessoa = pessoa;
+            table = "Alunos";
+            pessoa_id = resultSet.getInt("pessoa_id");
             numero_aluno = resultSet.getLong("numero_aluno");
             curso = resultSet.getString("curso");
         } catch (SQLException e) {
@@ -41,10 +43,6 @@ public class Aluno extends Model implements Serializable {
 
     public String getCurso() {
         return curso;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 
     public boolean setNumeroAluno(String numeroAluno)  {
@@ -86,11 +84,6 @@ public class Aluno extends Model implements Serializable {
 
     @Override
     public String sqlInsert() {
-        try {
-            RMIServer.rmi.insert(pessoa);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        return sqlInsert("pessoa_id, numero_aluno, curso",pessoa.getId() + "," + numero_aluno + ",'" + curso + "'");
+        return sqlInsert("pessoa_id, numero_aluno, curso", pessoa_id + "," + numero_aluno + ",'" + curso + "'");
     }
 }

@@ -13,23 +13,25 @@ import java.sql.SQLException;
  */
 public class Docente extends Model implements Serializable {
 
-    private Pessoa pessoa;
+    private static int pessoa_id;
     private String cargo;
 
     public Docente() {
         super();
-        pessoa = new Pessoa();
+        table = "Docentes";
     }
 
-    public Docente(Pessoa pessoa) {
+    public Docente(int pessoa_id) {
         super();
-        this.pessoa = pessoa;
+        table = "Alunos";
+        this.pessoa_id = pessoa_id;
     }
 
-    public Docente(Pessoa pessoa, ResultSet resultSet) {
+    public Docente(ResultSet resultSet) {
         super(resultSet);
         try {
-            this.pessoa = pessoa;
+            table = "Docentes";
+            pessoa_id = resultSet.getInt("pessoa_id");
             cargo = resultSet.getString("cargo");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,11 +67,6 @@ public class Docente extends Model implements Serializable {
 
     @Override
     public String sqlInsert() {
-        try {
-            RMIServer.rmi.insert(pessoa);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        return sqlInsert("pessoa_id, cargo",pessoa.getId() + "," + cargo + "'");
+        return sqlInsert("pessoa_id, cargo",pessoa_id + "," + cargo + "'");
     }
 }

@@ -60,8 +60,11 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                     case "departamentos":
                         return new Departamento(resultSet);
 
+                    case "pessoas":
+                        return new Pessoa(resultSet);
+
                     case "alunos":
-                        return new Aluno(new Pessoa(), resultSet);
+                        return new Aluno(resultSet);
 
                     default:
                         return null;

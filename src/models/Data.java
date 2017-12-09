@@ -79,7 +79,7 @@ public class Data implements Serializable {
                 (hora == -1 && minuto == -1 && segundo == -1)) ||
                 !((ano != -1 && mes != -1 && dia != -1) ||
                         (ano == -1 && mes == -1 && dia == -1)) ||
-                ano < -1 || ano == 0 ||
+                (ano < 1000 && ano != -1) || ano > 9999 ||
                 mes < -1 || mes == 0 || mes > 12 ||
                 dia < -1 || dia == 0 ||
                 hora < -1 || hora > 23 ||

@@ -31,6 +31,7 @@ public class Pessoa extends Model implements Serializable {
     public Pessoa(ResultSet resultSet) {
         super(resultSet);
         try {
+            table = "Pessoas";
             tipo = resultSet.getString("tipo");
             nome = resultSet.getString("nome");
             username = resultSet.getString("username");
@@ -235,10 +236,7 @@ public class Pessoa extends Model implements Serializable {
             case "password":
                 flag =  setPassword(updateNew);
                 break;
-            case "nº telemóvel":
-            case "nº telemovel":
-            case "no telemóvel":
-            case "no telemovel":
+            case "numero_telemovel":
                 flag = setTelemovel(updateNew);
                 break;
             case "morada":
@@ -282,9 +280,9 @@ public class Pessoa extends Model implements Serializable {
                         "morada," +
                         "codigo_postal," +
                         "localidade," +
-                        "numero_cc" +
-                        "validade_cc" +
-                        "genero" +
+                        "numero_cc," +
+                        "validade_cc," +
+                        "genero," +
                         "data_nascimento",
                         "'" + tipo + "'," +
                         "'" + nome + "'," +
