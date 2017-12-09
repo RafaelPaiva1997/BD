@@ -1,6 +1,5 @@
 package models;
 
-import com.sun.javafx.sg.prism.NGShape;
 import models.eleicoes.Eleicao;
 import models.organizacoes.Departamento;
 import models.pessoas.Pessoa;

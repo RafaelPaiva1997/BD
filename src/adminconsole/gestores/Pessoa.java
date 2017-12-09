@@ -96,7 +96,6 @@ public class Pessoa {
     public static void insert() throws RemoteException {
         String s;
 
-
         getProperty(rmi.query("Departamentos", "*", " ") + "Insira o ID da faculdade à qual pretende adicionar uma pessoa: ",
                 "Por favor insira um ID válido!\n",
                 () -> {
@@ -109,6 +108,8 @@ public class Pessoa {
                 });
 
         sc.nextLine();
+
+        pessoa = new models.pessoas.Pessoa();
 
         getProperty("Insira o Nome: ",
                 "Por favor insira um nome só com letras!\n",

@@ -2,6 +2,7 @@ package adminconsole;
 
 import adminconsole.gestores.Departamento;
 import adminconsole.gestores.Faculdade;
+import adminconsole.gestores.Pessoa;
 import rmi.RMIInterface;
 
 import java.rmi.RemoteException;
@@ -78,7 +79,7 @@ public class AdminConsole {
                                     "7 - Editar Departamento\n" +
                                     "8 - Remover Departamento\n" +
                                     "9 - Listar Departamentos\n" +
-                                    "10 - Sair\n",
+                                    "10 - Pessoas\n",
                             "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
                             new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
                             new BooleanSupplier[]{
@@ -162,7 +163,8 @@ public class AdminConsole {
                                             e.printStackTrace();
                                             return false;
                                         }
-                                    }
+                                    },
+                                    () -> {Pessoa.menu(); return true;}
                             });
                 }
             } catch (Exception e) {

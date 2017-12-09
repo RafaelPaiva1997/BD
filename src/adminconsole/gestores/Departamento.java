@@ -107,8 +107,18 @@ public class Departamento {
 
         sc.nextLine();
 
-        getProperty("Por favor insira um nome só com letras!\n",
-                () -> !departamento.update("nome", editProperty("Nome", departamento.getNome())));
+        getProperty("Escolha a propriedade a editar:\n" +
+                        "Nome\n",
+                "Por favor insira um número correspondente a uma das propriedades disponíveis.\n",
+                () -> !contains(new String[]{"nome"}, (r2 = sc.nextLine())));
+
+
+        switch (r2.toLowerCase()) {
+            case "nome":
+                getProperty("Por favor insira um nome só com letras!\n",
+                        () -> !departamento.update("nome", editProperty("Nome", departamento.getNome())));
+                break;
+        }
 
         rmi.update(departamento);
     }

@@ -72,14 +72,6 @@ public class DatabaseHandler {
                     "UNIQUE(nome)" +
                     ")");
 
-            statement.execute(" CREATE TABLE Faculdade_Departamentos (" +
-                    "faculdade_id int NOT NULL," +
-                    "departamento_id int NOT NULL," +
-                    "PRIMARY KEY(faculdade_id, departamento_id)," +
-                    "FOREIGN KEY(faculdade_id) REFERENCES Faculdades(ID)," +
-                    "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
-                    ")");
-
             statement.execute("CREATE TABLE Pessoas (" +
                     "ID int NOT NULL AUTO_INCREMENT," +
                     "departamento_id int NOT NULL," +
@@ -124,6 +116,26 @@ public class DatabaseHandler {
                     "funcao varchar(255) NOT NULL," +
                     "PRIMARY KEY(ID)," +
                     "FOREIGN KEY(pessoa_id) REFERENCES Pessoas(ID)" +
+                    ")");
+
+            statement.execute("CREATE TABLE Eleicoes (" +
+                    "ID int NOT NULL AUTO_INCREMENT," +
+                    "tipo varchar(17) NOT NULL" +
+                    "titulo varchar(255) NOT NULL," +
+                    "descricao text NOT NULL," +
+                    "data_inicio datetime NOT NULL," +
+                    "data_fim datetime NOT NULL," +
+                    "departamemto_id int," +
+                    "PRIMARY KEY(ID)," +
+                    "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
+                    ")");
+
+            statement.execute(" CREATE TABLE Faculdade_Departamentos (" +
+                    "faculdade_id int NOT NULL," +
+                    "departamento_id int NOT NULL," +
+                    "PRIMARY KEY(faculdade_id, departamento_id)," +
+                    "FOREIGN KEY(faculdade_id) REFERENCES Faculdades(ID)," +
+                    "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
                     ")");
 
             statement.execute("CREATE TABLE Departamento_Pessoas (" +

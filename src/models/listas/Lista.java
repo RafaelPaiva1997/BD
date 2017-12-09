@@ -13,14 +13,10 @@ import java.util.LinkedList;
  */
 public class Lista extends Model implements Serializable {
     private String nome;
-    private Eleicao eleicao;
-    private LinkedList<Pessoa> pessoas;
-    private final LinkedList<Voto> votos;
+    private int eleicao_id;
 
     public Lista()  {
         super();
-        pessoas = new LinkedList<>();
-        votos = new LinkedList<>();
     }
 
     public boolean setNome(String nome) {
@@ -31,14 +27,6 @@ public class Lista extends Model implements Serializable {
         else
             flag = false;
         return flag;
-    }
-
-    public void setEleicao(Eleicao eleicao) {
-        this.eleicao = eleicao;
-    }
-
-    public void setPessoas(LinkedList<Pessoa> pessoas) {
-        this.pessoas = pessoas;
     }
 
     @Override
