@@ -102,11 +102,22 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                     }
                     break;
 
+                case "pessoas":
+                    Pessoa pessoa;
+                    s.append("Pessoas: \n");
+                    while (resultSet.next()) {
+                        pessoa = new Pessoa(resultSet);
+                        s.append(pessoa.toString());
+                    }
+                    break;
+
                 case "faculdade_departamentos":
                     s.append("Faculdade_Departamentos: \n");
-                    while (resultSet.next())
-                        s.append("ID_Faculdade: " + resultSet.getInt("faculdade_id") + " ID_Departamento: " + resultSet.getInt("departamento_id") + "\n");
+                    while (resultSet.next()) {
+                            s.append("ID_Faculdade: " + resultSet.getInt("faculdade_id") + " ID_Departamento: " + resultSet.getInt("departamento_id") + "\n");
+                    }
                     break;
+
 
             }
 

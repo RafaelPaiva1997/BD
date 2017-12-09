@@ -293,4 +293,9 @@ public class Pessoa extends Model implements Serializable {
                         "'" + genero + "'," +
                         dateToSqlDate(data_nascimento));
     }
+
+    @Override
+    public String toString() {
+        return tipo.toUpperCase() + " ID: " + id + " Nome: " + nome + " ID_Departamento: " + departamento_id + " Username: " + username + "\n";
+    }
 }

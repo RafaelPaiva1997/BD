@@ -27,7 +27,7 @@ public class Data implements Serializable {
     }
 
     public Data(Date data) {
-        
+
     }
 
     public int getAno() {
