@@ -1,13 +1,9 @@
 package adminconsole.gestores;
 
-import models.MesadeVoto;
-import models.organizacoes.*;
-
 import java.rmi.RemoteException;
 import java.util.function.BooleanSupplier;
 
 import static adminconsole.AdminConsole.*;
-import static adminconsole.AdminConsole.faculdade;
 
 public class Lista {
     public static void menu() {
