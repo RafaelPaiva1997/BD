@@ -251,12 +251,12 @@ public class Pessoa extends Model implements Serializable {
             case "numero_cc":
                 flag = setNumero_cc(updateNew);
                 break;
-            case "validade_cc":
-               break;
             case "genero":
                 flag = setGenero(updateNew);
                 break;
+            case "validade_cc":
             case "data_nascimento":
+                flag = true;
                 break;
 
         }

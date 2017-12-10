@@ -33,6 +33,44 @@ public class Eleicao extends Model implements Serializable {
         }
     }
 
+    public boolean setTitulo(String titulo) {
+        boolean flag = true;
+        if (lenghtMaior(titulo, 0) &&
+                isAlpha(titulo))
+            this.titulo = titulo ;
+        else
+            flag = false;
+        return flag;
+    }
+
+    public boolean setDescricao(String descricao) {
+        boolean flag = true;
+        if (lenghtMaior(descricao, 0) &&
+                isAlpha(descricao))
+            this.descricao = descricao ;
+        else
+            flag = false;
+        return flag;
+    }
+
+    public boolean update(String updateType, String updateNew) {
+        boolean flag = false;
+        this.updateType = updateType;
+        this.updateNew = updateNew;
+        switch (updateType) {
+            case "titulo":
+                flag = setTitulo(updateNew);
+                break;
+            case "descricao":
+                flag = setDescricao(updateNew);
+                break;
+            case "data_inicio":
+            case "data_fim":
+                flag = true;
+                break;
+        }
+        return flag;
+    }
     @Override
     public String sqlInsert() {
         return sqlInsert("tipo, titulo, descricao, data_inicio, data_fim", "'" + tipo + "','" + titulo + "','" + descricao + "'," + dateToSqlDate(data_inicio) + "," + dateToSqlDate(data_fim));
