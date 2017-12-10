@@ -1,7 +1,6 @@
 package adminconsole.gestores;
 
 
-
 import models.eleicoes.ConselhoGeral;
 import models.eleicoes.NucleoEstudantes;
 
@@ -14,7 +13,7 @@ import static adminconsole.AdminConsole.*;
 
 
 public class Eleicao {
-    public static void menu(){
+    public static void menu() {
         gerir("MENU ELEICOES\n" +
                         "O que pretende fazer?\n" +
                         "1 - Adicionar\n" +
@@ -55,7 +54,7 @@ public class Eleicao {
                         },
                         () -> {
                             try {
-                                delete();
+                                System.out.print(rmi.query("Eleicoes", "*", ""));
                                 return true;
                             } catch (RemoteException e) {
                                 e.printStackTrace();
@@ -96,9 +95,10 @@ public class Eleicao {
                 return;
 
             eleicao.setDepartamento_id(departamento.getId());
-        }
 
-        sc.nextLine();
+
+            sc.nextLine();
+        }
 
         getProperty("Insira o Titulo: ",
                 "Por favor insira um título só com letras!\n",
@@ -107,9 +107,12 @@ public class Eleicao {
         getProperty("Insira a Descricao: ",
                 "Por favor insira uma descrição só com letras!\n",
                 () -> !eleicao.setDescricao(sc.nextLine()));
-
-        eleicao.setData_inicio(Data.edit("a data de inicio", new models.Data()).export());
-        eleicao.setData_fim(Data.edit("a data de fim", new models.Data()).export());
+        do {
+            eleicao.setData_inicio(Data.edit("a data de inicio", new models.Data()).export());
+            eleicao.setData_fim(Data.edit("a data de fim", new models.Data()).export());
+            if (!eleicao.checkDates())
+                System.out.print("A data de ínicio não está antes da data de fim!\n");
+        } while (!eleicao.checkDates());
 
         rmi.insert(eleicao);
     }
@@ -137,8 +140,8 @@ public class Eleicao {
                         },
                         (r2 = sc.nextLine())));
 
-        SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
-        SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat f = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+        SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 
         switch (r2.toLowerCase()) {
             case "titulo":
@@ -154,15 +157,22 @@ public class Eleicao {
                 break;
 
             case "data de inicio":
-                System.out.println("Data de Inicio: " + f.format(eleicao.getData_inicio()));
-                eleicao.setData_inicio(Data.edit("a data de inicio", new models.Data(eleicao.getData_inicio())).export());
-                eleicao.update("data_inicio", "'" + f1.format(eleicao.getData_inicio()) + "'");
+                do {
+                    System.out.println("Data de Inicio: " + f.format(eleicao.getData_inicio()));
+                    eleicao.setData_inicio(Data.edit("a data de inicio", new models.Data(eleicao.getData_inicio())).export());
+                    if (!eleicao.checkDates())
+                        System.out.print("A data de ínicio não está antes da data de fim!\n");
+                } while (!eleicao.checkDates());
                 rmi.update(eleicao);
                 break;
 
             case "data de fim":
-                System.out.println("Data de Fim: " + f.format(eleicao.getData_fim()));
-                eleicao.setData_fim(Data.edit("a data de fim", new models.Data(eleicao.getData_fim())).export());
+                do {
+                    System.out.println("Data de Fim: " + f.format(eleicao.getData_fim()));
+                    eleicao.setData_fim(Data.edit("a data de fim", new models.Data(eleicao.getData_fim())).export());
+                    if (!eleicao.checkDates())
+                        System.out.print("A data de ínicio não está antes da data de fim!\n");
+                } while (!eleicao.checkDates());
                 eleicao.update("data_fim", "'" + f1.format(eleicao.getData_fim()) + "'");
                 rmi.update(eleicao);
                 break;

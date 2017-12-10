@@ -92,8 +92,7 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                     default:
                         return null;
                 }
-            }
-            else return null;
+            } else return null;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -144,7 +143,7 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                 case "eleicoes":
                     Eleicao eleicao;
                     s.append("Eleições: \n");
-                    while(resultSet.next()) {
+                    while (resultSet.next()) {
                         if (resultSet.getString("tipo").equals("conselho geral"))
                             eleicao = new ConselhoGeral(resultSet);
                         else
@@ -165,7 +164,7 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                 case "faculdade_departamentos":
                     s.append("Faculdade_Departamentos: \n");
                     while (resultSet.next()) {
-                            s.append("ID_Faculdade: " + resultSet.getInt("faculdade_id") + " ID_Departamento: " + resultSet.getInt("departamento_id") + "\n");
+                        s.append("ID_Faculdade: " + resultSet.getInt("faculdade_id") + " ID_Departamento: " + resultSet.getInt("departamento_id") + "\n");
                     }
                     break;
 

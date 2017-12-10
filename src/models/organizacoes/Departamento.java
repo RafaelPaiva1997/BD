@@ -50,7 +50,7 @@ public class Departamento extends Model {
         this.updateNew = updateNew;
         switch (updateType) {
             case "nome":
-                flag =  setNome(updateNew);
+                flag = setNome(updateNew);
                 break;
         }
         return flag;
@@ -62,7 +62,7 @@ public class Departamento extends Model {
 
     @Override
     public String toString() {
-        return "ID: " + id + " ID_Faculdade : " + faculdade_id  + " Nome: " + nome + "\n";
+        return "ID: " + id + " ID_Faculdade : " + faculdade_id + " Nome: " + nome + "\n";
     }
 
 }

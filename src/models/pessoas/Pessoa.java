@@ -116,7 +116,7 @@ public class Pessoa extends Model implements Serializable {
             flag = false;
         return flag;
     }
-    
+
     public boolean setUsername(String username) {
         boolean flag = true;
         this.username = "";
@@ -126,7 +126,7 @@ public class Pessoa extends Model implements Serializable {
             flag = false;
         return flag;
     }
-    
+
     public boolean setPassword(String password) {
         boolean flag = true;
         if (lenghtEntre(password, 8, 20))
@@ -149,7 +149,7 @@ public class Pessoa extends Model implements Serializable {
             flag = false;
         return flag;
     }
-    
+
     public boolean setMorada(String morada) {
         boolean flag = true;
         if (lenghtMaior(morada, 0))
@@ -170,7 +170,7 @@ public class Pessoa extends Model implements Serializable {
         return true;
     }
 
-    
+
     public boolean setCodigo_postal(String codigo_postal) {
         boolean flag = true;
         if (testeCodigo_postal(codigo_postal))
@@ -180,7 +180,7 @@ public class Pessoa extends Model implements Serializable {
         return flag;
     }
 
-    
+
     public boolean setLocalidade(String localidade) {
         boolean flag = true;
         if (lenghtMaior(localidade, 0) &&
@@ -192,7 +192,7 @@ public class Pessoa extends Model implements Serializable {
         return flag;
     }
 
-    
+
     public boolean setNumero_cc(String numeroCC) {
         boolean flag = true;
         if (lenghtIgual(numeroCC, 8) &&
@@ -203,7 +203,7 @@ public class Pessoa extends Model implements Serializable {
         return flag;
     }
 
-    
+
     public boolean setGenero(String genero) {
         boolean flag = true;
         if (genero.matches("Femenino") ||
@@ -229,25 +229,25 @@ public class Pessoa extends Model implements Serializable {
         this.updateNew = updateNew;
         switch (updateType) {
             case "nome":
-                flag =  setNome(updateNew);
+                flag = setNome(updateNew);
                 break;
             case "username":
                 flag = setUsername(updateNew);
                 break;
             case "password":
-                flag =  setPassword(updateNew);
+                flag = setPassword(updateNew);
                 break;
             case "telemovel":
                 flag = setTelemovel(updateNew);
                 break;
             case "morada":
-                flag =  setMorada(updateNew);
+                flag = setMorada(updateNew);
                 break;
             case "codigo_postal":
                 flag = setCodigo_postal(updateNew);
                 break;
             case "localidade":
-                flag =  setLocalidade(updateNew);
+                flag = setLocalidade(updateNew);
                 break;
             case "numero_cc":
                 flag = setNumero_cc(updateNew);
@@ -280,7 +280,7 @@ public class Pessoa extends Model implements Serializable {
                         "validade_cc," +
                         "genero," +
                         "data_nascimento",
-                        "'" + tipo + "'," +
+                "'" + tipo + "'," +
                         "'" + nome + "'," +
                         "'" + username + "'," +
                         "'" + password + "'," +
@@ -310,7 +310,7 @@ public class Pessoa extends Model implements Serializable {
                 "Nº Telemóvel: " + telemovel + "\n" +
                 "Morada: " + morada + "\n" +
                 "Código Postal: " + codigo_postal + "\n" +
-                "Localidade: "+ localidade + "\n" +
+                "Localidade: " + localidade + "\n" +
                 "Numero CC: " + numero_cc + "\n" +
                 "Validade CC: " + f.format(validade_cc) + "\n" +
                 "Género: " + genero + "\n" +

@@ -1,6 +1,7 @@
 package models.pessoas;
 
 import java.io.Serializable;
+
 import models.Model;
 
 import java.sql.ResultSet;
@@ -61,7 +62,7 @@ public class Docente extends Model implements Serializable {
 
     @Override
     public String sqlInsert() {
-        return sqlInsert("pessoa_id, cargo",pessoa_id + "," + cargo + "'");
+        return sqlInsert("pessoa_id, cargo", pessoa_id + "," + cargo + "'");
     }
 
     public String print() {

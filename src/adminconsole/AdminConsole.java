@@ -51,7 +51,7 @@ public class AdminConsole {
     }
 
     public static boolean gerir(String s1, String s2, int[] a, BooleanSupplier[] c) {
-        while(true) {
+        while (true) {
             getProperty(s1, s2, () -> !contains(a, (r1 = sc.nextInt())));
 
             if (r1 - 1 == c.length) return true;
@@ -85,7 +85,7 @@ public class AdminConsole {
         return model;
     }
 
-    public static void gerirMenu(){
+    public static void gerirMenu() {
         gerir("MENU PRINCIPAL\n" +
                         "O que pretende fazer?\n" +
                         "1 - Gerir Base de Dados\n" +

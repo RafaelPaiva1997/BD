@@ -17,7 +17,7 @@ public class Aluno extends Model implements Serializable {
         table = "Alunos";
     }
 
-    public Aluno(int pessoa_id)  {
+    public Aluno(int pessoa_id) {
         super();
         table = "Alunos";
         this.pessoa_id = pessoa_id;
@@ -43,13 +43,14 @@ public class Aluno extends Model implements Serializable {
         return curso;
     }
 
-    public boolean setNumeroAluno(String numeroAluno)  {
+    public boolean setNumeroAluno(String numeroAluno) {
         boolean flag = true;
         if (lenghtIgual(numeroAluno, 10) &&
                 isNumber(numeroAluno))
             this.numero_aluno = Integer.parseInt(numeroAluno);
         else
-            flag = false; ;
+            flag = false;
+        ;
         return flag;
 
     }
@@ -58,7 +59,7 @@ public class Aluno extends Model implements Serializable {
         boolean flag = true;
         if (lenghtMaior(curso, 0) &&
                 isAlpha(curso))
-            this.curso = curso ;
+            this.curso = curso;
         else
             flag = false;
         return flag;

@@ -1,6 +1,8 @@
 package models;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -86,8 +88,9 @@ public class Data implements Serializable {
     }
 
     public boolean test() {
-        if (!((hora != -1 && minuto != -1 && segundo != -1) ||
-                (hora == -1 && minuto == -1 && segundo == -1)) ||
+        if ((ano == -1 && mes == -1 && dia == -1 && hora == -1 && minuto == -1 && segundo == -1) ||
+                !((hora != -1 && minuto != -1 && segundo != -1) ||
+                        (hora == -1 && minuto == -1 && segundo == -1)) ||
                 !((ano != -1 && mes != -1 && dia != -1) ||
                         (ano == -1 && mes == -1 && dia == -1)) ||
                 (ano < 1000 && ano != -1) || ano > 9999 ||
@@ -115,13 +118,9 @@ public class Data implements Serializable {
     }
 
     public Date export() {
-        Calendar calendar = Calendar.getInstance();
-        if (ano != -1) calendar.set(Calendar.YEAR, ano);
-        if (mes != -1) calendar.set(Calendar.MONTH, mes);
-        if (dia != -1) calendar.set(Calendar.DAY_OF_MONTH, dia);
-        if (hora != -1) calendar.set(Calendar.HOUR, hora);
-        if (minuto != -1) calendar.set(Calendar.MINUTE, minuto);
-        if (segundo != -1) calendar.set(Calendar.SECOND, segundo);
-        return calendar.getTime();
+        if (hora == -1 && minuto == -1 && segundo == -1)
+            return Date.from(LocalDateTime.of(ano, mes, dia, 0, 0).atZone(ZoneId.systemDefault()).toInstant());
+        else
+            return Date.from(LocalDateTime.of(ano, mes, dia, hora, minuto, segundo).atZone(ZoneId.systemDefault()).toInstant());
     }
 }

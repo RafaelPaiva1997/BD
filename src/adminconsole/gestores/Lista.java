@@ -10,7 +10,7 @@ import static adminconsole.AdminConsole.*;
 import static adminconsole.AdminConsole.faculdade;
 
 public class Lista {
-    public static void menu(){
+    public static void menu() {
         gerir("MENU DEPARTAMENTOS\n" +
                         "O que pretende fazer?\n" +
                         "1 - Adicionar\n" +
@@ -59,6 +59,7 @@ public class Lista {
                         }
                 });
     }
+
     public static void insert() throws RemoteException {
         if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicoes", "a eleicao a qual pretende adicionar uma lista")) == null)
             return;
@@ -74,6 +75,7 @@ public class Lista {
 
         rmi.insert(lista);
     }
+
     public static void update() throws RemoteException {
         if ((lista = (models.listas.Lista) escolheID("Listas", "a lista a editar")) == null)
             return;

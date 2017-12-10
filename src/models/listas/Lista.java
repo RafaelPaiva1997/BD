@@ -12,7 +12,7 @@ public class Lista extends Model implements Serializable {
     private String nome;
     private int eleicao_id;
 
-    public Lista()  {
+    public Lista() {
         super();
         table = "Listas";
     }
@@ -53,7 +53,7 @@ public class Lista extends Model implements Serializable {
         this.updateNew = updateNew;
         switch (updateType) {
             case "nome":
-                flag =  setNome(updateNew);
+                flag = setNome(updateNew);
                 break;
         }
         return flag;

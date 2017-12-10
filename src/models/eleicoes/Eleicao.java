@@ -29,8 +29,8 @@ public class Eleicao extends Model implements Serializable {
             tipo = resultSet.getString("tipo");
             titulo = resultSet.getString("titulo");
             descricao = resultSet.getString("descricao");
-            data_inicio = resultSet.getDate("data_inicio");
-            data_fim = resultSet.getDate("data_fim");
+            data_inicio = new Date(resultSet.getTimestamp("data_inicio").getTime());
+            data_fim = new Date(resultSet.getTimestamp("data_fim").getTime());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,7 +68,7 @@ public class Eleicao extends Model implements Serializable {
         boolean flag = true;
         if (lenghtMaior(titulo, 0) &&
                 isAlpha(titulo))
-            this.titulo = titulo ;
+            this.titulo = titulo;
         else
             flag = false;
         return flag;
@@ -109,7 +109,7 @@ public class Eleicao extends Model implements Serializable {
 
     @Override
     public String sqlInsert() {
-        return sqlInsert("tipo, titulo, descricao, data_inicio, data_fim", "'" + tipo + "','" + titulo + "','" + descricao + "'," + dateToSqlDate(data_inicio) + "," + dateToSqlDate(data_fim));
+        return sqlInsert("tipo, titulo, descricao, data_inicio, data_fim", "'" + tipo + "','" + titulo + "','" + descricao + "'," + dateToSqlDateTime(data_inicio) + "," + dateToSqlDateTime(data_fim));
     }
 
     @Override
@@ -118,13 +118,17 @@ public class Eleicao extends Model implements Serializable {
     }
 
     public String print() {
-        SimpleDateFormat f = new SimpleDateFormat("hh:mm:ss dd-MM-yyyy");
+        SimpleDateFormat f = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
         return tipo.toUpperCase() + "\n" +
                 "ID: " + id + "\n" +
                 "Título: " + titulo + "\n" +
                 "Descrição: " + descricao + "\n" +
                 "Data Início: " + f.format(data_inicio) + "\n" +
                 "Data Fim: " + f.format(data_fim) + "\n";
+    }
+
+    public boolean checkDates() {
+        return !data_inicio.before(data_fim);
     }
 
     public String getTipo() {

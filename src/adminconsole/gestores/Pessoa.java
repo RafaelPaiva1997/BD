@@ -161,7 +161,7 @@ public class Pessoa {
         if (r1 == 1) {
             pessoa.setTipo("aluno");
             rmi.insert(pessoa);
-            aluno = new Aluno(rmi.get("Pessoas",  "numero_cc = " + pessoa.getNumero_cc()).getId());
+            aluno = new Aluno(rmi.get("Pessoas", "numero_cc = " + pessoa.getNumero_cc()).getId());
 
             getProperty("Insira o Número de Aluno: ",
                     "Por favor insira um número de aluno com apenas 10 digitos.\n",
@@ -175,7 +175,7 @@ public class Pessoa {
         } else if (r1 == 2) {
             pessoa.setTipo("docente");
             rmi.insert(pessoa);
-            docente = new Docente(rmi.get("Pessoas",  "numero_cc = " + pessoa.getNumero_cc()).getId());
+            docente = new Docente(rmi.get("Pessoas", "numero_cc = " + pessoa.getNumero_cc()).getId());
 
             getProperty("Insira o Cargo: ",
                     "Por favora insira o cargo usando apenas letras.\n",
@@ -216,7 +216,7 @@ public class Pessoa {
             else
                 s1 = s1 + "Função\n";
 
-            getProperty( s1,
+            getProperty(s1,
                     "Por favor insira uma característica correspondente a uma das disponíveis.\n",
                     () -> {
                         try {
@@ -353,13 +353,13 @@ public class Pessoa {
             case "curso":
                 aluno = (Aluno) rmi.get("Alunos", "pessoa_id = " + pessoa.getId());
                 getProperty("Por favor insira um curso com pelo menos 1 caractér.\n",
-                        () -> !aluno.update("curso",editProperty("Curso", aluno.getCurso())));
+                        () -> !aluno.update("curso", editProperty("Curso", aluno.getCurso())));
                 rmi.update(aluno);
 
             case "cargo":
                 docente = (Docente) rmi.get("Docentes", "pessoa_id = " + pessoa.getId());
                 getProperty("Por favor insira um cargo com pelo menos 1 caractér.\n",
-                        () -> !docente.update("cargo",editProperty("Cargo", docente.getCargo())));
+                        () -> !docente.update("cargo", editProperty("Cargo", docente.getCargo())));
                 rmi.update(docente);
                 break;
 
@@ -376,7 +376,6 @@ public class Pessoa {
 
         rmi.update(pessoa);
     }
-
 
 
     public static void delete() throws RemoteException {

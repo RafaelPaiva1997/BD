@@ -78,4 +78,9 @@ public abstract class Model implements Serializable {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         return "'" + f.format(date) + "'";
     }
+
+    public String dateToSqlDateTime(Date date) {
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return "'" + f.format(date) + "'";
+    }
 }
