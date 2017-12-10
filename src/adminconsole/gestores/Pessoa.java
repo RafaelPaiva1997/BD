@@ -357,22 +357,22 @@ public class Pessoa {
 
             case "nº aluno":
             case "no aluno":
-                aluno = (Aluno) rmi.get("Alunos", "WHERE pessoa_id = " + pessoa.getId());
+                aluno = (Aluno) rmi.get("Alunos", "pessoa_id = " + pessoa.getId());
                 getProperty("Por favor insira um número de aluno com apenas 10 digitos.\n",
                         () -> !aluno.update("numero_aluno", editProperty("Nº Aluno", String.valueOf(aluno.getNumero_aluno()))));
                 rmi.update(aluno);
                 break;
 
             case "curso":
-                aluno = (Aluno) rmi.get("Alunos", "WHERE pessoa_id = " + pessoa.getId());
+                aluno = (Aluno) rmi.get("Alunos", "pessoa_id = " + pessoa.getId());
                 getProperty("Por favor insira um curso com pelo menos 1 caractér.\n",
-                        () -> aluno.update("curso",editProperty("Curso", aluno.getCurso())));
+                        () -> !aluno.update("curso",editProperty("Curso", aluno.getCurso())));
                 rmi.update(aluno);
 
             case "cargo":
-                docente = (Docente) rmi.get("Docentes", "WHERE pessoa_id = " + pessoa.getId());
+                docente = (Docente) rmi.get("Docentes", "pessoa_id = " + pessoa.getId());
                 getProperty("Por favor insira um cargo com pelo menos 1 caractér.\n",
-                        () ->docente.update("cargo",editProperty("Cargo", docente.getCargo())));
+                        () -> !docente.update("cargo",editProperty("Cargo", docente.getCargo())));
                 rmi.update(docente);
                 break;
 
@@ -382,7 +382,7 @@ public class Pessoa {
             case "funcao":
                 funcionario = (Funcionario) rmi.get("Docentes", "WHERE pessoa_id = " + pessoa.getId());
                 getProperty("Por favor insira um cargo com pelo menos 1 caractér.\n",
-                        () -> funcionario.update("Funcionarios", editProperty("Funcao", funcionario.getFuncao())));
+                        () -> !funcionario.update("Funcionarios", editProperty("Funcao", funcionario.getFuncao())));
                 rmi.update(funcionario);
                 break;
         }

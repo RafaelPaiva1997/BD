@@ -62,114 +62,59 @@ public class AdminConsole {
             }
         }
     }
+    public static void gerirMenu(){
+        gerir("MENU PRINCIPAL\n" +
+                        "O que pretende fazer?\n" +
+                        "1 - Gerir Base de Dados\n" +
+                        "2 - Sair\n",
+                "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
+                new int[]{1, 2},
+                new BooleanSupplier[]{
+                        () -> {
+                            gerirBaseDados();
+                            return true;
+                        },
+                });
+    }
+
+    private static void gerirBaseDados() {
+        gerir("GERIR BASE DE DADOS\n" +
+                        "O que pretende editar?\n" +
+                        "1 - Pessoas\n" +
+                        "2 - Faculdades\n" +
+                        "3 - Departamentos\n" +
+                        "4 - Voltar\n",
+                "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
+                new int[]{1, 2, 3, 4},
+                new BooleanSupplier[]{
+                        () -> {
+                            Pessoa.menu();
+                            return true;
+                        },
+                        () -> {
+                            Faculdade.menu();
+                            return true;
+                        },
+                        () -> {
+                            Departamento.menu();
+                            return true;
+                        },
+
+                });
+    }
+
+
 
     public static void main(String[] args) {
         if (args.length == 2) {
             try {
                 rmi = (RMIInterface) LocateRegistry.getRegistry(args[0], Integer.parseInt(args[1])).lookup("rmi-object");
                 sc = new Scanner(System.in);
-                while(true) {
-                    gerir("O que pretende fazer?:\n" +
-                                    "1 - Adicionar Faculdade\n" +
-                                    "2 - Editar Faculdade\n" +
-                                    "3 - Remover Faculdade\n" +
-                                    "4 - Listar Faculdades\n" +
-                                    "5 - Listar Faculdade_Departamentos\n" +
-                                    "6 - Adicionar Departamento\n" +
-                                    "7 - Editar Departamento\n" +
-                                    "8 - Remover Departamento\n" +
-                                    "9 - Listar Departamentos\n" +
-                                    "10 - Pessoas\n",
-                            "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                            new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-                            new BooleanSupplier[]{
-                                    () -> {
-                                        try {
-                                            Faculdade.insert();
-                                            return true;
-                                        } catch (RemoteException e) {
-                                            e.printStackTrace();
-                                            return false;
-                                        }
-                                    },
-                                    () -> {
-                                        try {
-                                            Faculdade.update();
-                                            return true;
-                                        } catch (RemoteException e) {
-                                            e.printStackTrace();
-                                            return false;
-                                        }
-                                    },
-                                    () -> {
-                                        try {
-                                            Faculdade.delete();
-                                            return true;
-                                        } catch (RemoteException e) {
-                                            e.printStackTrace();
-                                            return false;
-                                        }
-                                    },
-                                    () -> {
-                                        try {
-                                            System.out.print(rmi.query("Faculdades", "*", ""));
-                                            return true;
-                                        } catch (RemoteException e) {
-                                            e.printStackTrace();
-                                            return false;
-                                        }
-                                    },
-                                    () -> {
-                                        try {
-                                            System.out.print(rmi.query("Faculdade_Departamentos", "*", ""));
-                                            return true;
-                                        } catch (RemoteException e) {
-                                            e.printStackTrace();
-                                            return false;
-                                        }
-                                    },
-                                    () -> {
-                                        try {
-                                            Departamento.insert();
-                                            return true;
-                                        } catch (RemoteException e) {
-                                            e.printStackTrace();
-                                            return false;
-                                        }
-                                    },
-                                    () -> {
-                                        try {
-                                            Departamento.update();
-                                            return true;
-                                        } catch (RemoteException e) {
-                                            e.printStackTrace();
-                                            return false;
-                                        }
-                                    },
-                                    () -> {
-                                        try {
-                                            Departamento.delete();
-                                            return true;
-                                        } catch (RemoteException e) {
-                                            e.printStackTrace();
-                                            return false;
-                                        }
-                                    },
-                                    () -> {
-                                        try {
-                                            System.out.print(rmi.query("Departamentos", "*", ""));
-                                            return true;
-                                        } catch (RemoteException e) {
-                                            e.printStackTrace();
-                                            return false;
-                                        }
-                                    },
-                                    () -> {Pessoa.menu(); return true;}
-                            });
-                }
+                gerirMenu();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
+
 }

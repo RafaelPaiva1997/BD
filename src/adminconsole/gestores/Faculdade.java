@@ -18,7 +18,7 @@ public class Faculdade {
                         "5 - Listar Departamentos\n" +
                         "6 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
-                new int[]{1, 2, 3, 4},
+                new int[]{1, 2, 3, 4, 5, 6},
                 new BooleanSupplier[]{
                         () -> {
                             try {
