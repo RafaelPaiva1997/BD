@@ -156,6 +156,15 @@ public class DatabaseHandler {
                     "FOREIGN KEY(pessoa_id) REFERENCES Pessoas(ID)" +
                     ")");
 
+            statement.execute("CREATE TABLE Votos (" +
+                    "ID int NOT NULL auto_increment, " +
+                    "pessoa_id int NOT NULL," +
+                    "eleicao_id int NOT NULL," +
+                    "mesa_voto_id int NOT NULL, " +
+                    "data datetime NOT NULL, " +
+                    "PRIMARY KEY("
+                    ")");
+
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
