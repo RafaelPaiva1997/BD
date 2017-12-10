@@ -5,6 +5,7 @@ import models.Model;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Pessoa extends Model implements Serializable {
@@ -297,5 +298,22 @@ public class Pessoa extends Model implements Serializable {
     @Override
     public String toString() {
         return tipo.toUpperCase() + " ID: " + id + " Nome: " + nome + " ID_Departamento: " + departamento_id + " Username: " + username + "\n";
+    }
+
+    public String print() {
+        SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
+        return tipo.toUpperCase() + "\n" +
+                "Nome: " + nome + "\n" +
+                "Username: " + username + "\n" +
+                "Password: " + password + "\n" +
+                "ID_Departamento: " + departamento_id + "\n" +
+                "Nº Telemóvel: " + telemovel + "\n" +
+                "Morada: " + morada + "\n" +
+                "Código Postal: " + codigo_postal + "\n" +
+                "Localidade: "+ localidade + "\n" +
+                "Numero CC: " + numero_cc + "\n" +
+                "Validade CC: " + f.format(validade_cc) + "\n" +
+                "Género: " + genero + "\n" +
+                "Data Nascimento:" + f.format(data_nascimento) + "\n";
     }
 }

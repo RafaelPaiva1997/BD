@@ -79,7 +79,7 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                     case "listas":
                         return new Lista(resultSet);
                     case "eleicoes":
-                        if (resultSet.getString("tipo").equals("conselho-geral"))
+                        if (resultSet.getString("tipo").equals("conselho geral"))
                             return new ConselhoGeral(resultSet);
                         else
                             return new NucleoEstudantes(resultSet);

@@ -136,7 +136,16 @@ public class DatabaseHandler {
                     "tipo varchar(12) NOT NULL," +
                     "nome varchar(255) NOT NULL," +
                     "PRIMARY KEY(ID)," +
-                    "FOREIGN KEY(eleicao_id) REFERENCES Eleicoes(ID)" +
+                    "FOREIGN KEY(eleicao_id) REFERENCES Eleicoes(ID)," +
+                    "UNIQUE(nome)" +
+                    ")");
+
+            statement.execute("CREATE TABLE Mesas_Voto (" +
+                    "ID int NOT NULL AUTO_INCREMENT," +
+                    "departamento_id int NOT NULL," +
+                    "working bit NOT NULL," +
+                    "PRIMARY KEY(ID)," +
+                    "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
                     ")");
 
             statement.execute(" CREATE TABLE Faculdade_Departamentos (" +
