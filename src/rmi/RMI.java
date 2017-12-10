@@ -310,6 +310,7 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
             return mesadeVotos.toArray(new MesadeVoto[mesadeVotos.size()]);
         } catch (SQLException e) {
             e.printStackTrace();
+            return new MesadeVoto[0];
         }
     }
 
