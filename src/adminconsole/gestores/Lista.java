@@ -162,7 +162,7 @@ public class Lista {
 
 
     public static void addPessoas() throws RemoteException {
-        if ((lista = (models.Lista) escolheID("Listas", "a lista à qual pretende adicionar uma eleição")) == null)
+        if ((lista = (models.Lista) escolheID("Listas", "a lista à qual pretende adicionar uma pessoa")) == null)
             return;
 
         if ((pessoa = (models.pessoas.Pessoa) escolheID("Pessoas", "a pessoa a adicionar")) == null)
@@ -179,7 +179,7 @@ public class Lista {
     }
 
     public static void removePessoas() throws RemoteException {
-        if ((lista = (models.Lista) escolheID("Listas", "a lista à qual pretende remover uma eleição")) == null)
+        if ((lista = (models.Lista) escolheID("Listas", "a lista da qual pretende remover uma pessoa")) == null)
             return;
 
         if ((pessoa = (Pessoa) escolheID("Pessoas", "a pessoa a remover")) == null)
