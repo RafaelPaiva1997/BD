@@ -1,29 +1,39 @@
 package models.eleicoes;
 
-import models.Data;
-import models.listas.*;
 import models.Model;
-import models.Voto;
-import models.MesadeVoto;
 
 import java.io.Serializable;
-import java.util.LinkedList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
 
-/**
- * Created by Johny on 09/12/2017.
- */
 public class Eleicao extends Model implements Serializable {
+
+    protected String tipo;
     protected String titulo;
     protected String descricao;
-    protected Data dataInicio;
-    protected Data dataFim;
-    protected LinkedList<Voto> votos;
-    protected LinkedList<MesadeVoto> mesasDeVoto;
-    protected LinkedList<Lista> listas;
+    protected Date data_inicio;
+    protected Date data_fim;
 
+    public Eleicao() {
+        super();
+        table = "Eleicoes";
+    }
+
+    public Eleicao(ResultSet resultSet) {
+        super(resultSet);
+        try {
+            table = "Eleicoes";
+            tipo = resultSet.getString("tipo");
+            titulo = resultSet.getString("titulo");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public String sqlInsert() {
-        return null;
+        return sqlInsert("tipo, titulo, descricao, data_inicio, data_fim", "'" + tipo + "','" + titulo + "','" + descricao + "'," + dateToSqlDate(data_inicio) + "," + dateToSqlDate(data_fim));
     }
 }

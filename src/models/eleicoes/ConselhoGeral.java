@@ -1,7 +1,13 @@
 package models.eleicoes;
 
-/**
- * Created by Johny on 09/12/2017.
- */
+import java.sql.ResultSet;
+
 public class ConselhoGeral extends Eleicao {
+
+    public ConselhoGeral() {
+    }
+
+    public ConselhoGeral(ResultSet resultSet) {
+        super(resultSet);
+    }
 }

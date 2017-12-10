@@ -130,6 +130,15 @@ public class DatabaseHandler {
                     "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
                     ")");
 
+            statement.execute("CREATE TABLE Listas (" +
+                    "ID int NOT NULL AUTO_INCREMENT," +
+                    "eleicao_id int NOT NULL" +
+                    "tipo varchar(12) NOT NULL," +
+                    "nome varchar(255) NOT NULL," +
+                    "PRIMARY KEY(ID)," +
+                    "FOREIGN KEY(eleicao_id) REFERENCES Eleicoes(ID)" +
+                    ")");
+
             statement.execute(" CREATE TABLE Faculdade_Departamentos (" +
                     "faculdade_id int NOT NULL," +
                     "departamento_id int NOT NULL," +

@@ -1,10 +1,8 @@
 package models.pessoas;
 
 import models.Model;
-import rmi.RMIServer;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
