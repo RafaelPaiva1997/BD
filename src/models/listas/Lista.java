@@ -58,6 +58,6 @@ public class Lista extends Model implements Serializable {
 
     @Override
     public String toString() {
-        return "LISTA " + tipo.toUpperCase() + " Nome: " + nome + " ID_Eleição: " + eleicao_id;
+        return "LISTA " + tipo.toUpperCase() + " Nome: " + nome + " ID_Eleição: " + eleicao_id + "\n";
     }
 }

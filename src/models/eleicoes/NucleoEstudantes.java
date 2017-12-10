@@ -23,4 +23,14 @@ public class NucleoEstudantes extends Eleicao {
     public String sqlInsert() {
         return sqlInsert("tipo, titulo, descricao, data_inicio, data_fim, departamento_id", "'" + tipo + "','" + titulo + "','" + descricao + "'," + dateToSqlDate(data_inicio) + "," + dateToSqlDate(data_fim) + "," + departamento_id);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " ID_Departamento: " + departamento_id + "\n";
+    }
+
+    @Override
+    public String print() {
+        return super.print() + "ID_Departamento: " + departamento_id + "\n";
+    }
 }

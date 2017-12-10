@@ -5,6 +5,7 @@ import models.Model;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Eleicao extends Model implements Serializable {
@@ -83,8 +84,24 @@ public class Eleicao extends Model implements Serializable {
         }
         return flag;
     }
+
     @Override
     public String sqlInsert() {
         return sqlInsert("tipo, titulo, descricao, data_inicio, data_fim", "'" + tipo + "','" + titulo + "','" + descricao + "'," + dateToSqlDate(data_inicio) + "," + dateToSqlDate(data_fim));
+    }
+
+    @Override
+    public String toString() {
+        return tipo.toUpperCase() + " ID: " + id + " Título: " + titulo;
+    }
+
+    public String print() {
+        SimpleDateFormat f = new SimpleDateFormat("hh:mm:ss dd-MM-yyyy");
+        return tipo.toUpperCase() + "\n" +
+                "ID: " + id + "\n" +
+                "Título: " + titulo + "\n" +
+                "Descrição: " + descricao + "\n" +
+                "Data Início: " + f.format(data_inicio) + "\n" +
+                "Data Fim: " + f.format(data_fim) + "\n";
     }
 }
