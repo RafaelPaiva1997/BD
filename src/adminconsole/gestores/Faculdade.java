@@ -15,10 +15,9 @@ public class Faculdade {
                         "2 - Editar\n" +
                         "3 - Remover\n" +
                         "4 - Listar\n" +
-                        "5 - Listar Departamentos\n" +
-                        "6 - Voltar\n",
+                        "5 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
-                new int[]{1, 2, 3, 4, 5, 6},
+                new int[]{1, 2, 3, 4, 5},
                 new BooleanSupplier[]{
                         () -> {
                             try {
@@ -50,15 +49,6 @@ public class Faculdade {
                         () -> {
                             try {
                                 System.out.print(rmi.query("Faculdades", "*", ""));
-                                return true;
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                                return false;
-                            }
-                        },
-                        () -> {
-                            try {
-                                System.out.print(rmi.query("Faculdade_Departamentos", "*", ""));
                                 return true;
                             } catch (RemoteException e) {
                                 e.printStackTrace();
