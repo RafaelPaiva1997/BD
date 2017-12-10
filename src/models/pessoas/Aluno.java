@@ -76,6 +76,7 @@ public class Aluno extends Model implements Serializable {
                 break;
             case "numero_aluno":
                 flag = setNumeroAluno(updateNew);
+                this.updateNew = updateNew;
                 break;
         }
         return flag;

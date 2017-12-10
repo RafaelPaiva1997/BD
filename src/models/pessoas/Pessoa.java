@@ -231,34 +231,43 @@ public class Pessoa extends Model implements Serializable {
         switch (updateType) {
             case "nome":
                 flag = setNome(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
             case "username":
                 flag = setUsername(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
             case "password":
                 flag = setPassword(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
             case "telemovel":
                 flag = setTelemovel(updateNew);
                 break;
             case "morada":
                 flag = setMorada(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
             case "codigo_postal":
                 flag = setCodigo_postal(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
             case "localidade":
                 flag = setLocalidade(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
             case "numero_cc":
                 flag = setNumero_cc(updateNew);
                 break;
             case "genero":
                 flag = setGenero(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
             case "validade_cc":
+                this.updateNew = "'" + updateNew + "'";
+                break;
             case "data_nascimento":
-                flag = true;
+                this.updateNew = "'" + updateNew + "'";
                 break;
 
         }

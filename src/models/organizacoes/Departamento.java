@@ -51,6 +51,7 @@ public class Departamento extends Model {
         switch (updateType) {
             case "nome":
                 flag = setNome(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
         }
         return flag;

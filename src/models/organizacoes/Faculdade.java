@@ -46,6 +46,7 @@ public class Faculdade extends Model implements Serializable {
         switch (updateType) {
             case "nome":
                 flag = setNome(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
         }
         return flag;
