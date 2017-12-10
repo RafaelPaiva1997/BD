@@ -3,6 +3,7 @@ package rmi;
 import database.DatabaseHandler;
 import models.Model;
 import models.eleicoes.ConselhoGeral;
+import models.eleicoes.Eleicao;
 import models.eleicoes.NucleoEstudantes;
 import models.listas.Lista;
 import models.organizacoes.Departamento;
@@ -132,6 +133,27 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                     while (resultSet.next()) {
                         pessoa = new Pessoa(resultSet);
                         s.append(pessoa.toString());
+                    }
+                    break;
+
+                case "eleicoes":
+                    Eleicao eleicao;
+                    s.append("Eleições: \n");
+                    while(resultSet.next()) {
+                        if (resultSet.getString("tipo").equals("conselho geral"))
+                            eleicao = new ConselhoGeral(resultSet);
+                        else
+                            eleicao = new NucleoEstudantes(resultSet);
+                        s.append(eleicao.toString());
+                    }
+                    break;
+
+                case "listas":
+                    Lista lista;
+                    s.append("Listas: \n");
+                    while (resultSet.next()) {
+                        lista = new Lista(resultSet);
+                        s.append(lista.toString());
                     }
                     break;
 
