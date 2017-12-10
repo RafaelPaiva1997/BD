@@ -164,7 +164,7 @@ public class Lista {
         if ((lista = (models.Lista) escolheID("Listas", "a lista sobre a qual quer ver as pessoas")) == null)
             return;
 
-        printConnections("lista", "pessoa", lista.getId());
+        printConnections("Lista", "Pessoa", lista.getId());
     }
 
     public static void removePessoas() throws RemoteException {

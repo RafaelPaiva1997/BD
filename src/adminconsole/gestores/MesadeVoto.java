@@ -1,5 +1,7 @@
 package adminconsole.gestores;
 
+import models.eleicoes.Eleicao;
+
 import java.rmi.RemoteException;
 import java.util.function.BooleanSupplier;
 
@@ -14,16 +16,16 @@ public class MesadeVoto {
     public static void menu() {
         gerir("MENU MESAS DE VOTO\n" +
                         "O que pretende fazer?\n" +
-                        "1 - Adicionar\n" +
-                        "2 - Remover\n" +
-                        "3 - Listar\n" +
+                        "1 - Adicionar Eleições\n" +
+                        "2 - Listar Eleições\n" +
+                        "3 - Remover Eleições\n" +
                         "4 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
-                new int[]{1, 2, 3},
+                new int[]{1, 2, 3, 4},
                 new BooleanSupplier[]{
                         () -> {
                             try {
-                                addMesadeVoto();
+                                addEleicao();
                                 return true;
                             } catch (RemoteException e) {
                                 e.printStackTrace();
@@ -32,17 +34,16 @@ public class MesadeVoto {
                         },
                         () -> {
                             try {
-                                removeMesasdeVoto();
+                                listEleicao();
                                 return true;
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                                 return false;
                             }
                         },
-
                         () -> {
                             try {
-                                listMesasdeVoto();
+                                removeEleicao();
                                 return true;
                             } catch (RemoteException e) {
                                 e.printStackTrace();
@@ -52,18 +53,24 @@ public class MesadeVoto {
                 });
     }
 
-    public static void addMesadeVoto() throws RemoteException {
-        add("MesasdeVoto", "Eleicaos", "a eleicao à qual pretende adicionar uma mesa de voto", "a eleicao a adicionar");
-    }
-
-    public static void listMesasdeVoto() throws RemoteException {
-        if ((mesadeVoto = (models.MesadeVoto) escolheID("MesasdeVoto", "a eleicao sobre a qual quer ver as mesas de voto")) == null)
+    public static void addEleicao() throws RemoteException {
+        if ((mesadeVoto = (models.MesadeVoto) escolheID("Mesa_Votos", "a mesa de voto à qual pretende adicionar uma eleição")) == null)
             return;
 
-        printConnections("MesasdeVoto", "Eleicaos", mesadeVoto.getId());
+        if ((eleicao = (Eleicao) escolheID("Eleicaos", "a eleição a adicionar")) == null)
+            return;
+
+        rmi.connect(mesadeVoto, eleicao);
     }
 
-    public static void removeMesasdeVoto() throws RemoteException {
-        remove("MesasdeVoto", "Eleicaos", "a mesa de voto à qual pretende adicionar uma eleicao", "a mesa de voto a adicionar");
+    public static void listEleicao() throws RemoteException {
+        if ((mesadeVoto = (models.MesadeVoto) escolheID("Mesa_Votos", "a mesa de voto sobre a qual quer ver as eleições")) == null)
+            return;
+
+        printConnections("Mesa_Voto", "Eleicao", mesadeVoto.getId());
+    }
+
+    public static void removeEleicao() throws RemoteException {
+        escolheModels("Mesa_Votos", "Eleicaos", "a mesa de voto da qual pretende remover uma eleicao", "a eleicao a remover");
     }
 }

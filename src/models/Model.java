@@ -26,12 +26,12 @@ public abstract class Model implements Serializable {
         }
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getTable() {
         return table;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public abstract String sqlInsert();

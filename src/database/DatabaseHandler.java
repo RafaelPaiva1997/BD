@@ -142,7 +142,7 @@ public class DatabaseHandler {
                     "UNIQUE(nome)" +
                     ")");
 
-            statement.execute("CREATE TABLE Mesas_Voto (" +
+            statement.execute("CREATE TABLE Mesa_Votos (" +
                     "ID int NOT NULL AUTO_INCREMENT," +
                     "departamento_id int NOT NULL," +
                     "working bit NOT NULL," +
@@ -160,7 +160,7 @@ public class DatabaseHandler {
                     "PRIMARY KEY(ID)," +
                     "FOREIGN KEY(pessoa_id) REFERENCES Pessoas(ID)," +
                     "FOREIGN KEY(eleicao_id) REFERENCES Eleicaos(ID)," +
-                    "FOREIGN KEY(mesa_voto_id) REFERENCES Mesas_Voto(ID)," +
+                    "FOREIGN KEY(mesa_voto_id) REFERENCES Mesa_Votos(ID)," +
                     "UNIQUE(pessoa_id, eleicao_id)" +
                     ")");
 
@@ -168,7 +168,7 @@ public class DatabaseHandler {
                     "mesa_voto_id int NOT NULL," +
                     "eleicao_id int NOT NULL," +
                     "PRIMARY KEY(mesa_voto_id, eleicao_id)," +
-                    "FOREIGN KEY(mesa_voto_id) REFERENCES Mesas_Voto(ID)," +
+                    "FOREIGN KEY(mesa_voto_id) REFERENCES Mesa_Votos(ID)," +
                     "FOREIGN KEY(eleicao_id) REFERENCES Eleicaos(ID)" +
                     ")");
 

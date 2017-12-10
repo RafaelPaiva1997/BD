@@ -8,6 +8,7 @@ import rmi.RMIInterface;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.function.BooleanSupplier;
 
@@ -79,9 +80,9 @@ public class AdminConsole {
                 () -> {
                     try {
                         return (model = rmi.get(table, "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
+                    } catch (RemoteException | InputMismatchException e) {
                         e.printStackTrace();
-                        return true;
+                        return false;
                     }
                 });
 
@@ -99,7 +100,10 @@ public class AdminConsole {
     public static void add(String table1, String table2, String s1, String s2) throws RemoteException {
         escolheModels(table1, table2, s1, s2);
 
-        rmi.connect(model, model2);
+        mesadeVoto = (models.MesadeVoto) model;
+        eleicao = (models.eleicoes.Eleicao) model2;
+
+        rmi.connect(mesadeVoto, eleicao);
     }
 
     public static void remove(String table1, String table2, String s1, String s2) throws RemoteException {
@@ -109,7 +113,7 @@ public class AdminConsole {
     }
 
     public static void printConnections(String table1, String table2, int id) throws RemoteException {
-        rmi.query(table1 + "_" + table2 + "s", table2 + ".*", "INNER JOIN " + table1 + "_" + table2 + "s." + table1 + "_id = " + id + table1 + "_" + table2 + "s." + table2 + "_id = " + table2 + "s.ID");
+        System.out.print(rmi.query(table1 + "_" + table2 + "s", table2 + "s.*", "INNER JOIN " + table2 + "s ON " + table1 + "_" + table2 + "s." + table1 + "_id = " + id + " && " + table1 + "_" + table2 + "s." + table2 + "_id = " + table2 + "s.ID"));
     }
 
     public static void gerirMenu() {

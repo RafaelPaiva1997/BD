@@ -90,7 +90,7 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                         return new Funcionario(resultSet);
                     case "listas":
                         return new Lista(resultSet);
-                    case "mesas_voto":
+                    case "mesa_votos":
                         return new MesadeVoto(resultSet);
                     case "votos":
                         return new Voto(resultSet);
@@ -151,6 +151,24 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                     }
                     break;
 
+                case "listas":
+                    Lista lista;
+                    s.append("Listas: \n");
+                    while (resultSet.next()) {
+                        lista = new Lista(resultSet);
+                        s.append(lista.toString());
+                    }
+                    break;
+
+                case "mesa_votos":
+                    MesadeVoto mesadeVoto;
+                    s.append("Mesas de Voto: \n");
+                    while (resultSet.next()) {
+                        mesadeVoto = new MesadeVoto(resultSet);
+                        s.append(mesadeVoto.toString());
+                    }
+                    break;
+
                 case "mesa_voto_eleicaos":
                 case "eleicaos":
                     Eleicao eleicao;
@@ -161,22 +179,6 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                         else
                             eleicao = new NucleoEstudantes(resultSet);
                         s.append(eleicao.toString());
-                    }
-                    break;
-
-                case "listas":
-                    Lista lista;
-                    s.append("Listas: \n");
-                    while (resultSet.next()) {
-                        lista = new Lista(resultSet);
-                        s.append(lista.toString());
-                    }
-                    break;
-
-                case "faculdade_departamentos":
-                    s.append("Faculdade_Departamentos: \n");
-                    while (resultSet.next()) {
-                        s.append("ID_Faculdade: " + resultSet.getInt("faculdade_id") + " ID_Departamento: " + resultSet.getInt("departamento_id") + "\n");
                     }
                     break;
             }

@@ -57,7 +57,7 @@ public class VotingTerminal {
     }
 
     public static void printConnections(String table1, String table2, int id) throws RemoteException {
-        rmi.query(table1 + "_" + table2 + "s", table2 + ".*", "INNER JOIN " + table1 + "_" + table2 + "s." + table1 + "_id = " + id + table1 + "_" + table2 + "s." + table2 + "_id = " + table2 + "s.ID");
+        System.out.print(rmi.query(table1 + "_" + table2 + "s", table2 + "s.*", "INNER JOIN " + table2 + "s ON " + table1 + "_" + table2 + "s." + table1 + "_id = " + id + " && " + table1 + "_" + table2 + "s." + table2 + "_id = " + table2 + "s.ID"));
     }
 
     public static void main(String[] args) {
@@ -70,7 +70,7 @@ public class VotingTerminal {
                 if ((departamento = (Departamento) escolheID("Departamentos", "o departamento onde está a votar")) == null)
                     return;
 
-                mesadeVoto = (MesadeVoto) rmi.get("Mesas_Voto", "departamento_id = " + departamento.getId());
+                mesadeVoto = (MesadeVoto) rmi.get("Mesa_Votos", "departamento_id = " + departamento.getId());
 
                 sc.nextLine();
 
