@@ -428,7 +428,7 @@ public class Pessoa {
             return;
         }
 
-        getProperty(rmi.query("Pessoas", "*", "") + "Insira o ID da pessoa a remover: ",
+        getProperty(rmi.query("Pessoas", "*", "") + "Insira o ID da pessoa a inspecionar: ",
                 "Por favor insira um ID válido!",
                 () -> {
                     try {
