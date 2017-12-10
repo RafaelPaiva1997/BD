@@ -72,6 +72,15 @@ public class VotingTerminal {
 
                 mesadeVoto = (MesadeVoto) rmi.get("Mesa_Votos", "departamento_id = " + departamento.getId());
 
+                if (mesadeVoto.isWorking()) {
+                    System.out.print("Mesa de Voto Ocupada, tente novamente mais tarde!\n");
+                    return;
+                }
+                else {
+                    mesadeVoto.setWorking(true);
+                    rmi.update(mesadeVoto);
+                }
+
                 sc.nextLine();
 
                 do {
@@ -102,7 +111,14 @@ public class VotingTerminal {
                     System.out.print(listas[listas.length - 1]);
                 } while ((id = rmi.votar(Arrays.copyOf(listas, listas.length - 1), sc.nextLine())).equals("fail"));
 
-                System.out.print(rmi.votar(id, eleicao, pessoa, mesadeVoto, new Date()));
+                if (rmi.votar(id, eleicao, pessoa, mesadeVoto, new Date()))
+                    System.out.print("Voto bem sucedido!\n");
+                else
+                    System.out.print("Voto falhou!\n");
+
+                mesadeVoto.setWorking(false);
+                rmi.update(mesadeVoto);
+                
             } catch (Exception e) {
                 e.printStackTrace();
             }
