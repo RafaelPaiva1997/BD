@@ -13,9 +13,12 @@ public class Lista {
                         "2 - Editar\n" +
                         "3 - Remover\n" +
                         "4 - Listar\n" +
-                        "5 - Voltar\n",
+                        "5 - Adicionar Pessoa\n" +
+                        "6 - Listar Pessoas\n" +
+                        "7 - Remover Pessoa\n" +
+                        "8 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
-                new int[]{1, 2, 3, 4, 5},
+                new int[]{1, 2, 3, 4, 5, 6, 7, 8},
                 new BooleanSupplier[]{
                         () -> {
                             try {
@@ -47,6 +50,33 @@ public class Lista {
                         () -> {
                             try {
                                 System.out.print(rmi.query("Departamentos", "*", ""));
+                                return true;
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                                return false;
+                            }
+                        },
+                        () -> {
+                            try {
+                                addPessoas();
+                                return true;
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                                return false;
+                            }
+                        },
+                        () -> {
+                            try {
+                                listPessoas();
+                                return true;
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                                return false;
+                            }
+                        },
+                        () -> {
+                            try {
+                                removePessoas();
                                 return true;
                             } catch (RemoteException e) {
                                 e.printStackTrace();

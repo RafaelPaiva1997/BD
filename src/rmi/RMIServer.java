@@ -12,19 +12,19 @@ public class RMIServer {
     public static RMI rmi;
 
     public static void main(String[] args) {
-        if (args.length == 1 || args.length == 2) {
+        if (args.length == 2 || args.length == 3) {
             try {
                 Registry registry = LocateRegistry.createRegistry(Integer.parseInt(args[0]));
 
                 DatabaseHandler databaseHandler = new DatabaseHandler(
-                        "jdbc:mysql://127.0.0.1:3306",
+                        "jdbc:mysql://" + args[1] + ":3306",
                         "BD",
-                        "username",
+                        "username",g
                         "password");
 
                 if (databaseHandler.register()) {
                     if (databaseHandler.connect()) {
-                        if (args.length == 2 && args[1].equals("-r")) databaseHandler.reset();
+                        if (args.length == 3 && args[2].equals("-r")) databaseHandler.reset();
                         rmi = new RMI(databaseHandler);
                         if (rmi.put(registry))
                             System.out.println("RMI está disponível!");
