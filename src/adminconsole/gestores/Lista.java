@@ -1,5 +1,10 @@
 package adminconsole.gestores;
 
+import models.eleicoes.*;
+import models.eleicoes.Eleicao;
+import models.pessoas.*;
+import models.pessoas.Pessoa;
+
 import java.rmi.RemoteException;
 import java.util.function.BooleanSupplier;
 
@@ -157,8 +162,13 @@ public class Lista {
 
 
     public static void addPessoas() throws RemoteException {
-        add("Listas", "Pessoas", "a lista à qual pretende adicionar uma pessoa", "a pessoa a adicionar");
-        rmi.connect(lista, pessoa);
+        if ((lista = (models.Lista) escolheID("Listas", "a lista à qual pretende adicionar uma eleição")) == null)
+            return;
+
+        if ((pessoa = (models.pessoas.Pessoa) escolheID("Pessoas", "a pessoa a adicionar")) == null)
+            return;
+
+        rmi.connect(lista, eleicao);
     }
 
     public static void listPessoas() throws RemoteException {
@@ -169,7 +179,11 @@ public class Lista {
     }
 
     public static void removePessoas() throws RemoteException {
-        remove("Listas", "Pessoas", "a lista à qual pretende remover uma pessoa", "a pessoa a remover");
-        rmi.disconnect(lista, pessoa);
+        if ((lista = (models.Lista) escolheID("Listas", "a lista à qual pretende remover uma eleição")) == null)
+            return;
+
+        if ((pessoa = (Pessoa) escolheID("Pessoas", "a pessoa a remover")) == null)
+            return;
+        rmi.disconnect(lista,pessoa);
     }
 }
