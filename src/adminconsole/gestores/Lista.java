@@ -60,7 +60,7 @@ public class Lista {
                 });
     }
     public static void insert() throws RemoteException {
-        getProperty(rmi.query("Eleicoes", "*", "") + "Insira o ID da faculdade à qual pretende adicionar uma lista: ",
+        getProperty(rmi.query("Eleicoes", "*", "") + "Insira o ID da eleicao à qual pretende adicionar uma lista: ",
                 "Por favor insira um ID válido!\n",
                 () -> {
                     try {

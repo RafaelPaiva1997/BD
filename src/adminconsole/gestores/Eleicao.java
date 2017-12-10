@@ -130,7 +130,7 @@ public class Eleicao {
                         return true;
                     }
                 });
-
+        sc.nextLine();
         getProperty("Escolha a propriedade a editar:\n" +
                         "Titulo\n" +
                         "Descricao\n" +

@@ -4,6 +4,7 @@ import adminconsole.gestores.Departamento;
 import adminconsole.gestores.Faculdade;
 import adminconsole.gestores.Pessoa;
 import adminconsole.gestores.Eleicao;
+import adminconsole.gestores.Lista;
 import rmi.RMIInterface;
 
 import java.rmi.RemoteException;
@@ -87,6 +88,7 @@ public class AdminConsole {
                         "2 - Faculdades\n" +
                         "3 - Departamentos\n" +
                         "4 - Eleicoes\n" +
+                        "5 - Listas\n" +
                         "5 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
                 new int[]{1, 2, 3, 4, 5},
@@ -105,6 +107,10 @@ public class AdminConsole {
                         },
                         () -> {
                             Eleicao.menu();
+                            return true;
+                        },
+                        () -> {
+                            Lista.menu();
                             return true;
                         },
 
