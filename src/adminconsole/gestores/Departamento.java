@@ -134,6 +134,6 @@ public class Departamento {
                 });
 
         rmi.delete(departamento);
-        rmi.delete(rmi.get("Mesas_Voto", "departamento_id = " + departamento.getId()));
+        rmi.delete("Mesas_Voto", "departamento_id = " + departamento.getId());
     }
 }
