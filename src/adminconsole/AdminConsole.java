@@ -3,6 +3,7 @@ package adminconsole;
 import adminconsole.gestores.Departamento;
 import adminconsole.gestores.Faculdade;
 import adminconsole.gestores.Pessoa;
+import adminconsole.gestores.Eleicao;
 import rmi.RMIInterface;
 
 import java.rmi.RemoteException;
@@ -23,6 +24,7 @@ public class AdminConsole {
     public static models.pessoas.Aluno aluno;
     public static models.pessoas.Docente docente;
     public static models.pessoas.Funcionario funcionario;
+    public static models.eleicoes.Eleicao eleicao;
 
     public static void getProperty(String s1, BooleanSupplier call) {
         while (call.getAsBoolean())
@@ -83,9 +85,10 @@ public class AdminConsole {
                         "1 - Pessoas\n" +
                         "2 - Faculdades\n" +
                         "3 - Departamentos\n" +
+                        "4 - Eleicoes\n" +
                         "4 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
-                new int[]{1, 2, 3, 4},
+                new int[]{1, 2, 3, 4, 5},
                 new BooleanSupplier[]{
                         () -> {
                             Pessoa.menu();
@@ -97,6 +100,10 @@ public class AdminConsole {
                         },
                         () -> {
                             Departamento.menu();
+                            return true;
+                        },
+                        () -> {
+                            Eleicao.menu();
                             return true;
                         },
 
