@@ -21,7 +21,7 @@ public class NucleoEstudantes extends Eleicao {
 
     @Override
     public String sqlInsert() {
-        return sqlInsert("tipo, titulo, descricao, data_inicio, data_fim, departamento_id", "'" + tipo + "','" + titulo + "','" + descricao + "'," + dateToSqlDate(data_inicio) + "," + dateToSqlDate(data_fim) + "," + departamento_id);
+        return sqlInsert("finished, tipo, titulo, descricao, data_inicio, data_fim, departamento_id", (finished ? 1 : 0) + ",'" + tipo + "','" + titulo + "','" + descricao + "'," + dateToSqlDate(data_inicio) + "," + dateToSqlDate(data_fim) + "," + departamento_id);
     }
 
     @Override
