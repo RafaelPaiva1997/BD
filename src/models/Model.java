@@ -41,7 +41,7 @@ public abstract class Model implements Serializable {
     }
 
     public String sqlUpdate() {
-        return "UPDATE " + table + " SET " + updateType + " = '" + updateNew + "' WHERE ID = " + id;
+        return "UPDATE " + table + " SET " + updateType + " = " + updateNew + " WHERE ID = " + id;
     }
 
     public String sqlDelete() {

@@ -35,4 +35,6 @@ public interface RMIInterface extends Remote {
     String votar(String[] listas, String input) throws RemoteException;
 
     boolean votar(String id, Eleicao eleicao, Pessoa pessoa, MesadeVoto mesadeVoto, Date date) throws RemoteException;
+
+    Eleicao[] getEleicoes(String query) throws RemoteException;
 }
