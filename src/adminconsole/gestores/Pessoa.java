@@ -355,6 +355,7 @@ public class Pessoa {
                 getProperty("Por favor insira um curso com pelo menos 1 caractér.\n",
                         () -> !aluno.update("curso", editProperty("Curso", aluno.getCurso())));
                 rmi.update(aluno);
+                break;
 
             case "cargo":
                 docente = (Docente) rmi.get("Docentes", "pessoa_id = " + pessoa.getId());

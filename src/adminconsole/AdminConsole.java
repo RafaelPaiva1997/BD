@@ -1,6 +1,7 @@
 package adminconsole;
 
 import adminconsole.gestores.*;
+import adminconsole.gestores.MesadeVoto;
 import models.Model;
 import rmi.RMIInterface;
 
@@ -26,6 +27,7 @@ public class AdminConsole {
     public static models.pessoas.Funcionario funcionario;
     public static models.eleicoes.Eleicao eleicao;
     public static models.Lista lista;
+    public static models.MesadeVoto mesadeVoto;
 
     public static void getProperty(String s1, BooleanSupplier call) {
         while (call.getAsBoolean())
@@ -134,9 +136,10 @@ public class AdminConsole {
                         "4 - Eleicoes\n" +
                         "5 - Listas\n" +
                         "6 - Reset BD\n" +
-                        "7 - Voltar\n",
+                        "7 - Mesas de Voto\n" +
+                        "8 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
-                new int[]{1, 2, 3, 4, 5, 6, 7},
+                new int[]{1, 2, 3, 4, 5, 6, 7, 8},
                 new BooleanSupplier[]{
                         () -> {
                             Pessoa.menu();
@@ -156,6 +159,10 @@ public class AdminConsole {
                         },
                         () -> {
                             Lista.menu();
+                            return true;
+                        },
+                        () -> {
+                            MesadeVoto.menu();
                             return true;
                         },
                         () -> {
