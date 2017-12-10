@@ -427,21 +427,8 @@ public class Pessoa {
     }
 
     public static void print() throws RemoteException {
-        if (rmi.query("Pessoas", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem pessoas, por favor insira uma!");
+        if ((pessoa = (models.pessoas.Pessoa) escolheID("Pessoas", "a pessoa a inspecionar")) == null)
             return;
-        }
-
-        getProperty(rmi.query("Pessoas", "*", "") + "Insira o ID da pessoa a inspecionar: ",
-                "Por favor insira um ID válido!",
-                () -> {
-                    try {
-                        return (pessoa = (models.pessoas.Pessoa) rmi.get("Pessoas", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
 
         System.out.print(pessoa.print());
         if (pessoa.getTipo().equals("aluno"))

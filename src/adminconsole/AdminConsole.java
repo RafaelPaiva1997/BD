@@ -4,6 +4,7 @@ import adminconsole.gestores.Departamento;
 import adminconsole.gestores.Faculdade;
 import adminconsole.gestores.Pessoa;
 import adminconsole.gestores.Eleicao;
+import models.Model;
 import rmi.RMIInterface;
 
 import java.rmi.RemoteException;
@@ -18,6 +19,7 @@ public class AdminConsole {
     public static RMIInterface rmi;
     public static int r1;
     public static String r2;
+    public static models.Model model;
     public static models.organizacoes.Faculdade faculdade;
     public static models.organizacoes.Departamento departamento;
     public static models.pessoas.Pessoa pessoa;
@@ -65,6 +67,27 @@ public class AdminConsole {
             }
         }
     }
+
+    public static Model escolheID(String table, String show) throws RemoteException {
+        if (rmi.query(table, "(ID)", "").equals("empty")) {
+            System.out.print("Não existem " + table + ", por favor insira uma!");
+            return null;
+        }
+
+        getProperty(rmi.query(table, "*", "") + "Insira o ID d" + show + ": ",
+                "Por favor insira um ID válido!",
+                () -> {
+                    try {
+                        return (model = rmi.get(table, "ID = " + sc.nextInt())) == null;
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                        return true;
+                    }
+                });
+
+        return model;
+    }
+
     public static void gerirMenu(){
         gerir("MENU PRINCIPAL\n" +
                         "O que pretende fazer?\n" +
