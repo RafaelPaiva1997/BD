@@ -30,6 +30,10 @@ public abstract class Model implements Serializable {
         return id;
     }
 
+    public String getTable() {
+        return table;
+    }
+
     public abstract String sqlInsert();
 
     public String sqlInsert(String dataTypes, String data) {
@@ -84,7 +88,7 @@ public abstract class Model implements Serializable {
         return "'" + f.format(date) + "'";
     }
 
-    public boolean checkAdd(Model model) {
+    public boolean checkAdd(String s, Model model) {
         return true;
     }
 }

@@ -77,10 +77,13 @@ public class Lista extends Model implements Serializable {
     }
 
     @Override
-    public boolean checkAdd(Model model) {
-        Pessoa pessoa = (Pessoa) model;
-        return tipo.equals("alunos") && pessoa.getTipo().equals("aluno") ||
-                tipo.equals("docentes") && pessoa.getTipo().equals("docente") ||
-                tipo.equals("funcionarios") && pessoa.getTipo().equals("funcionario");
+    public boolean checkAdd(String s, Model model) {
+        if (s.toLowerCase().equals("pessoas")) {
+            Pessoa pessoa = (Pessoa) model;
+            return tipo.equals("alunos") && pessoa.getTipo().equals("aluno") ||
+                    tipo.equals("docentes") && pessoa.getTipo().equals("docente") ||
+                    tipo.equals("funcionarios") && pessoa.getTipo().equals("funcionario");
+        }
+        return true;
     }
 }

@@ -89,7 +89,8 @@ public class DatabaseHandler {
                     "data_nascimento date NOT NULL," +
                     "PRIMARY KEY(ID)," +
                     "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)," +
-                    "UNIQUE(username, telemovel, numero_cc)" +
+                    "UNIQUE(username)," +
+                    "UNIQUE(numero_cc)" +
                     ")");
 
             statement.execute("CREATE TABLE Alunos (" +
@@ -148,21 +149,33 @@ public class DatabaseHandler {
                     "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
                     ")");
 
+            statement.execute("CREATE TABLE Votos (" +
+                    "ID int NOT NULL auto_increment," +
+                    "pessoa_id int NOT NULL," +
+                    "eleicao_id int NOT NULL," +
+                    "mesa_voto_id int NOT NULL, " +
+                    "data datetime NOT NULL, " +
+                    "PRIMARY KEY(ID)," +
+                    "FOREIGN KEY(pessoa_id) REFERENCES Pessoas(ID)," +
+                    "FOREIGN KEY(eleicao_id) REFERENCES Eleicao(ID)," +
+                    "FOREIGN KEY(mesa_voto_id) REFERENCES Mesa_Votos(ID)," +
+                    "UNIQUE(pessoa_id, eleicao_id)" +
+                    ")");
+
+            statement.execute("CREATE TABLE Lista_Votos (" +
+                    "lista_id int NOT NULL," +
+                    "votos_id int NOT NULL," +
+                    "PRIMARY KEY(lista_id, votos_id)," +
+                    "FOREIGN KEY(lista_id) REFERENCES Listas(ID)," +
+                    "FOREIGN KEY(votos_id) REFERENCES Votos(ID)" +
+                    ")");
+
             statement.execute("CREATE TABLE Lista_Pessoas (" +
                     "lista_id int NOT NULL," +
                     "pessoa_id int NOT NULL," +
                     "PRIMARY KEY(lista_id, pessoa_id)," +
                     "FOREIGN KEY(lista_id) REFERENCES Listas(ID)," +
                     "FOREIGN KEY(pessoa_id) REFERENCES Pessoas(ID)" +
-                    ")");
-
-            statement.execute("CREATE TABLE Votos (" +
-                    "ID int NOT NULL auto_increment, " +
-                    "pessoa_id int NOT NULL," +
-                    "eleicao_id int NOT NULL," +
-                    "mesa_voto_id int NOT NULL, " +
-                    "data datetime NOT NULL, " +
-                    "PRIMARY KEY("
                     ")");
 
         } catch (SQLException e) {
