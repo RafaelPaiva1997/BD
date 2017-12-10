@@ -1,7 +1,9 @@
 package rmi;
 
 import database.DatabaseHandler;
+import models.MesadeVoto;
 import models.Model;
+import models.Voto;
 import models.eleicoes.ConselhoGeral;
 import models.eleicoes.Eleicao;
 import models.eleicoes.NucleoEstudantes;
@@ -18,10 +20,14 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 public class RMI extends UnicastRemoteObject implements RMIInterface {
 
     private final DatabaseHandler databaseHandler;
+    private ArrayList<String> out;
 
     public RMI(DatabaseHandler databaseHandler) throws RemoteException {
         super();
@@ -174,6 +180,76 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
             e.printStackTrace();
         }
         return s.append("\n").toString();
+    }
+
+    @Override
+    public String[] votar(Eleicao eleicao, Pessoa pessoa) throws RemoteException {
+        try {
+            Lista lista;
+            StringBuilder s = new StringBuilder();
+            ArrayList<String> out = new ArrayList<>();
+            ResultSet resultSet = databaseHandler.executeQuery("SELECT * FROM Listas WHERE eleicao_id = " + eleicao.getId() + " && tipo = " + pessoa.getTipo() + "s");
+
+            if (!resultSet.next())
+                return new String[0];
+
+            s.append("Escolha a lista em que pretende votar:\n\n");
+            do {
+                lista = new Lista(resultSet);
+                s.append(lista.toString());
+                out.add(String.valueOf(lista.getId()));
+            } while (resultSet.next());
+
+            s.append("VOTO BRANCO\nVOTO NULO\n");
+
+            out.add(s.toString());
+
+            return (String[]) out.toArray();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new String[0];
+        }
+    }
+
+    @Override
+    public String votar(String[] listas, String input) throws RemoteException {
+        if (!input.toLowerCase().equals("voto branco") && !input.toLowerCase().equals("voto nulo") && !Arrays.toString(listas).toLowerCase().contains(input.toLowerCase()))
+            return "fail";
+        return input.toLowerCase();
+    }
+
+    @Override
+    public boolean votar(String id, Eleicao eleicao, Pessoa pessoa, MesadeVoto mesadeVoto, Date date) throws RemoteException {
+        Voto voto = new Voto();
+
+        voto.setEleicao_id(eleicao.getId());
+        voto.setPessoa_id(pessoa.getId());
+        voto.setMesa_voto_id(mesadeVoto.getId());
+        voto.setData(date);
+
+        if (id.equals("voto branco"))
+            voto.setTipo("branco");
+        else if (id.equals("voto nulo"))
+            voto.setTipo("nulo");
+        else
+            voto.setTipo("normal");
+
+        boolean flag = insert(voto);
+
+        if (voto.getTipo().equals("normal")) {
+
+            if ((voto = (Voto) get("Votos", "eleicao_ID = " + eleicao.getId() + " && pessoa_id = " + pessoa.getId())) == null)
+                return false;
+
+            Lista lista;
+
+            if ((lista = (Lista) get("Listas", "lista_ID = " + id)) == null)
+                return false;
+
+            return connect(lista, voto) && flag;
+        }
+
+        return flag;
     }
 
     public boolean put(Registry registry) {

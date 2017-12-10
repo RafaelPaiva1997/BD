@@ -1,9 +1,14 @@
 package rmi;
 
+import models.Lista;
+import models.MesadeVoto;
 import models.Model;
+import models.eleicoes.Eleicao;
+import models.pessoas.Pessoa;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Date;
 
 public interface RMIInterface extends Remote {
 
@@ -24,4 +29,10 @@ public interface RMIInterface extends Remote {
     Model get(String table, String query) throws RemoteException;
 
     String query(String table, String query, String query2) throws RemoteException;
+
+    String[] votar(Eleicao eleicao, Pessoa pessoa) throws RemoteException;
+
+    String votar(String[] listas, String input) throws RemoteException;
+
+    boolean votar(String id, Eleicao eleicao, Pessoa pessoa, MesadeVoto mesadeVoto, Date date) throws RemoteException;
 }

@@ -151,6 +151,7 @@ public class DatabaseHandler {
 
             statement.execute("CREATE TABLE Votos (" +
                     "ID int NOT NULL AUTO_INCREMENT," +
+                    "tipo varchar(6) NOT NULL," +
                     "pessoa_id int NOT NULL," +
                     "eleicao_id int NOT NULL," +
                     "mesa_voto_id int NOT NULL," +

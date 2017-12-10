@@ -1,6 +1,6 @@
 package votingterminal;
 
-import models.Lista;
+import models.MesadeVoto;
 import models.Model;
 import models.eleicoes.Eleicao;
 import models.organizacoes.Departamento;
@@ -9,6 +9,8 @@ import rmi.RMIInterface;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.function.BooleanSupplier;
 
@@ -17,10 +19,12 @@ public class VotingTerminal {
     private static RMIInterface rmi;
     private static Scanner sc;
     private static Departamento departamento;
+    private static MesadeVoto mesadeVoto;
     private static Pessoa pessoa;
     private static Eleicao eleicao;
-    private static Lista lista;
     private static Model model;
+    private static String id;
+    private static String[] listas;
 
     public static void getProperty(String s1, BooleanSupplier call) {
         while (call.getAsBoolean())
@@ -62,6 +66,10 @@ public class VotingTerminal {
                 if ((departamento = (Departamento) escolheID("Departamentos", "o departamento onde está a votar")) == null)
                     return;
 
+                mesadeVoto = (MesadeVoto) rmi.get("Mesas_Voto", "departamento_id = " + departamento.getId());
+
+                sc.nextLine();
+
                 do {
                     getProperty("Insira o Username: ",
                             "Por favor insira um username com entre 8 a 20 caracteres.\n",
@@ -77,15 +85,16 @@ public class VotingTerminal {
                         return;
                 } while(rmi.query("Votos", "(ID)", "WHERE eleicao_id = " + eleicao.getId() + " && pessoa_id = " + pessoa.getId()).equals("not empty") || pessoa.check(eleicao));
 
-                boolean flag = true;
+                sc.nextLine();
 
                 do {
-                    System.out.print(rmi.query("Listas", "*", "WHERE eleicao_id = " + eleicao.getId() + " && tipo = " + pessoa.getTipo() + "s && ") +
-                            "VOTO BRANCO\n" +
-                            "VOTO NULO\n");
+                    if ((listas = rmi.votar(eleicao, pessoa)) == new String[0]) {
+                        System.out.print("Erro ao votar\n");
+                        return;
+                    }
+                } while ((id = rmi.votar(Arrays.copyOf(listas, listas.length-1), sc.nextLine())).equals("fail"));
 
-                } while(flag);
-
+                System.out.print(rmi.votar(id, eleicao, pessoa, mesadeVoto, new Date()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
