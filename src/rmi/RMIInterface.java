@@ -1,8 +1,6 @@
 package rmi;
 
 import models.Model;
-import models.organizacoes.Departamento;
-import models.organizacoes.Faculdade;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

@@ -25,7 +25,7 @@ public class AdminConsole {
     public static models.pessoas.Docente docente;
     public static models.pessoas.Funcionario funcionario;
     public static models.eleicoes.Eleicao eleicao;
-    public static models.listas.Lista lista;
+    public static models.Lista lista;
 
     public static void getProperty(String s1, BooleanSupplier call) {
         while (call.getAsBoolean())
@@ -181,5 +181,4 @@ public class AdminConsole {
             }
         }
     }
-
 }

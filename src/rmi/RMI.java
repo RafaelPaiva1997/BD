@@ -5,7 +5,7 @@ import models.Model;
 import models.eleicoes.ConselhoGeral;
 import models.eleicoes.Eleicao;
 import models.eleicoes.NucleoEstudantes;
-import models.listas.Lista;
+import models.Lista;
 import models.organizacoes.Departamento;
 import models.organizacoes.Faculdade;
 import models.pessoas.Aluno;

@@ -1,8 +1,5 @@
-package models.listas;
+package models;
 
-import models.Model;
-import models.pessoas.Aluno;
-import models.pessoas.Docente;
 import models.pessoas.Pessoa;
 
 import java.io.Serializable;

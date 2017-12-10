@@ -150,15 +150,15 @@ public class DatabaseHandler {
                     ")");
 
             statement.execute("CREATE TABLE Votos (" +
-                    "ID int NOT NULL auto_increment," +
+                    "ID int NOT NULL AUTO_INCREMENT," +
                     "pessoa_id int NOT NULL," +
                     "eleicao_id int NOT NULL," +
-                    "mesa_voto_id int NOT NULL, " +
-                    "data datetime NOT NULL, " +
+                    "mesa_voto_id int NOT NULL," +
+                    "data datetime NOT NULL," +
                     "PRIMARY KEY(ID)," +
                     "FOREIGN KEY(pessoa_id) REFERENCES Pessoas(ID)," +
-                    "FOREIGN KEY(eleicao_id) REFERENCES Eleicao(ID)," +
-                    "FOREIGN KEY(mesa_voto_id) REFERENCES Mesa_Votos(ID)," +
+                    "FOREIGN KEY(eleicao_id) REFERENCES Eleicoes(ID)," +
+                    "FOREIGN KEY(mesa_voto_id) REFERENCES Mesas_Voto(ID)," +
                     "UNIQUE(pessoa_id, eleicao_id)" +
                     ")");
 

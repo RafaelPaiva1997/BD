@@ -92,7 +92,7 @@ public class Lista {
 
         sc.nextLine();
 
-        lista = new models.listas.Lista();
+        lista = new models.Lista();
         lista.setEleicao_id(eleicao.getId());
 
         getProperty("Insira o Nome: ",
@@ -121,7 +121,7 @@ public class Lista {
     }
 
     public static void update() throws RemoteException {
-        if ((lista = (models.listas.Lista) escolheID("Listas", "a lista a editar")) == null)
+        if ((lista = (models.Lista) escolheID("Listas", "a lista a editar")) == null)
             return;
         sc.nextLine();
 
@@ -142,7 +142,7 @@ public class Lista {
     }
 
     public static void delete() throws RemoteException {
-        if ((lista = (models.listas.Lista) escolheID("Listas", "a lista a remover")) == null)
+        if ((lista = (models.Lista) escolheID("Listas", "a lista a remover")) == null)
             return;
 
         if (rmi.query("Lista_Pessoas", "(ID)", "WHERE lista_id = "  + lista.getId()).equals("not empty")) {
@@ -161,7 +161,7 @@ public class Lista {
     }
 
     public static void listPessoas() throws RemoteException {
-        if ((lista = (models.listas.Lista) escolheID("Listas", "a lista sobre a qual quer ver as pessoas")) == null)
+        if ((lista = (models.Lista) escolheID("Listas", "a lista sobre a qual quer ver as pessoas")) == null)
             return;
 
         printConnections("lista", "pessoa", lista.getId());

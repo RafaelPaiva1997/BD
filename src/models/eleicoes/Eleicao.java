@@ -52,6 +52,10 @@ public class Eleicao extends Model implements Serializable {
         return data_fim;
     }
 
+    public int getDepartamento_id() {
+        return departamento_id;
+    }
+
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }

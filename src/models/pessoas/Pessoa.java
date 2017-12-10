@@ -1,6 +1,7 @@
 package models.pessoas;
 
 import models.Model;
+import models.eleicoes.Eleicao;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
@@ -315,5 +316,9 @@ public class Pessoa extends Model implements Serializable {
                 "Validade CC: " + f.format(validade_cc) + "\n" +
                 "Género: " + genero + "\n" +
                 "Data Nascimento:" + f.format(data_nascimento) + "\n";
+    }
+
+    public boolean check(Eleicao eleicao) {
+        return eleicao.getTipo().equals("conselho geral") || eleicao.getTipo().equals("nucleo estudantes") && tipo.equals("aluno") && eleicao.getDepartamento_id() == departamento_id;
     }
 }
