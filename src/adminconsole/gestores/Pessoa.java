@@ -290,7 +290,7 @@ public class Pessoa {
         }
 
         SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
-        SimpleDateFormat f1 = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd");
 
         switch (r2.toLowerCase()) {
             case "nome":
@@ -442,7 +442,7 @@ public class Pessoa {
         System.out.print(pessoa.print());
         if (pessoa.getTipo().equals("aluno"))
             System.out.print(((Aluno) rmi.get("Alunos", "pessoa_id = " + pessoa.getId())).print());
-        else if (pessoa.getTipo().equals("aluno"))
+        else if (pessoa.getTipo().equals("docente"))
             System.out.print(((Docente) rmi.get("Docentes", "pessoa_id = " + pessoa.getId())).print());
         else
             System.out.print(((Funcionario) rmi.get("Funcionarios", "pessoa_id = " + pessoa.getId())).print());

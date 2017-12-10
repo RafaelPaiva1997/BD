@@ -34,6 +34,22 @@ public class Eleicao extends Model implements Serializable {
         }
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public Date getData_inicio() {
+        return data_inicio;
+    }
+
+    public Date getData_fim() {
+        return data_fim;
+    }
+
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }

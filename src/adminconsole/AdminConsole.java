@@ -86,7 +86,7 @@ public class AdminConsole {
                         "2 - Faculdades\n" +
                         "3 - Departamentos\n" +
                         "4 - Eleicoes\n" +
-                        "4 - Voltar\n",
+                        "5 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
                 new int[]{1, 2, 3, 4, 5},
                 new BooleanSupplier[]{
