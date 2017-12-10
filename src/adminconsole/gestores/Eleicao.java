@@ -79,23 +79,10 @@ public class Eleicao {
         if (r1 == 1)
             eleicao.setTipo("concelho geral");
         else {
-            eleicao.setTipo("nucleo de estudantes");
+            eleicao.setTipo("nucleo estudantes");
 
-            if (rmi.query("Departamentos", "(ID)", "").equals("empty")) {
-                System.out.print("Não existem departamentos, por favor insira um!");
+            if ((departamento = (models.organizacoes.Departamento) escolheID("Departamentos", "o departamento do nucleo de estudantes")) == null)
                 return;
-            }
-
-            getProperty(rmi.query("Departamentos", "*", " ") + "Insira o ID do departamento ao qual pretende adicionar uma pessoa: ",
-                    "Por favor insira um ID válido!\n",
-                    () -> {
-                        try {
-                            return (departamento = (models.organizacoes.Departamento) rmi.get("Departamentos", "ID = " + sc.nextInt())) == null;
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                            return true;
-                        }
-                    });
 
             eleicao.setDepartamento_id(departamento.getId());
         }
@@ -115,50 +102,51 @@ public class Eleicao {
     }
 
     public static void update() throws RemoteException {
-        if (rmi.query("Eleicoes", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem eleicoes, por favor insira uma!");
+        if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicoes", "a eleicao a editar")) == null)
             return;
-        }
 
-        getProperty(rmi.query("Eleicoes", "*", "") + "Insira o ID da eleicao a editar: ",
-                "Por favor insira um ID válido!",
-                () -> {
-                    try {
-                        return (eleicao = (models.eleicoes.Eleicao) rmi.get("Eleicoes", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
         sc.nextLine();
+
         getProperty("Escolha a propriedade a editar:\n" +
-                        "Titulo\n" +
-                        "Descricao\n" +
-                        "Data de inicio" +
-                        "Data de fim",
+                        "Titulo - Descricao\n" +
+                        "Data de inicio - Data de fim\n",
                 "Por favor insira um número correspondente a uma das propriedades disponíveis.\n",
-                () -> !contains(new String[]{"titulo", "descricao", "data de inicio", "data de fim"},
+                () -> !contains(new String[]{
+                                "título",
+                                "titulo",
+                                "descrição",
+                                "descricão",
+                                "descriçao",
+                                "descricao",
+                                "data de inicío",
+                                "data de inicio",
+                                "data de fim",
+                        },
                         (r2 = sc.nextLine())));
 
         SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd");
+
         switch (r2.toLowerCase()) {
             case "titulo":
                 getProperty("Por favor insira um titulo só com letras!\n",
                         () -> !eleicao.update("titulo", editProperty("Titulo", eleicao.getTitulo())));
                 rmi.update(eleicao);
                 break;
+
             case "descricao":
                 getProperty("Por favor insira um descricao só com letras!\n",
                         () -> !eleicao.update("descricao", editProperty("Descricao", eleicao.getDescricao())));
                 rmi.update(eleicao);
                 break;
+
             case "data de inicio":
                 System.out.println("Data de Inicio: " + f.format(eleicao.getData_inicio()));
                 eleicao.setData_inicio(Data.editData("a data de inicio", new models.Data(eleicao.getData_inicio())).export());
                 eleicao.update("data_inicio", "'" + f1.format(eleicao.getData_inicio()) + "'");
                 rmi.update(eleicao);
                 break;
+
             case "data de fim":
                 System.out.println("Data de Fim: " + f.format(eleicao.getData_fim()));
                 eleicao.setData_fim(Data.editData("a data de fim", new models.Data(eleicao.getData_fim())).export());
@@ -169,10 +157,9 @@ public class Eleicao {
     }
 
     public static void delete() throws RemoteException {
-        if (rmi.query("Eleicoes", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem eleicoes, por favor insira uma!");
+        if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicoes", "a eleicao a remover")) == null)
             return;
-        }
+
         getProperty(rmi.query("Eleicoes", "*", "") + "Insira o ID da eleicao a remover: ",
                 "Por favor insira um ID válido!",
                 () -> {
@@ -188,21 +175,8 @@ public class Eleicao {
     }
 
     public static void print() throws RemoteException {
-        if (rmi.query("Eleicoes", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem eleicoes, por favor insira uma!");
+        if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicoes", "a eleicao a inspecionar")) == null)
             return;
-        }
-
-        getProperty(rmi.query("Eleicoes", "*", "") ,
-                "Por favor insira um ID válido!",
-                () -> {
-                    try {
-                        return (eleicao = (models.eleicoes.Eleicao) rmi.get("Eleicoes", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
 
         System.out.print(eleicao.print());
 

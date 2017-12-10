@@ -62,17 +62,8 @@ public class Departamento {
 
     public static void insert() throws RemoteException {
 
-        getProperty(rmi.query("Faculdades","*", "") + "Insira o ID da faculdade à qual pretende adicionar um departamento: ",
-                "Por favor insira um ID válido!\n",
-                () -> {
-                    try {
-                        return (faculdade = (Faculdade) rmi.get("Faculdades", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
-
+        if ((faculdade = (models.organizacoes.Faculdade) escolheID("Faculdades", "a faculdade a inspecionar")) == null)
+            return;
         sc.nextLine();
 
         departamento = new models.organizacoes.Departamento();

@@ -125,4 +125,8 @@ public class Eleicao extends Model implements Serializable {
                 "Data Início: " + f.format(data_inicio) + "\n" +
                 "Data Fim: " + f.format(data_fim) + "\n";
     }
+
+    public String getTipo() {
+        return tipo;
+    }
 }

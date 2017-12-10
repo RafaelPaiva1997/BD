@@ -60,16 +60,8 @@ public class Lista {
                 });
     }
     public static void insert() throws RemoteException {
-        getProperty(rmi.query("Eleicoes", "*", "") + "Insira o ID da eleicao à qual pretende adicionar uma lista: ",
-                "Por favor insira um ID válido!\n",
-                () -> {
-                    try {
-                        return (eleicao = (models.eleicoes.Eleicao) rmi.get("Eleicoes", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
+        if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicoes", "a eleicao a qual quer adicionar uma lista")) == null)
+            return;
 
         sc.nextLine();
 
@@ -83,22 +75,8 @@ public class Lista {
         rmi.insert(lista);
     }
     public static void update() throws RemoteException {
-        if (rmi.query("Listas", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem listas, por favor insira um!");
+        if ((lista = (models.listas.Lista) escolheID("Listas", "a lista a editar")) == null)
             return;
-        }
-
-        getProperty(rmi.query("Listas", "*", "") + "Insira o ID da lista\n ",
-                "Por favor insira um ID válido!\n",
-                () -> {
-                    try {
-                        return (lista = (models.listas.Lista) rmi.get("Listas", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
-
         sc.nextLine();
 
         getProperty("Escolha a propriedade a editar:\n" +
@@ -118,17 +96,8 @@ public class Lista {
     }
 
     public static void delete() throws RemoteException {
-        getProperty(rmi.query("Listas", "*", "") + "Insira o ID da lista remover: ",
-                "Por favor insira um ID válido!\n",
-                () -> {
-                    try {
-                        return (lista = (models.listas.Lista) rmi.get("Listas", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
-
+        if ((lista = (models.listas.Lista) escolheID("Listas", "a lista a remover")) == null)
+            return;
         rmi.delete(lista);
     }
 
