@@ -49,7 +49,7 @@ public class Lista {
                         },
                         () -> {
                             try {
-                                System.out.print(rmi.query("Departamentos", "*", ""));
+                                System.out.print(rmi.query("Listas", "*", ""));
                                 return true;
                             } catch (RemoteException e) {
                                 e.printStackTrace();

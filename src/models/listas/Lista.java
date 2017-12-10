@@ -1,6 +1,9 @@
 package models.listas;
 
 import models.Model;
+import models.pessoas.Aluno;
+import models.pessoas.Docente;
+import models.pessoas.Pessoa;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
@@ -67,5 +70,13 @@ public class Lista extends Model implements Serializable {
     @Override
     public String toString() {
         return "LISTA " + tipo.toUpperCase() + " Nome: " + nome + " ID_Eleição: " + eleicao_id + "\n";
+    }
+
+    @Override
+    public boolean checkAdd(Model model) {
+        Pessoa pessoa = (Pessoa) model;
+        return tipo.equals("alunos") && pessoa.getTipo().equals("alunos") ||
+                tipo.equals("docentes") && pessoa.getTipo().equals("docente") ||
+                tipo.equals("docentes") && pessoa.getTipo().equals("docente");
     }
 }

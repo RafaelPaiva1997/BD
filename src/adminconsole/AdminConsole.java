@@ -91,7 +91,7 @@ public class AdminConsole {
             return;
 
 
-        if ((model2 =  escolheID(table2, s2)) == null)
+        if ((model2 =  escolheID(table2, s2)) == null || !model.checkAdd(model2))
             return;
     }
 
