@@ -128,7 +128,7 @@ public class Eleicao extends Model implements Serializable {
     }
 
     public boolean checkDates() {
-        return !data_inicio.before(data_fim);
+        return data_inicio.before(data_fim);
     }
 
     public String getTipo() {

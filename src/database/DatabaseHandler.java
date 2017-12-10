@@ -148,22 +148,6 @@ public class DatabaseHandler {
                     "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
                     ")");
 
-            statement.execute("CREATE TABLE Faculdade_Departamentos (" +
-                    "faculdade_id int NOT NULL," +
-                    "departamento_id int NOT NULL," +
-                    "PRIMARY KEY(faculdade_id, departamento_id)," +
-                    "FOREIGN KEY(faculdade_id) REFERENCES Faculdades(ID)," +
-                    "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
-                    ")");
-
-            statement.execute("CREATE TABLE Departamento_Pessoas (" +
-                    "departamento_id int NOT NULL," +
-                    "pessoa_id int NOT NULL," +
-                    "PRIMARY KEY(departamento_id, pessoa_id)," +
-                    "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)," +
-                    "FOREIGN KEY(pessoa_id) REFERENCES Pessoas(ID)" +
-                    ")");
-
             statement.execute("CREATE TABLE Lista_Pessoas (" +
                     "lista_id int NOT NULL," +
                     "pessoa_id int NOT NULL," +
