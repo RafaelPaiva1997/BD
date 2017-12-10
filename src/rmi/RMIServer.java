@@ -19,7 +19,7 @@ public class RMIServer {
                 DatabaseHandler databaseHandler = new DatabaseHandler(
                         "jdbc:mysql://" + args[1] + ":3306",
                         "BD",
-                        "username",g
+                        "username",
                         "password");
 
                 if (databaseHandler.register()) {
