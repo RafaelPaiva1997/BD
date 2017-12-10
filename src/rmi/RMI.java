@@ -43,6 +43,11 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
     }
 
     @Override
+    public boolean delete(String table, String query) throws RemoteException {
+        return databaseHandler.execute("DELETE FROM " + table + " WHERE " + query);
+    }
+
+    @Override
     public boolean connect(Model model1, Model model2) throws RemoteException {
         return databaseHandler.execute(model1.connect(model2));
     }

@@ -1,5 +1,6 @@
 package adminconsole.gestores;
 
+import models.MesadeVoto;
 import models.organizacoes.Faculdade;
 
 import java.rmi.RemoteException;
@@ -92,6 +93,7 @@ public class Departamento {
                 () -> !departamento.setNome(sc.nextLine()));
 
         rmi.insert(departamento);
+        rmi.insert(new MesadeVoto(rmi.get("Departamentos", "nome = '" + departamento.getNome() + "'").getId()));
     }
 
     public static void update() throws RemoteException {
@@ -142,5 +144,6 @@ public class Departamento {
                 });
 
         rmi.delete(departamento);
+        rmi.delete(rmi.get("Mesas_Voto", "departamento_id = " + departamento.getId()));
     }
 }
