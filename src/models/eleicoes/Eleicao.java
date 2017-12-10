@@ -59,6 +59,16 @@ public class Eleicao extends Model implements Serializable {
         return departamento_id;
     }
 
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+        updateType = "finished";
+        updateNew = String.valueOf(finished ? 1 : 0);
+    }
+
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
@@ -131,7 +141,8 @@ public class Eleicao extends Model implements Serializable {
                 "Título: " + titulo + "\n" +
                 "Descrição: " + descricao + "\n" +
                 "Data Início: " + f.format(data_inicio) + "\n" +
-                "Data Fim: " + f.format(data_fim) + "\n";
+                "Data Fim: " + f.format(data_fim) + "\n" +
+                "A Decorrer: " + (finished ? "Não" : "Sim") + "\n";
     }
 
     public boolean checkDates() {

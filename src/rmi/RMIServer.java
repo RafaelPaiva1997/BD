@@ -28,6 +28,8 @@ public class RMIServer {
                         rmi = new RMI(databaseHandler);
                         if (rmi.put(registry))
                             System.out.println("RMI está disponível!");
+                        DataChecker dataChecker = new DataChecker(rmi);
+                        dataChecker.start();
                     }
                 }
 

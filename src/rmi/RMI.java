@@ -259,6 +259,26 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
         return flag;
     }
 
+    @Override
+    public Eleicao[] getEleicoes(String query) throws RemoteException {
+        try {
+            ArrayList<Eleicao> eleicaos = new ArrayList<>();
+            ResultSet resultSet = databaseHandler.executeQuery("SELECT * FROM Eleicaos " + query);
+
+            if (!resultSet.next())
+                return new Eleicao[0];
+
+            do {
+                eleicaos.add(new Eleicao(resultSet));
+            } while (resultSet.next());
+
+            return eleicaos.toArray(new Eleicao[eleicaos.size()]);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Eleicao[0];
+        }
+    }
+
     public boolean put(Registry registry) {
         boolean flag = true;
         try {

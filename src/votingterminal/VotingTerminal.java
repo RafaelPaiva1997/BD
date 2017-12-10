@@ -101,6 +101,11 @@ public class VotingTerminal {
                         !pessoa.check(eleicao))
                     System.out.print("Insira um ID Válido");
 
+                if (eleicao.isFinished()) {
+                    System.out.print("Eleição não está a decorrer!");
+                    return;
+                }
+
                 sc.nextLine();
 
                 do {
@@ -118,7 +123,7 @@ public class VotingTerminal {
 
                 mesadeVoto.setWorking(false);
                 rmi.update(mesadeVoto);
-                
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
