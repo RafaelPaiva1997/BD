@@ -12,6 +12,35 @@ import static adminconsole.AdminConsole.*;
 
 public class Pessoa {
 
+    public static void escolheGenero() {
+        getProperty("Escolha um Género:\n" +
+                        "1 - Masculino\n" +
+                        "2 - Femenino\n" +
+                        "3 - Outro\n",
+                "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                () -> !contains(new int[]{1, 2, 3}, (r1 = sc.nextInt())));
+
+        try {
+            switch (r1) {
+                case 1:
+                    pessoa.setGenero("Masculino");
+                    break;
+
+                case 2:
+                    pessoa.setGenero("Feminino");
+                    break;
+
+                case 3:
+                    pessoa.setGenero("Outro");
+                    break;
+            }
+
+            sc.nextLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void menu() {
         gerir("MENU PESSOAS\n" +
                         "O que pretende fazer?\n" +
@@ -19,9 +48,10 @@ public class Pessoa {
                         "2 - Editar\n" +
                         "3 - Remover\n" +
                         "4 - Listar\n" +
-                        "5 - Voltar\n",
+                        "5 - Ver Detalhes\n" +
+                        "6 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
-                new int[]{1, 2, 3, 4, 5},
+                new int[]{1, 2, 3, 4, 5, 6},
                 new BooleanSupplier[]{
                         () -> {
                             try {
@@ -58,38 +88,17 @@ public class Pessoa {
                                 e.printStackTrace();
                                 return false;
                             }
+                        },
+                        () -> {
+                            try {
+                                print();
+                                return true;
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                                return false;
+                            }
                         }
                 });
-    }
-
-
-    public static void escolheGenero() {
-        getProperty("Escolha um Género:\n" +
-                        "1 - Masculino\n" +
-                        "2 - Femenino\n" +
-                        "3 - Outro\n",
-                "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                () -> !contains(new int[]{1, 2, 3}, (r1 = sc.nextInt())));
-
-        try {
-            switch (r1) {
-                case 1:
-                    pessoa.setGenero("Masculino");
-                    break;
-
-                case 2:
-                    pessoa.setGenero("Feminino");
-                    break;
-
-                case 3:
-                    pessoa.setGenero("Outro");
-                    break;
-            }
-
-            sc.nextLine();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static void insert() throws RemoteException {
@@ -411,5 +420,34 @@ public class Pessoa {
 
         rmi.delete(rmi.get(pessoa.getTipo() + "s", "pessoa_id = " + pessoa.getId()));
         rmi.delete(pessoa);
+    }
+
+    public static void print() throws RemoteException {
+        if (rmi.query("Pessoas", "(ID)", "").equals("empty")) {
+            System.out.print("Não existem pessoas, por favor insira uma!");
+            return;
+        }
+
+        getProperty(rmi.query("Pessoas", "*", "") + "Insira o ID da pessoa a remover: ",
+                "Por favor insira um ID válido!",
+                () -> {
+                    try {
+                        return (pessoa = (models.pessoas.Pessoa) rmi.get("Pessoas", "ID = " + sc.nextInt())) == null;
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                        return true;
+                    }
+                });
+
+        System.out.print(pessoa.print());
+        if (pessoa.getTipo().equals("aluno"))
+            System.out.print(((Aluno) rmi.get("Alunos", "pessoa_id = " + pessoa.getId())).print());
+        else if (pessoa.getTipo().equals("aluno"))
+            System.out.print(((Docente) rmi.get("Docentes", "pessoa_id = " + pessoa.getId())).print());
+        else
+            System.out.print(((Funcionario) rmi.get("Funcionarios", "pessoa_id = " + pessoa.getId())).print());
+
+        sc.nextLine();
+        sc.nextLine();
     }
 }

@@ -59,9 +59,12 @@ public class Docente extends Model implements Serializable {
         return flag;
     }
 
-
     @Override
     public String sqlInsert() {
         return sqlInsert("pessoa_id, cargo",pessoa_id + "," + cargo + "'");
+    }
+
+    public String print() {
+        return "Cargo: " + cargo + "\n";
     }
 }

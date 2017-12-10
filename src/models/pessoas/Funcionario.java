@@ -65,4 +65,7 @@ public class Funcionario extends Model implements Serializable {
         return sqlInsert("pessoa_id, funcao",pessoa_id + "," + funcao + "'");
     }
 
+    public String print() {
+        return "Função: " + funcao + "\n";
+    }
 }

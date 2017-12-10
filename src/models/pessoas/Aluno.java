@@ -72,8 +72,7 @@ public class Aluno extends Model implements Serializable {
             case "curso":
                 flag = setCurso(updateNew);
                 break;
-            case "nº aluno":
-            case "no aluno":
+            case "numero_aluno":
                 flag = setNumeroAluno(updateNew);
                 break;
         }
@@ -83,5 +82,10 @@ public class Aluno extends Model implements Serializable {
     @Override
     public String sqlInsert() {
         return sqlInsert("pessoa_id, numero_aluno, curso", pessoa_id + "," + numero_aluno + ",'" + curso + "'");
+    }
+
+    public String print() {
+        return "Nº Aluno: " + numero_aluno + "\n" +
+                "Curso: " + curso + "\n";
     }
 }
