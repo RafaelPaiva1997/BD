@@ -102,12 +102,16 @@ public class Eleicao extends Model implements Serializable {
         switch (updateType) {
             case "titulo":
                 flag = setTitulo(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
             case "descricao":
                 flag = setDescricao(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
             case "data_inicio":
+                this.updateNew = "'" + updateNew + "'";
             case "data_fim":
+                this.updateNew = "'" + updateNew + "'";
                 flag = true;
                 break;
         }

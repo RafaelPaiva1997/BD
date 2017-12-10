@@ -55,6 +55,7 @@ public class Funcionario extends Model implements Serializable {
         switch (updateType) {
             case "funcao":
                 flag = setFuncao(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
         }
         return flag;

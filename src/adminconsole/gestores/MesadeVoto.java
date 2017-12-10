@@ -72,5 +72,6 @@ public class MesadeVoto {
 
     public static void removeEleicao() throws RemoteException {
         escolheModels("Mesa_Votos", "Eleicaos", "a mesa de voto da qual pretende remover uma eleicao", "a eleicao a remover");
+        rmi.disconnect(mesadeVoto,eleicao);
     }
 }

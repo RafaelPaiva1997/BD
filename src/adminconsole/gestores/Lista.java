@@ -158,6 +158,7 @@ public class Lista {
 
     public static void addPessoas() throws RemoteException {
         add("Listas", "Pessoas", "a lista à qual pretende adicionar uma pessoa", "a pessoa a adicionar");
+        rmi.connect(lista, pessoa);
     }
 
     public static void listPessoas() throws RemoteException {
@@ -168,6 +169,7 @@ public class Lista {
     }
 
     public static void removePessoas() throws RemoteException {
-        remove("Listas", "Pessoas", "a lista à qual pretende adicionar uma pessoa", "a pessoa a adicionar");
+        remove("Listas", "Pessoas", "a lista à qual pretende remover uma pessoa", "a pessoa a remover");
+        rmi.disconnect(lista, pessoa);
     }
 }

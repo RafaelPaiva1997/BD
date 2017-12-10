@@ -56,6 +56,8 @@ public class Docente extends Model implements Serializable {
         switch (updateType) {
             case "curso":
                 flag = setCargo(updateNew);
+                this.updateNew = "'" + updateNew + "'";
+                break;
         }
         return flag;
     }

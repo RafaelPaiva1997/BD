@@ -72,9 +72,11 @@ public class Aluno extends Model implements Serializable {
         switch (updateType) {
             case "curso":
                 flag = setCurso(updateNew);
+                this.updateNew = "'" + updateNew + "'";
                 break;
             case "numero_aluno":
                 flag = setNumeroAluno(updateNew);
+                this.updateNew = updateNew;
                 break;
         }
         return flag;
