@@ -84,8 +84,6 @@ public class Eleicao {
                 "Por favor insira um número correspondente a um dos tipos disponíveis.\n",
                 () -> !contains(new int[]{1, 2}, r1 = sc.nextInt()));
 
-        sc.nextLine();
-
         if (r1 == 1)
             eleicao = new ConselhoGeral();
         else {

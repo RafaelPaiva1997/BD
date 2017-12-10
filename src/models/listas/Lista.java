@@ -36,6 +36,10 @@ public class Lista extends Model implements Serializable {
         return nome;
     }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public boolean setNome(String nome) {
         boolean flag = true;
         if (lenghtMaior(nome, 0) &&
@@ -75,8 +79,8 @@ public class Lista extends Model implements Serializable {
     @Override
     public boolean checkAdd(Model model) {
         Pessoa pessoa = (Pessoa) model;
-        return tipo.equals("alunos") && pessoa.getTipo().equals("alunos") ||
+        return tipo.equals("alunos") && pessoa.getTipo().equals("aluno") ||
                 tipo.equals("docentes") && pessoa.getTipo().equals("docente") ||
-                tipo.equals("docentes") && pessoa.getTipo().equals("docente");
+                tipo.equals("funcionarios") && pessoa.getTipo().equals("funcionario");
     }
 }
