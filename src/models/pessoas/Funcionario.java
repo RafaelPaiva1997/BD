@@ -1,18 +1,14 @@
 package models.pessoas;
 
 import models.Model;
-import rmi.RMIServer;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-/**
- * Created by Johny on 08/12/2017.
- */
+
 public class Funcionario extends Model implements Serializable {
 
-    private static int pessoa_id;
+    private int pessoa_id;
     private String funcao;
 
     public Funcionario() {

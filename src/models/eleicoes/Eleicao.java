@@ -26,7 +26,8 @@ public class Eleicao extends Model implements Serializable {
             table = "Eleicoes";
             tipo = resultSet.getString("tipo");
             titulo = resultSet.getString("titulo");
-
+            data_inicio = resultSet.getDate("data_inicio");
+            data_fim = resultSet.getDate("data_fim");
         } catch (SQLException e) {
             e.printStackTrace();
         }

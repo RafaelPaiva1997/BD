@@ -2,9 +2,14 @@ package rmi;
 
 import database.DatabaseHandler;
 import models.Model;
+import models.eleicoes.ConselhoGeral;
+import models.eleicoes.NucleoEstudantes;
+import models.listas.Lista;
 import models.organizacoes.Departamento;
 import models.organizacoes.Faculdade;
 import models.pessoas.Aluno;
+import models.pessoas.Docente;
+import models.pessoas.Funcionario;
 import models.pessoas.Pessoa;
 
 import java.rmi.RemoteException;
@@ -56,16 +61,23 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                 switch (table.toLowerCase()) {
                     case "faculdades":
                         return new Faculdade(resultSet);
-
                     case "departamentos":
                         return new Departamento(resultSet);
-
                     case "pessoas":
                         return new Pessoa(resultSet);
-
                     case "alunos":
                         return new Aluno(resultSet);
-
+                    case "docentes":
+                        return new Docente(resultSet);
+                    case "funcionarios":
+                        return new Funcionario(resultSet);
+                    case "listas":
+                        return new Lista(resultSet);
+                    case "eleicoes":
+                        if (resultSet.getString("tipo").equals("conselho-geral"))
+                            return new ConselhoGeral(resultSet);
+                        else
+                            return new NucleoEstudantes(resultSet);
                     default:
                         return null;
                 }

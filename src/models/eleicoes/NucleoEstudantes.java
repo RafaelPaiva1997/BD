@@ -1,13 +1,23 @@
 package models.eleicoes;
 
-import models.organizacoes.Departamento;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-/**
- * Created by Johny on 09/12/2017.
- */
 public class NucleoEstudantes extends Eleicao {
 
     private int departamento_id;
+
+    public NucleoEstudantes() {
+    }
+
+    public NucleoEstudantes(ResultSet resultSet) {
+        super(resultSet);
+        try {
+            departamento_id = resultSet.getInt("departamento_id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public String sqlInsert() {

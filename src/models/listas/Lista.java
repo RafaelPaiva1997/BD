@@ -1,14 +1,10 @@
 package models.listas;
 
 import models.Model;
-import models.eleicoes.Eleicao;
-import models.pessoas.Pessoa;
-import models.Voto;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 
 public class Lista extends Model implements Serializable {
 
