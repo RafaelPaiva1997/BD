@@ -1,25 +1,31 @@
 package models;
 
-import models.eleicoes.Eleicao;
-import models.organizacoes.Departamento;
-import models.pessoas.Pessoa;
-
 import java.io.Serializable;
-import java.util.LinkedList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-/**
- * Created by Johny on 09/12/2017.
- */
 public class MesadeVoto extends Model implements Serializable {
-    private Departamento departamento;
-    private boolean[] logins;
-    private LinkedList<Pessoa> pessoas;
-    private LinkedList<Eleicao> eleicoes;
-    private LinkedList<Voto> votos;
 
+    private int departamento_id;
+    private boolean working;
 
-    @Override
+    public MesadeVoto() {
+        super();
+        table = "Mesas_Voto";
+    }
+
+    public MesadeVoto(ResultSet resultSet) {
+        super(resultSet);
+        try {
+            table = "Mesas_Voto";
+            departamento_id = resultSet.getInt("departamento_id");
+            working = resultSet.getBoolean("working");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String sqlInsert() {
-        return null;
+        return sqlInsert("departamento_id, working", departamento_id + "," + (working ? 1 : 0));
     }
 }
