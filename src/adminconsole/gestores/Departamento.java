@@ -61,9 +61,9 @@ public class Departamento {
     }
 
     public static void insert() throws RemoteException {
-
-        if ((faculdade = (models.organizacoes.Faculdade) escolheID("Faculdades", "a faculdade a inspecionar")) == null)
+        if ((faculdade = (models.organizacoes.Faculdade) escolheID("Faculdades", "a faculdade a qual pretende adicionar um departamento")) == null)
             return;
+
         sc.nextLine();
 
         departamento = new models.organizacoes.Departamento();
@@ -78,21 +78,8 @@ public class Departamento {
     }
 
     public static void update() throws RemoteException {
-        if (rmi.query("Departamentos", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem departamentos, por favor insira um!");
+        if ((departamento = (models.organizacoes.Departamento) escolheID("Departamentos", "o departamento a editar")) == null)
             return;
-        }
-
-        getProperty(rmi.query("Departamentos", "*", "") + "Insira o ID do departamento a remover: ",
-                "Por favor insira um ID válido!\n",
-                () -> {
-                    try {
-                        return (departamento = (models.organizacoes.Departamento) rmi.get("Departamentos", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
 
         sc.nextLine();
 
@@ -113,21 +100,8 @@ public class Departamento {
     }
 
     public static void delete() throws RemoteException {
-        if (rmi.query("Departamentos", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem departamentos, por favor insira um!");
+        if ((departamento = (models.organizacoes.Departamento) escolheID("Departamentos", "o departamento a remover")) == null)
             return;
-        }
-
-        getProperty(rmi.query("Departamentos", "*", "") + "Insira o ID do departamento a remover: ",
-                "Por favor insira um ID válido!\n",
-                () -> {
-                    try {
-                        return (departamento = (models.organizacoes.Departamento) rmi.get("Departamentos", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
 
         rmi.delete(departamento);
         rmi.delete("Mesas_Voto", "departamento_id = " + departamento.getId());

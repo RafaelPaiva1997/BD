@@ -1,9 +1,6 @@
 package adminconsole;
 
-import adminconsole.gestores.Departamento;
-import adminconsole.gestores.Faculdade;
-import adminconsole.gestores.Pessoa;
-import adminconsole.gestores.Eleicao;
+import adminconsole.gestores.*;
 import models.Model;
 import rmi.RMIInterface;
 
@@ -70,7 +67,7 @@ public class AdminConsole {
 
     public static Model escolheID(String table, String show) throws RemoteException {
         if (rmi.query(table, "(ID)", "").equals("empty")) {
-            System.out.print("Não existem " + table + ", por favor insira uma!");
+            System.out.print("Não existem " + table.toLowerCase() + ", por favor insira uma!");
             return null;
         }
 
@@ -110,9 +107,10 @@ public class AdminConsole {
                         "2 - Faculdades\n" +
                         "3 - Departamentos\n" +
                         "4 - Eleicoes\n" +
-                        "5 - Voltar\n",
+                        "5 - Listas\n" +
+                        "6 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
-                new int[]{1, 2, 3, 4, 5},
+                new int[]{1, 2, 3, 4, 5, 6},
                 new BooleanSupplier[]{
                         () -> {
                             Pessoa.menu();
@@ -130,11 +128,13 @@ public class AdminConsole {
                             Eleicao.menu();
                             return true;
                         },
+                        () -> {
+                            Lista.menu();
+                            return true;
+                        }
 
                 });
     }
-
-
 
     public static void main(String[] args) {
         if (args.length == 2) {

@@ -102,21 +102,8 @@ public class Pessoa {
     }
 
     public static void insert() throws RemoteException {
-        if (rmi.query("Departamentos", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem departamentos, por favor insira um!");
+        if ((departamento = (models.organizacoes.Departamento) escolheID("Departamentos", "o departamento ao qual pretende adicionar uma pessoa")) == null)
             return;
-        }
-
-        getProperty(rmi.query("Departamentos", "*", " ") + "Insira o ID do departamento ao qual pretende adicionar uma pessoa: ",
-                "Por favor insira um ID válido!\n",
-                () -> {
-                    try {
-                        return (departamento = (models.organizacoes.Departamento) rmi.get("Departamentos", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
 
         sc.nextLine();
 
@@ -209,21 +196,8 @@ public class Pessoa {
     }
 
     public static void update() throws RemoteException {
-        if (rmi.query("Pessoas", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem pessoas, por favor insira uma!");
+        if ((pessoa = (models.pessoas.Pessoa) escolheID("Pessoas", "a pessoa a editar")) == null)
             return;
-        }
-
-        getProperty(rmi.query("Pessoas","*", "") + "Insira o ID da pessoa a editar: ",
-                "Por favor insira um ID válido!",
-                () -> {
-                    try {
-                        return (pessoa = (models.pessoas.Pessoa) rmi.get("Pessoas", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
 
         try {
 
@@ -406,23 +380,10 @@ public class Pessoa {
 
 
     public static void delete() throws RemoteException {
-        if (rmi.query("Pessoas", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem pessoas, por favor insira uma!");
+        if ((pessoa = (models.pessoas.Pessoa) escolheID("Pessoas", "a pessoa a remover")) == null)
             return;
-        }
 
-        getProperty(rmi.query("Pessoas", "*", "") + "Insira o ID da pessoa a remover: ",
-                "Por favor insira um ID válido!",
-                () -> {
-                    try {
-                        return (pessoa = (models.pessoas.Pessoa) rmi.get("Pessoas", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
-
-        rmi.delete(rmi.get(pessoa.getTipo() + "s", "pessoa_id = " + pessoa.getId()));
+        rmi.delete(pessoa.getTipo() + "s", "pessoa_id = " + pessoa.getId());
         rmi.delete(pessoa);
     }
 

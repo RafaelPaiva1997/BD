@@ -81,21 +81,8 @@ public class Faculdade {
     }
 
     public static void update() throws RemoteException {
-        if (rmi.query("Faculdades", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem faculdades, por favor insira uma!");
+        if ((faculdade = (models.organizacoes.Faculdade) escolheID("Faculdades", "a faculdade a editar")) == null)
             return;
-        }
-
-        getProperty(rmi.query("Faculdades", "*", "") + "Insira o ID da faculdade a editar: ",
-                "Por favor insira um ID válido!\n",
-                () -> {
-                    try {
-                        return (faculdade = (models.organizacoes.Faculdade) rmi.get("Faculdades", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
 
         sc.nextLine();
 
@@ -116,16 +103,8 @@ public class Faculdade {
     }
 
     public static void delete() throws RemoteException {
-        getProperty(rmi.query("Faculdades", "*", "") + "Insira o ID da faculdade a remover: ",
-                "Por favor insira um ID válido!\n",
-                () -> {
-                    try {
-                        return (faculdade = (models.organizacoes.Faculdade) rmi.get("Faculdades", "ID = " + sc.nextInt())) == null;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                });
+        if ((faculdade = (models.organizacoes.Faculdade) escolheID("Faculdades", "a faculdade a remover")) == null)
+            return;
 
         rmi.delete(faculdade);
     }
