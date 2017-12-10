@@ -123,26 +123,21 @@ public class Pessoa {
                 "Por favor insira uma password entre 8 a 20 caracteres.\n",
                 () -> !pessoa.setPassword(sc.nextLine()));
 
-
         getProperty("Insira o número de telemóvel: ",
                 "Por favor insira um telemóvel com apenas 9 dígitos.\n",
                 () -> !pessoa.setTelemovel(sc.nextLine()));
-
 
         getProperty("Insira uma Morada: ",
                 "Por favor insira pelo menos 1 carater na morada.\n",
                 () -> !pessoa.setMorada(sc.nextLine()));
 
-
         getProperty("Insira o Código Postal: ",
                 "Por favor insira um código postal neste formato '0000-000.\n",
                 () -> !pessoa.setCodigo_postal(sc.nextLine()));
 
-
         getProperty("Insira Localidade: ",
                 "Por favor insira um telemóvel com pelo menos 1 carater.\n",
                 () -> !pessoa.setLocalidade(sc.nextLine()));
-
 
         getProperty("Insira o número do Cartão de Cidadão: ",
                 "Por favor insira um número de cartão de cidadão com apenas 8 digítos.\n",
@@ -166,7 +161,7 @@ public class Pessoa {
         if (r1 == 1) {
             pessoa.setTipo("aluno");
             rmi.insert(pessoa);
-            aluno = new Aluno(rmi.get("Pessoas", "nome = '" + pessoa.getNome() + "'").getId());
+            aluno = new Aluno(rmi.get("Pessoas",  "numero_cc = " + pessoa.getNumero_cc()).getId());
 
             getProperty("Insira o Número de Aluno: ",
                     "Por favor insira um número de aluno com apenas 10 digitos.\n",
@@ -180,7 +175,7 @@ public class Pessoa {
         } else if (r1 == 2) {
             pessoa.setTipo("docente");
             rmi.insert(pessoa);
-            docente = new Docente(rmi.get("Pessoas", "nome = '" + pessoa.getNome() + "'").getId());
+            docente = new Docente(rmi.get("Pessoas",  "numero_cc = " + pessoa.getNumero_cc()).getId());
 
             getProperty("Insira o Cargo: ",
                     "Por favora insira o cargo usando apenas letras.\n",
@@ -190,7 +185,7 @@ public class Pessoa {
         } else {
             pessoa.setTipo("funcionario");
             rmi.insert(pessoa);
-            funcionario = new Funcionario(rmi.get("Pessoas", "nome = '" + pessoa.getNome() + "'").getId());
+            funcionario = new Funcionario(rmi.get("Pessoas", "numero_cc = " + pessoa.getNumero_cc()).getId());
 
             getProperty("Insira a Função: ",
                     "Por favora insira a função usando apenas letras.\n",
