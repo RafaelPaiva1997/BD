@@ -7,7 +7,7 @@ import static adminconsole.AdminConsole.*;
 
 public class Lista {
     public static void menu() {
-        gerir("MENU DEPARTAMENTOS\n" +
+        gerir("MENU LISTAS\n" +
                         "O que pretende fazer?\n" +
                         "1 - Adicionar\n" +
                         "2 - Editar\n" +
