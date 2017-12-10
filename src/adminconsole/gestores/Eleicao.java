@@ -1,13 +1,15 @@
 package adminconsole.gestores;
 
 
+import models.Lista;
+import models.Voto;
 import models.eleicoes.ConselhoGeral;
 import models.eleicoes.NucleoEstudantes;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.function.BooleanSupplier;
 import java.text.SimpleDateFormat;
-
 
 import static adminconsole.AdminConsole.*;
 
@@ -195,6 +197,34 @@ public class Eleicao {
             return;
 
         System.out.print(eleicao.print());
+
+        if (eleicao.getData_fim().before(new Date())) {
+            Lista[] listas = rmi.getListas("WHERE eleicao_id = " + eleicao.getId());
+            Voto[] votos = rmi.getVotos("WHERE eleicao_id = " + eleicao.getId());
+
+            int contador1 = 0;
+            int contador2 = 0;
+            int contador3 = 0;
+            int contador4 = 0;
+
+            for (Voto v : votos) {
+                if (v.getTipo().equals("nulo"))
+                    contador2++;
+                else {
+                    contador1++;
+                    if (v.getTipo().equals("branco"))
+                        contador4++;
+                }
+            }
+
+            System.out.println("Dados Finais: ");
+            for (Lista l : listas)
+                System.out.print(l.toString() + " Nº Votos: " + (contador3 = rmi.queryInt("Lista_Votos", "*", "WHERE lista_id = " + l.getId())) + " Percentagem: " + contador3/contador1*100 + "%");
+            System.out.println("Total Votos Brancos: " + contador4 + " Percentagem: " + contador4/contador1*100 + "%");
+            System.out.println("Total Votos: " + contador1);
+            System.out.println("Total Votos Nulos: " + contador2);
+            System.out.println("Total Votos + Total Votos Nulos: " + (contador1 + contador2));
+        }
 
         sc.nextLine();
         sc.nextLine();

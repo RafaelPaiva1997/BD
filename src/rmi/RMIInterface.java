@@ -3,6 +3,7 @@ package rmi;
 import models.Lista;
 import models.MesadeVoto;
 import models.Model;
+import models.Voto;
 import models.eleicoes.Eleicao;
 import models.pessoas.Pessoa;
 
@@ -41,4 +42,8 @@ public interface RMIInterface extends Remote {
     Eleicao[] getEleicoes(String query) throws RemoteException;
 
     MesadeVoto[] getMesasVoto(String query) throws RemoteException;
+
+    Lista[] getListas(String query) throws RemoteException;
+
+    Voto[] getVotos(String query) throws RemoteException;
 }

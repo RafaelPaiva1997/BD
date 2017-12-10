@@ -314,6 +314,45 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
         }
     }
 
+    @Override
+    public Lista[] getListas(String query) throws RemoteException {
+        try {
+            ArrayList<Lista> listas = new ArrayList<>();
+            ResultSet resultSet = databaseHandler.executeQuery("SELECT * FROM Listas " + query);
+
+            if (!resultSet.next())
+                return new Lista[0];
+
+            do {
+                listas.add(new Lista(resultSet));
+            } while (resultSet.next());
+
+            return listas.toArray(new Lista[listas.size()]);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Lista[0];
+        }
+    }
+
+    @Override
+    public Voto[] getVotos(String query) throws RemoteException {
+        try {
+            ArrayList<Voto> votos = new ArrayList<>();
+            ResultSet resultSet = databaseHandler.executeQuery("SELECT * FROM Votos " + query);
+
+            if (!resultSet.next())
+                return new Voto[0];
+
+            do {
+                votos.add(new Voto(resultSet));
+            } while (resultSet.next());
+
+            return votos.toArray(new Voto[votos.size()]);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Voto[0];
+        }    }
+
     public boolean put(Registry registry) {
         boolean flag = true;
         try {
