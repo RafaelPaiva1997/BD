@@ -87,7 +87,7 @@ public class Lista {
     }
 
     public static void insert() throws RemoteException {
-        if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicoes", "a eleicao a qual pretende adicionar uma lista")) == null)
+        if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicaos", "a eleicao a qual pretende adicionar uma lista")) == null)
             return;
 
         sc.nextLine();

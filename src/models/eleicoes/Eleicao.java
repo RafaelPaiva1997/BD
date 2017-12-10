@@ -20,14 +20,14 @@ public class Eleicao extends Model implements Serializable {
 
     public Eleicao() {
         super();
-        table = "Eleicoes";
+        table = "Eleicaos";
         finished = false;
     }
 
     public Eleicao(ResultSet resultSet) {
         super(resultSet);
         try {
-            table = "Eleicoes";
+            table = "Eleicaos";
             finished = resultSet.getBoolean("finished");
             tipo = resultSet.getString("tipo");
             titulo = resultSet.getString("titulo");

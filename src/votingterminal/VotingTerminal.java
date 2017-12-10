@@ -56,6 +56,10 @@ public class VotingTerminal {
         return model;
     }
 
+    public static void printConnections(String table1, String table2, int id) throws RemoteException {
+        rmi.query(table1 + "_" + table2 + "s", table2 + ".*", "INNER JOIN " + table1 + "_" + table2 + "s." + table1 + "_id = " + id + table1 + "_" + table2 + "s." + table2 + "_id = " + table2 + "s.ID");
+    }
+
     public static void main(String[] args) {
         if (args.length == 2) {
             try {
@@ -78,12 +82,15 @@ public class VotingTerminal {
                     getProperty("Insira a Password: ",
                             "Por favor insira uma password entre 8 a 20 caracteres.\n",
                             () -> !pessoa.setPassword(sc.nextLine()));
-                } while ((pessoa = (Pessoa) rmi.get("Pessoas", "username = '" + pessoa.getUsername() + "' && password = '" + pessoa.getPassword() + "'")) == null);
+                }
+                while ((pessoa = (Pessoa) rmi.get("Pessoas", "username = '" + pessoa.getUsername() + "' && password = '" + pessoa.getPassword() + "'")) == null);
 
-                do {
-                    if ((eleicao = (Eleicao) escolheID("Eleicoes", "a eleição na qual pretende votar")) == null)
-                        return;
-                } while(rmi.query("Votos", "(ID)", "WHERE eleicao_id = " + eleicao.getId() + " && pessoa_id = " + pessoa.getId()).equals("not empty") || !pessoa.check(eleicao));
+                System.out.print("Insira o ID da eleição na qual pretende votar: \n");
+                printConnections("Mesa_Voto", "Eleicao", mesadeVoto.getId());
+                while (rmi.query("Mesa_Voto_Eleicaos", "(ID)", "INNER JOIN Eleicaos ON Mesa_Voto_Eleicaos.mesa_voto_id = " + mesadeVoto.getId() + " && Mesa_Voto_Eleicaos.eleicao_id = Eleicaos.ID").equals("empty") ||
+                        ((eleicao = (Eleicao) rmi.get("Eleicaos", "ID = " + sc.nextInt())) == null) ||
+                        !pessoa.check(eleicao))
+                    System.out.print("Insira um ID Válido");
 
                 sc.nextLine();
 
@@ -92,8 +99,8 @@ public class VotingTerminal {
                         System.out.print("Erro ao votar\n");
                         return;
                     }
-                    System.out.print(listas[listas.length-1]);
-                } while ((id = rmi.votar(Arrays.copyOf(listas, listas.length-1), sc.nextLine())).equals("fail"));
+                    System.out.print(listas[listas.length - 1]);
+                } while ((id = rmi.votar(Arrays.copyOf(listas, listas.length - 1), sc.nextLine())).equals("fail"));
 
                 System.out.print(rmi.votar(id, eleicao, pessoa, mesadeVoto, new Date()));
             } catch (Exception e) {

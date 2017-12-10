@@ -116,7 +116,7 @@ public class Eleicao {
     }
 
     public static void update() throws RemoteException {
-        if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicoes", "a eleicao a editar")) == null)
+        if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicaos", "a eleicao a editar")) == null)
             return;
 
         sc.nextLine();
@@ -178,14 +178,14 @@ public class Eleicao {
     }
 
     public static void delete() throws RemoteException {
-        if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicoes", "a eleicao a remover")) == null)
+        if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicaos", "a eleicao a remover")) == null)
             return;
 
         rmi.delete(eleicao);
     }
 
     public static void print() throws RemoteException {
-        if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicoes", "a eleicao a inspecionar")) == null)
+        if ((eleicao = (models.eleicoes.Eleicao) escolheID("Eleicaos", "a eleicao a inspecionar")) == null)
             return;
 
         System.out.print(eleicao.print());

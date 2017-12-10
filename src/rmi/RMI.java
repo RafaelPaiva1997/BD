@@ -151,6 +151,7 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                     }
                     break;
 
+                case "mesa_voto_eleicoes":
                 case "eleicoes":
                     Eleicao eleicao;
                     s.append("Eleições: \n");
