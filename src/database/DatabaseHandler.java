@@ -126,6 +126,7 @@ public class DatabaseHandler {
                     "descricao text NOT NULL," +
                     "data_inicio datetime NOT NULL," +
                     "data_fim datetime NOT NULL," +
+                    "finished bit NOT NULL," +
                     "departamento_id int," +
                     "PRIMARY KEY(ID)," +
                     "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
@@ -161,6 +162,14 @@ public class DatabaseHandler {
                     "FOREIGN KEY(eleicao_id) REFERENCES Eleicoes(ID)," +
                     "FOREIGN KEY(mesa_voto_id) REFERENCES Mesas_Voto(ID)," +
                     "UNIQUE(pessoa_id, eleicao_id)" +
+                    ")");
+
+            statement.execute("CREATE TABLE Mesa_Voto_Eleicoes (" +
+                    "mesa_voto_id int NOT NULL," +
+                    "eleicao_id int NOT NULL," +
+                    "PRIMARY KEY(mesa_voto_id, eleicao_id)," +
+                    "FOREIGN KEY(mesa_voto_id) REFERENCES Mesas_Voto(ID)," +
+                    "FOREIGN KEY(eleicao_id) REFERENCES Eleicoes(ID)" +
                     ")");
 
             statement.execute("CREATE TABLE Lista_Votos (" +

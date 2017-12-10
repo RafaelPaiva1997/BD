@@ -58,6 +58,6 @@ public class Voto extends Model implements Serializable {
 
     @Override
     public String sqlInsert() {
-        return sqlInsert("(tipo, pessoa_id, eleicao_id, mesa_voto_id)", "'" + tipo + "'," + pessoa_id + "," + eleicao_id + "," + mesa_voto_id + "," + dateToSqlDateTime(data));
+        return sqlInsert("tipo, pessoa_id, eleicao_id, mesa_voto_id, data", "'" + tipo + "'," + pessoa_id + "," + eleicao_id + "," + mesa_voto_id + "," + dateToSqlDateTime(data));
     }
 }

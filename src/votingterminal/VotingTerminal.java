@@ -78,12 +78,12 @@ public class VotingTerminal {
                     getProperty("Insira a Password: ",
                             "Por favor insira uma password entre 8 a 20 caracteres.\n",
                             () -> !pessoa.setPassword(sc.nextLine()));
-                } while ((pessoa = (Pessoa) rmi.get("Pesoas", "WHERE username = " + pessoa.getUsername() + " && password = " + pessoa.getPassword())) == null);
+                } while ((pessoa = (Pessoa) rmi.get("Pessoas", "username = '" + pessoa.getUsername() + "' && password = '" + pessoa.getPassword() + "'")) == null);
 
                 do {
                     if ((eleicao = (Eleicao) escolheID("Eleicoes", "a eleição na qual pretende votar")) == null)
                         return;
-                } while(rmi.query("Votos", "(ID)", "WHERE eleicao_id = " + eleicao.getId() + " && pessoa_id = " + pessoa.getId()).equals("not empty") || pessoa.check(eleicao));
+                } while(rmi.query("Votos", "(ID)", "WHERE eleicao_id = " + eleicao.getId() + " && pessoa_id = " + pessoa.getId()).equals("not empty") || !pessoa.check(eleicao));
 
                 sc.nextLine();
 
@@ -92,6 +92,7 @@ public class VotingTerminal {
                         System.out.print("Erro ao votar\n");
                         return;
                     }
+                    System.out.print(listas[listas.length-1]);
                 } while ((id = rmi.votar(Arrays.copyOf(listas, listas.length-1), sc.nextLine())).equals("fail"));
 
                 System.out.print(rmi.votar(id, eleicao, pessoa, mesadeVoto, new Date()));

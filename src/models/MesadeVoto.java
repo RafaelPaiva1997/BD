@@ -16,6 +16,7 @@ public class MesadeVoto extends Model implements Serializable {
     }
 
     public MesadeVoto(int departamento_id) {
+        super();
         table = "Mesas_Voto";
         this.departamento_id = departamento_id;
         working = false;

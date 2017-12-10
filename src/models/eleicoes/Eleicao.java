@@ -16,16 +16,19 @@ public class Eleicao extends Model implements Serializable {
     protected Date data_inicio;
     protected Date data_fim;
     protected int departamento_id;
+    protected boolean finished;
 
     public Eleicao() {
         super();
         table = "Eleicoes";
+        finished = false;
     }
 
     public Eleicao(ResultSet resultSet) {
         super(resultSet);
         try {
             table = "Eleicoes";
+            finished = resultSet.getBoolean("finished");
             tipo = resultSet.getString("tipo");
             titulo = resultSet.getString("titulo");
             descricao = resultSet.getString("descricao");
@@ -113,7 +116,7 @@ public class Eleicao extends Model implements Serializable {
 
     @Override
     public String sqlInsert() {
-        return sqlInsert("tipo, titulo, descricao, data_inicio, data_fim", "'" + tipo + "','" + titulo + "','" + descricao + "'," + dateToSqlDateTime(data_inicio) + "," + dateToSqlDateTime(data_fim));
+        return sqlInsert("finished, tipo, titulo, descricao, data_inicio, data_fim", (finished ? 1 : 0) + ",'" + tipo + "','" + titulo + "','" + descricao + "'," + dateToSqlDateTime(data_inicio) + "," + dateToSqlDateTime(data_fim));
     }
 
     @Override

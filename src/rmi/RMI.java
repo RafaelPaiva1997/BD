@@ -90,6 +90,10 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                         return new Funcionario(resultSet);
                     case "listas":
                         return new Lista(resultSet);
+                    case "mesas_voto":
+                        return new MesadeVoto(resultSet);
+                    case "votos":
+                        return new Voto(resultSet);
                     case "eleicoes":
                         if (resultSet.getString("tipo").equals("conselho geral"))
                             return new ConselhoGeral(resultSet);
@@ -188,7 +192,7 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
             Lista lista;
             StringBuilder s = new StringBuilder();
             ArrayList<String> out = new ArrayList<>();
-            ResultSet resultSet = databaseHandler.executeQuery("SELECT * FROM Listas WHERE eleicao_id = " + eleicao.getId() + " && tipo = " + pessoa.getTipo() + "s");
+            ResultSet resultSet = databaseHandler.executeQuery("SELECT * FROM Listas WHERE eleicao_id = " + eleicao.getId() + " && tipo = '" + pessoa.getTipo() + "s'");
 
             if (!resultSet.next())
                 return new String[0];
@@ -204,7 +208,7 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
 
             out.add(s.toString());
 
-            return (String[]) out.toArray();
+            return out.toArray(new String[out.size()]);
         } catch (SQLException e) {
             e.printStackTrace();
             return new String[0];
@@ -238,12 +242,12 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
 
         if (voto.getTipo().equals("normal")) {
 
-            if ((voto = (Voto) get("Votos", "eleicao_ID = " + eleicao.getId() + " && pessoa_id = " + pessoa.getId())) == null)
+            if ((voto = (Voto) get("Votos", "eleicao_id = " + eleicao.getId() + " && pessoa_id = " + pessoa.getId())) == null)
                 return false;
 
             Lista lista;
 
-            if ((lista = (Lista) get("Listas", "lista_ID = " + id)) == null)
+            if ((lista = (Lista) get("Listas", "ID = " + id)) == null)
                 return false;
 
             return connect(lista, voto) && flag;
