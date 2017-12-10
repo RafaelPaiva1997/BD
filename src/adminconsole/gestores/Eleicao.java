@@ -54,7 +54,7 @@ public class Eleicao {
                         },
                         () -> {
                             try {
-                                System.out.print(rmi.query("Eleicoes", "*", ""));
+                                System.out.print(rmi.query("Eleicaos", "*", ""));
                                 return true;
                             } catch (RemoteException e) {
                                 e.printStackTrace();
@@ -94,9 +94,9 @@ public class Eleicao {
 
             eleicao.setDepartamento_id(departamento.getId());
 
-
-            sc.nextLine();
         }
+
+        sc.nextLine();
 
         getProperty("Insira o Titulo: ",
                 "Por favor insira um título só com letras!\n",

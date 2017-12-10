@@ -94,7 +94,7 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                         return new MesadeVoto(resultSet);
                     case "votos":
                         return new Voto(resultSet);
-                    case "eleicoes":
+                    case "eleicaos":
                         if (resultSet.getString("tipo").equals("conselho geral"))
                             return new ConselhoGeral(resultSet);
                         else
@@ -151,8 +151,8 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                     }
                     break;
 
-                case "mesa_voto_eleicoes":
-                case "eleicoes":
+                case "mesa_voto_eleicaos":
+                case "eleicaos":
                     Eleicao eleicao;
                     s.append("Eleições: \n");
                     while (resultSet.next()) {
