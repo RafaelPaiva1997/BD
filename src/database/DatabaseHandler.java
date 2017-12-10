@@ -132,7 +132,7 @@ public class DatabaseHandler {
 
             statement.execute("CREATE TABLE Listas (" +
                     "ID int NOT NULL AUTO_INCREMENT," +
-                    "eleicao_id int NOT NULL" +
+                    "eleicao_id int NOT NULL," +
                     "tipo varchar(12) NOT NULL," +
                     "nome varchar(255) NOT NULL," +
                     "PRIMARY KEY(ID)," +
@@ -148,7 +148,7 @@ public class DatabaseHandler {
                     "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
                     ")");
 
-            statement.execute(" CREATE TABLE Faculdade_Departamentos (" +
+            statement.execute("CREATE TABLE Faculdade_Departamentos (" +
                     "faculdade_id int NOT NULL," +
                     "departamento_id int NOT NULL," +
                     "PRIMARY KEY(faculdade_id, departamento_id)," +
@@ -161,6 +161,14 @@ public class DatabaseHandler {
                     "pessoa_id int NOT NULL," +
                     "PRIMARY KEY(departamento_id, pessoa_id)," +
                     "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)," +
+                    "FOREIGN KEY(pessoa_id) REFERENCES Pessoas(ID)" +
+                    ")");
+
+            statement.execute("CREATE TABLE Lista_Pessoas (" +
+                    "lista_id int NOT NULL," +
+                    "pessoa_id int NOT NULL," +
+                    "PRIMARY KEY(lista_id, pessoa_id)," +
+                    "FOREIGN KEY(lista_id) REFERENCES Listas(ID)," +
                     "FOREIGN KEY(pessoa_id) REFERENCES Pessoas(ID)" +
                     ")");
 

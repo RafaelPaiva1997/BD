@@ -131,6 +131,7 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                     }
                     break;
 
+                case "lista_pessoas":
                 case "pessoas":
                     Pessoa pessoa;
                     s.append("Pessoas: \n");
@@ -167,8 +168,6 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
                         s.append("ID_Faculdade: " + resultSet.getInt("faculdade_id") + " ID_Departamento: " + resultSet.getInt("departamento_id") + "\n");
                     }
                     break;
-
-
             }
 
         } catch (SQLException e) {

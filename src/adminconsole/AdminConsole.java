@@ -17,6 +17,7 @@ public class AdminConsole {
     public static int r1;
     public static String r2;
     public static models.Model model;
+    public static models.Model model2;
     public static models.organizacoes.Faculdade faculdade;
     public static models.organizacoes.Departamento departamento;
     public static models.pessoas.Pessoa pessoa;
@@ -83,6 +84,31 @@ public class AdminConsole {
                 });
 
         return model;
+    }
+
+    public static void escolheModels(String table1, String table2, String s1, String s2) throws RemoteException {
+        if ((model =  escolheID(table1, s1)) == null)
+            return;
+
+
+        if ((model2 =  escolheID(table2, s2)) == null)
+            return;
+    }
+
+    public static void add(String table1, String table2, String s1, String s2) throws RemoteException {
+        escolheModels(table1, table2, s1, s2);
+
+        rmi.connect(model, model2);
+    }
+
+    public static void remove(String table1, String table2, String s1, String s2) throws RemoteException {
+        escolheModels(table1, table2, s1, s2);
+
+        rmi.disconnect(model, model2);
+    }
+
+    public static void printConnections(String table1, String table2, int id) throws RemoteException {
+        rmi.query(table1 + "_" + table2 + "s", table2 + ".*", "INNER JOIN " + table1 + "_" + table2 + "s." + table1 + "_id = " + id + table1 + "_" + table2 + "s." + table2 + "_id = " + table2 + "s.ID");
     }
 
     public static void gerirMenu() {

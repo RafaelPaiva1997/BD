@@ -100,7 +100,30 @@ public class Lista {
     public static void delete() throws RemoteException {
         if ((lista = (models.listas.Lista) escolheID("Listas", "a lista a remover")) == null)
             return;
-        rmi.delete(lista);
+
+        if (rmi.query("Lista_Pessoas", "(ID)", "WHERE lista_id = "  + lista.getId()).equals("not empty")) {
+            System.out.print("A lista pretendida contêm referências a várias pessoas, pretende eliminá-la na mesma?");
+            if (sc.nextLine().toLowerCase().equals("sim")) {
+                rmi.delete("Lista_Pessoas", "lista_id = " + lista.getId());
+                rmi.delete(lista);
+            }
+        }
+        else rmi.delete(lista);
     }
 
+
+    public static void addPessoas() throws RemoteException {
+        add("Listas", "Pessoas", "a lista à qual pretende adicionar uma pessoa", "a pessoa a adicionar");
+    }
+
+    public static void listPessoas() throws RemoteException {
+        if ((lista = (models.listas.Lista) escolheID("Listas", "a lista sobre a qual quer ver as pessoas")) == null)
+            return;
+
+        printConnections("lista", "pessoa", lista.getId());
+    }
+
+    public static void removePessoas() throws RemoteException {
+        remove("Listas", "Pessoas", "a lista à qual pretende adicionar uma pessoa", "a pessoa a adicionar");
+    }
 }

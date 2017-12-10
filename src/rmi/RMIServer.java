@@ -17,7 +17,7 @@ public class RMIServer {
                 Registry registry = LocateRegistry.createRegistry(Integer.parseInt(args[0]));
 
                 DatabaseHandler databaseHandler = new DatabaseHandler(
-                        "jdbc:mysql://192.168.1.4:3306",
+                        "jdbc:mysql://127.0.0.1:3306",
                         "BD",
                         "username",
                         "password");
@@ -30,6 +30,7 @@ public class RMIServer {
                             System.out.println("RMI está disponível!");
                     }
                 }
+
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
