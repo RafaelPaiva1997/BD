@@ -190,6 +190,21 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
     }
 
     @Override
+    public int queryInt(String table, String query, String query2) throws RemoteException {
+        try {
+            ResultSet resultSet = databaseHandler.executeQuery("SELECT " + query + " FROM " + table + " " + query2);
+
+            int contador = 0;
+            while (resultSet.next())
+                contador++;
+            return contador;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    @Override
     public String[] votar(Eleicao eleicao, Pessoa pessoa) throws RemoteException {
         try {
             Lista lista;
@@ -276,6 +291,25 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
         } catch (SQLException e) {
             e.printStackTrace();
             return new Eleicao[0];
+        }
+    }
+
+    @Override
+    public MesadeVoto[] getMesasVoto(String query) throws RemoteException {
+        try {
+            ArrayList<MesadeVoto> mesadeVotos = new ArrayList<>();
+            ResultSet resultSet = databaseHandler.executeQuery("SELECT * FROM Mesa_Votos " + query);
+
+            if (!resultSet.next())
+                return new MesadeVoto[0];
+
+            do {
+                mesadeVotos.add(new MesadeVoto(resultSet));
+            } while (resultSet.next());
+
+            return mesadeVotos.toArray(new MesadeVoto[mesadeVotos.size()]);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

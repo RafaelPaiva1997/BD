@@ -19,9 +19,10 @@ public class MesadeVoto {
                         "1 - Adicionar Eleições\n" +
                         "2 - Listar Eleições\n" +
                         "3 - Remover Eleições\n" +
-                        "4 - Voltar\n",
+                        "4 - Número de Votos por Mesa\n" +
+                        "5 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
-                new int[]{1, 2, 3, 4},
+                new int[]{1, 2, 3, 4, 5},
                 new BooleanSupplier[]{
                         () -> {
                             try {
@@ -44,6 +45,15 @@ public class MesadeVoto {
                         () -> {
                             try {
                                 removeEleicao();
+                                return true;
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                                return false;
+                            }
+                        },
+                        () -> {
+                            try {
+                                votos();
                                 return true;
                             } catch (RemoteException e) {
                                 e.printStackTrace();
@@ -72,5 +82,9 @@ public class MesadeVoto {
 
     public static void removeEleicao() throws RemoteException {
         escolheModels("Mesa_Votos", "Eleicaos", "a mesa de voto da qual pretende remover uma eleicao", "a eleicao a remover");
+    }
+
+    public static void votos() throws RemoteException {
+
     }
 }

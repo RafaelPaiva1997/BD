@@ -142,18 +142,23 @@ public class Eleicao {
         SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 
         switch (r2.toLowerCase()) {
+            case "título":
             case "titulo":
                 getProperty("Por favor insira um titulo só com letras!\n",
                         () -> !eleicao.update("titulo", editProperty("Titulo", eleicao.getTitulo())));
                 rmi.update(eleicao);
                 break;
 
+            case "descrição":
+            case "descricão":
+            case"descriçao":
             case "descricao":
                 getProperty("Por favor insira um descricao só com letras!\n",
                         () -> !eleicao.update("descricao", editProperty("Descricao", eleicao.getDescricao())));
                 rmi.update(eleicao);
                 break;
 
+            case "data de inicío":
             case "data de inicio":
                 do {
                     System.out.println("Data de Inicio: " + f.format(eleicao.getData_inicio()));
@@ -161,6 +166,7 @@ public class Eleicao {
                     if (!eleicao.checkDates())
                         System.out.print("A data de ínicio não está antes da data de fim!\n");
                 } while (!eleicao.checkDates());
+                eleicao.update("data_inicio", "'" + f1.format(eleicao.getData_inicio()) + "'");
                 rmi.update(eleicao);
                 break;
 

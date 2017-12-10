@@ -30,6 +30,8 @@ public interface RMIInterface extends Remote {
 
     String query(String table, String query, String query2) throws RemoteException;
 
+    int queryInt(String table, String query, String query2) throws RemoteException;
+
     String[] votar(Eleicao eleicao, Pessoa pessoa) throws RemoteException;
 
     String votar(String[] listas, String input) throws RemoteException;
@@ -37,4 +39,6 @@ public interface RMIInterface extends Remote {
     boolean votar(String id, Eleicao eleicao, Pessoa pessoa, MesadeVoto mesadeVoto, Date date) throws RemoteException;
 
     Eleicao[] getEleicoes(String query) throws RemoteException;
+
+    MesadeVoto[] getMesasVoto(String query) throws RemoteException;
 }

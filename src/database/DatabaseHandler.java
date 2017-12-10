@@ -126,7 +126,7 @@ public class DatabaseHandler {
                     "descricao text NOT NULL," +
                     "data_inicio datetime NOT NULL," +
                     "data_fim datetime NOT NULL," +
-                    "finished bit NOT NULL," +
+                    "finished bit NOT NULL DEFAULT 0," +
                     "departamento_id int," +
                     "PRIMARY KEY(ID)," +
                     "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
@@ -145,7 +145,7 @@ public class DatabaseHandler {
             statement.execute("CREATE TABLE Mesa_Votos (" +
                     "ID int NOT NULL AUTO_INCREMENT," +
                     "departamento_id int NOT NULL," +
-                    "working bit NOT NULL," +
+                    "working bit NOT NULL DEFAULT 0," +
                     "PRIMARY KEY(ID)," +
                     "FOREIGN KEY(departamento_id) REFERENCES Departamentos(ID)" +
                     ")");
