@@ -12,7 +12,7 @@ import static adminconsole.AdminConsole.remove;
 public class MesadeVoto {
 
     public static void menu() {
-        gerir("MENU Mesas de Voto\n" +
+        gerir("MENU MESAS DE VOTO\n" +
                         "O que pretende fazer?\n" +
                         "1 - Adicionar\n" +
                         "2 - Remover\n" +

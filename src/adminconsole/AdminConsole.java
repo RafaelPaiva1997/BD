@@ -135,8 +135,8 @@ public class AdminConsole {
                         "3 - Departamentos\n" +
                         "4 - Eleicoes\n" +
                         "5 - Listas\n" +
-                        "6 - Reset BD\n" +
-                        "7 - Mesas de Voto\n" +
+                        "6 - Mesas de Voto\n" +
+                        "7 - Reset BD\n" +
                         "8 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
                 new int[]{1, 2, 3, 4, 5, 6, 7, 8},
