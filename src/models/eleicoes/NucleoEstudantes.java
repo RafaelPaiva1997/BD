@@ -5,8 +5,6 @@ import java.sql.SQLException;
 
 public class NucleoEstudantes extends Eleicao {
 
-    private int departamento_id;
-
     public NucleoEstudantes() {
     }
 

@@ -15,6 +15,7 @@ public class Eleicao extends Model implements Serializable {
     protected String descricao;
     protected Date data_inicio;
     protected Date data_fim;
+    protected int departamento_id;
 
     public Eleicao() {
         super();
@@ -80,6 +81,10 @@ public class Eleicao extends Model implements Serializable {
         else
             flag = false;
         return flag;
+    }
+
+    public void setDepartamento_id(int departamento_id) {
+        this.departamento_id = departamento_id;
     }
 
     public boolean update(String updateType, String updateNew) {

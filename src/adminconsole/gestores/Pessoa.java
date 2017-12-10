@@ -102,6 +102,10 @@ public class Pessoa {
     }
 
     public static void insert() throws RemoteException {
+        if (rmi.query("Departamentos", "(ID)", "").equals("empty")) {
+            System.out.print("Não existem departamentos, por favor insira um!");
+            return;
+        }
 
         getProperty(rmi.query("Departamentos", "*", " ") + "Insira o ID do departamento ao qual pretende adicionar uma pessoa: ",
                 "Por favor insira um ID válido!\n",

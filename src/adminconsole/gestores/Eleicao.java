@@ -78,8 +78,27 @@ public class Eleicao {
 
         if (r1 == 1)
             eleicao.setTipo("concelho geral");
-        else if (r1 == 2)
+        else {
             eleicao.setTipo("nucleo de estudantes");
+
+            if (rmi.query("Departamentos", "(ID)", "").equals("empty")) {
+                System.out.print("Não existem departamentos, por favor insira um!");
+                return;
+            }
+
+            getProperty(rmi.query("Departamentos", "*", " ") + "Insira o ID do departamento ao qual pretende adicionar uma pessoa: ",
+                    "Por favor insira um ID válido!\n",
+                    () -> {
+                        try {
+                            return (departamento = (models.organizacoes.Departamento) rmi.get("Departamentos", "ID = " + sc.nextInt())) == null;
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                            return true;
+                        }
+                    });
+
+            eleicao.setDepartamento_id(departamento.getId());
+        }
 
         getProperty("Insira o Titulo: ",
                 "Por favor insira um nome só com letras!\n",

@@ -29,6 +29,10 @@ public class Lista extends Model implements Serializable {
         }
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public boolean setNome(String nome) {
         boolean flag = true;
         if (lenghtMaior(nome, 0) &&
@@ -37,6 +41,10 @@ public class Lista extends Model implements Serializable {
         else
             flag = false;
         return flag;
+    }
+
+    public void setEleicao_id(int eleicao_id) {
+        this.eleicao_id = eleicao_id;
     }
 
     public boolean update(String updateType, String updateNew) {

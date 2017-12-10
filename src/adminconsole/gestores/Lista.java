@@ -1,16 +1,16 @@
 package adminconsole.gestores;
 
 import models.MesadeVoto;
-import models.organizacoes.Faculdade;
+import models.organizacoes.*;
 
 import java.rmi.RemoteException;
 import java.util.function.BooleanSupplier;
 
 import static adminconsole.AdminConsole.*;
+import static adminconsole.AdminConsole.faculdade;
 
-public class Departamento {
-
-    public static void menu() {
+public class Lista {
+    public static void menu(){
         gerir("MENU DEPARTAMENTOS\n" +
                         "O que pretende fazer?\n" +
                         "1 - Adicionar\n" +
@@ -59,14 +59,12 @@ public class Departamento {
                         }
                 });
     }
-
     public static void insert() throws RemoteException {
-
-        getProperty(rmi.query("Faculdades","*", "") + "Insira o ID da faculdade à qual pretende adicionar um departamento: ",
+        getProperty(rmi.query("Eleicoes", "*", "") + "Insira o ID da faculdade à qual pretende adicionar uma lista: ",
                 "Por favor insira um ID válido!\n",
                 () -> {
                     try {
-                        return (faculdade = (Faculdade) rmi.get("Faculdades", "ID = " + sc.nextInt())) == null;
+                        return (eleicao = (models.eleicoes.Eleicao) rmi.get("Eleicoes", "ID = " + sc.nextInt())) == null;
                     } catch (RemoteException e) {
                         e.printStackTrace();
                         return true;
@@ -75,28 +73,26 @@ public class Departamento {
 
         sc.nextLine();
 
-        departamento = new models.organizacoes.Departamento();
-        departamento.setFaculdade_id(faculdade.getId());
+        lista = new models.listas.Lista();
+        lista.setEleicao_id(eleicao.getId());
 
         getProperty("Insira o Nome: ",
                 "Por favor insira um nome só com letras!\n",
-                () -> !departamento.setNome(sc.nextLine()));
+                () -> !lista.setNome(sc.nextLine()));
 
-        rmi.insert(departamento);
-        rmi.insert(new MesadeVoto(rmi.get("Departamentos", "nome = '" + departamento.getNome() + "'").getId()));
+        rmi.insert(lista);
     }
-
     public static void update() throws RemoteException {
-        if (rmi.query("Departamentos", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem departamentos, por favor insira um!");
+        if (rmi.query("Listas", "(ID)", "").equals("empty")) {
+            System.out.print("Não existem listas, por favor insira um!");
             return;
         }
 
-        getProperty(rmi.query("Departamentos", "*", "") + "Insira o ID do departamento a remover: ",
+        getProperty(rmi.query("Listas", "*", "") + "Insira o ID da lista\n ",
                 "Por favor insira um ID válido!\n",
                 () -> {
                     try {
-                        return (departamento = (models.organizacoes.Departamento) rmi.get("Departamentos", "ID = " + sc.nextInt())) == null;
+                        return (lista = (models.listas.Lista) rmi.get("Listas", "ID = " + sc.nextInt())) == null;
                     } catch (RemoteException e) {
                         e.printStackTrace();
                         return true;
@@ -114,7 +110,7 @@ public class Departamento {
         switch (r2.toLowerCase()) {
             case "nome":
                 getProperty("Por favor insira um nome só com letras!\n",
-                        () -> !departamento.update("nome", editProperty("Nome", departamento.getNome())));
+                        () -> !lista.update("nome", editProperty("Nome", lista.getNome())));
                 break;
         }
 
@@ -122,23 +118,18 @@ public class Departamento {
     }
 
     public static void delete() throws RemoteException {
-        if (rmi.query("Departamentos", "(ID)", "").equals("empty")) {
-            System.out.print("Não existem departamentos, por favor insira um!");
-            return;
-        }
-
-        getProperty(rmi.query("Departamentos", "*", "") + "Insira o ID do departamento a remover: ",
+        getProperty(rmi.query("Listas", "*", "") + "Insira o ID da lista remover: ",
                 "Por favor insira um ID válido!\n",
                 () -> {
                     try {
-                        return (departamento = (models.organizacoes.Departamento) rmi.get("Departamentos", "ID = " + sc.nextInt())) == null;
+                        return (lista = (models.listas.Lista) rmi.get("Listas", "ID = " + sc.nextInt())) == null;
                     } catch (RemoteException e) {
                         e.printStackTrace();
                         return true;
                     }
                 });
 
-        rmi.delete(departamento);
-        rmi.delete("Mesas_Voto", "departamento_id = " + departamento.getId());
+        rmi.delete(lista);
     }
+
 }
