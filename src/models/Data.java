@@ -95,24 +95,21 @@ public class Data implements Serializable {
                 dia < -1 || dia == 0 ||
                 hora < -1 || hora > 23 ||
                 minuto < -1 || minuto > 59 ||
-                segundo <-1)
+                segundo < -1 || segundo > 59)
             return false;
 
-        if ((mes == 1 ||
-                mes == 3 ||
-                mes == 5 ||
-                mes == 7 ||
-                mes == 8 ||
-                mes == 10 ||
+        if ((mes == 4 ||
+                mes == 6 ||
+                mes == 9 ||
                 mes == 11)
                 &&
-                dia > 31)
+                dia > 30)
             return false;
         else if (mes == 2 &&
                 ((((ano % 400 == 0) || ((ano % 4 == 0) && (ano % 100 != 0))) && dia > 29) ||
                         (!((ano % 400 == 0) || ((ano % 4 == 0) && (ano % 100 != 0))) && dia > 28)))
             return false;
-        else if (dia > 30)
+        else if (dia > 31)
             return false;
         return true;
     }

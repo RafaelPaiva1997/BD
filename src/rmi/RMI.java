@@ -59,6 +59,11 @@ public class RMI extends UnicastRemoteObject implements RMIInterface {
     }
 
     @Override
+    public boolean reset() throws RemoteException {
+        return databaseHandler.reset();
+    }
+
+    @Override
     public Model get(String table, String query) throws RemoteException {
         try {
             ResultSet resultSet = databaseHandler.executeQuery("SELECT * FROM " + table + " WHERE " + query);

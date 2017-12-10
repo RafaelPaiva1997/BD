@@ -28,6 +28,7 @@ public class Eleicao extends Model implements Serializable {
             table = "Eleicoes";
             tipo = resultSet.getString("tipo");
             titulo = resultSet.getString("titulo");
+            descricao = resultSet.getString("descricao");
             data_inicio = resultSet.getDate("data_inicio");
             data_fim = resultSet.getDate("data_fim");
         } catch (SQLException e) {
@@ -77,7 +78,7 @@ public class Eleicao extends Model implements Serializable {
         boolean flag = true;
         if (lenghtMaior(descricao, 0) &&
                 isAlpha(descricao))
-            this.descricao = descricao ;
+            this.descricao = descricao;
         else
             flag = false;
         return flag;

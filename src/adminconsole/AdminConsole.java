@@ -108,9 +108,10 @@ public class AdminConsole {
                         "3 - Departamentos\n" +
                         "4 - Eleicoes\n" +
                         "5 - Listas\n" +
-                        "6 - Voltar\n",
+                        "6 - Reset BD\n" +
+                        "7 - Voltar\n",
                 "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
-                new int[]{1, 2, 3, 4, 5, 6},
+                new int[]{1, 2, 3, 4, 5, 6, 7},
                 new BooleanSupplier[]{
                         () -> {
                             Pessoa.menu();
@@ -131,6 +132,14 @@ public class AdminConsole {
                         () -> {
                             Lista.menu();
                             return true;
+                        },
+                        () -> {
+                            try {
+                                return rmi.reset();
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                                return false;
+                            }
                         }
 
                 });

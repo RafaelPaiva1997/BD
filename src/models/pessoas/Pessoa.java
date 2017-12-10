@@ -306,7 +306,7 @@ public class Pessoa extends Model implements Serializable {
                 "Nome: " + nome + "\n" +
                 "Username: " + username + "\n" +
                 "Password: " + password + "\n" +
-                "ID_Departamento: " + departamento_id + "\n" +
+                "ID Departamento: " + departamento_id + "\n" +
                 "Nº Telemóvel: " + telemovel + "\n" +
                 "Morada: " + morada + "\n" +
                 "Código Postal: " + codigo_postal + "\n" +

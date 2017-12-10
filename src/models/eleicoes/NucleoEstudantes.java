@@ -6,6 +6,8 @@ import java.sql.SQLException;
 public class NucleoEstudantes extends Eleicao {
 
     public NucleoEstudantes() {
+        super();
+        tipo = "nucleo estudantes";
     }
 
     public NucleoEstudantes(ResultSet resultSet) {
@@ -29,6 +31,6 @@ public class NucleoEstudantes extends Eleicao {
 
     @Override
     public String print() {
-        return super.print() + "ID_Departamento: " + departamento_id + "\n";
+        return super.print() + "ID Departamento: " + departamento_id + "\n";
     }
 }

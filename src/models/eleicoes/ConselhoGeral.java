@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 public class ConselhoGeral extends Eleicao {
 
     public ConselhoGeral() {
+        super();
+        tipo = "conselho geral";
     }
 
     public ConselhoGeral(ResultSet resultSet) {
